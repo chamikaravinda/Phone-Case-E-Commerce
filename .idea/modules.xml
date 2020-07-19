@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/react-phonecase.iml" filepath="$PROJECT_DIR$/.idea/react-phonecase.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/dfn-react-chatbotUI.iml" filepath="$PROJECT_DIR$/.idea/dfn-react-chatbotUI.iml" />
     </modules>
   </component>
 </project>
