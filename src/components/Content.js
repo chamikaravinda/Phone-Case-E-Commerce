@@ -6,27 +6,7 @@ import SignUP from "./SignUp";
 export default function Content(config, loginClick) {
     const state = config.config
 
-    if (state.page === "menu1") {
-        return (
-            <div>
-                <menuApple/>
-            </div>
-        )
-    }
-    if (state.page === "menu2") {
-        return (
-            <div>
-                <menuApple/>
-            </div>
-        )
-    }
-    if (state.page === "menu3") {
-        return (
-            <div>
-                <menuApple/>
-            </div>
-        )
-    }
+
     if (state.page === 1) {
         return (
             <div>
