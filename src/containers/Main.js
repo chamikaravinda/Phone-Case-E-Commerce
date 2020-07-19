@@ -1,15 +1,20 @@
-import { connect } from 'react-redux'
+import {connect} from 'react-redux'
 import MainView from "../components/MainView";
-import {login} from "../actions";
-
+import {login, logout, signUp} from "../actions";
 
 
 const mapStateToProps = state => ({
-    token: state.authReducer
+    config: state.configReducer,
+    token: state.authReducer,
+
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    login: () => dispatch(login())
+    loginClick: () => dispatch(login()),
+    signUp: () => dispatch(signUp()),
+    logoutClick: () => dispatch(logout()),
+
+
 });
 
 export default connect(
