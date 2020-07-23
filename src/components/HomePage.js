@@ -6,6 +6,9 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import ItemCard from "./includes/ItemCard";
+import ReviewAndDescription from "./includes/ReviewAndDescription";
+import Footer2 from "./includes/Footer2";
+
 const useStyles = makeStyles((theme) => ({
   icon: {
     marginRight: theme.spacing(2),
@@ -36,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+const cards = [1, 2, 3];
 
 export default function HomePage(token, login) {
   const classes = useStyles();
@@ -93,6 +96,8 @@ export default function HomePage(token, login) {
             ))}
           </Grid>
         </Container>
+        <ReviewAndDescription />
+        <Footer2 />
       </main>
     </React.Fragment>
   );

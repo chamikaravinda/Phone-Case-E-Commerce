@@ -8,17 +8,12 @@ import InputBase from "@material-ui/core/InputBase";
 import Badge from "@material-ui/core/Badge";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
-import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import PersonOutlineIcon from "@material-ui/icons/PersonOutline";
-import MailIcon from "@material-ui/icons/Mail";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import MoreIcon from "@material-ui/icons/MoreVert";
-import Avatar from "@material-ui/core/Avatar";
 import { Grid } from "@material-ui/core";
 import logo from "../assets/images/logo.jpg";
-import Button from "@material-ui/core/Button";
-import { MDBBtn, MDBIcon } from "mdbreact";
 import { login } from "../../actions";
 
 const useStyles = makeStyles((theme) => ({
