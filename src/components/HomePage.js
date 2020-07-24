@@ -6,7 +6,8 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import ItemCard from "./includes/ItemCard";
-import ReviewAndDescription from "./includes/ReviewAndDescription";
+import ShoppingCart from "./ShoppingCart";
+import ReviewAndDescription from "./ReviewAndDescription";
 import Footer2 from "./includes/Footer2";
 
 const useStyles = makeStyles((theme) => ({
@@ -96,7 +97,8 @@ export default function HomePage(token, login) {
             ))}
           </Grid>
         </Container>
-        <ReviewAndDescription />
+        <ShoppingCart />
+        {/* <ReviewAndDescription /> */}
         <Footer2 />
       </main>
     </React.Fragment>
