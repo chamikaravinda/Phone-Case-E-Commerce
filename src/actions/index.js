@@ -10,7 +10,7 @@ export const logout = () => ({
     type: 'LOGOUT'
 });
 
-export const activeWindow = () => ({
-    type: 'AUTH'
+export const pageNavigation = (type) => ({
+    type,
 });
 

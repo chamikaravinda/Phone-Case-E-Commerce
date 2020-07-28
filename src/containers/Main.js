@@ -1,6 +1,6 @@
 import {connect} from 'react-redux'
 import MainView from "../components/MainView";
-import {login, logout, signUp} from "../actions";
+import {login, logout, pageNavigation, signUp} from "../actions";
 
 
 const mapStateToProps = state => ({
@@ -13,6 +13,7 @@ const mapDispatchToProps = (dispatch) => ({
     loginClick: () => dispatch(login()),
     signUp: () => dispatch(signUp()),
     logoutClick: () => dispatch(logout()),
+    pageNavigation: (type) => dispatch(pageNavigation(type)),
 
 
 });
