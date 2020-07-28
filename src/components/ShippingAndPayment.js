@@ -194,7 +194,7 @@ export default function ShippingAndPayment() {
               color="blue-grey"
               style={{ borderRadius: "25px", minWidth: "200px " }}
             >
-              Back
+              Continue shopping
             </MDBBtn>
             <MDBBtn
               color="amber"
