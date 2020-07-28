@@ -1,5 +1,5 @@
 import React from "react";
-import { fade, makeStyles } from "@material-ui/core/styles";
+import {fade, makeStyles} from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
@@ -8,17 +8,12 @@ import InputBase from "@material-ui/core/InputBase";
 import Badge from "@material-ui/core/Badge";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
-import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import PersonOutlineIcon from "@material-ui/icons/PersonOutline";
-import MailIcon from "@material-ui/icons/Mail";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import MoreIcon from "@material-ui/icons/MoreVert";
-import Avatar from "@material-ui/core/Avatar";
-import { Grid } from "@material-ui/core";
-import logo from  '../assets/images/logo.jpg'
-import Button from "@material-ui/core/Button";
-import {MDBBtn, MDBIcon} from "mdbreact";
+import {Grid} from "@material-ui/core";
+import logo from "../assets/images/logo.jpg";
 import {login} from "../../actions";
 
 const useStyles = makeStyles((theme) => ({
@@ -28,6 +23,8 @@ const useStyles = makeStyles((theme) => ({
     navigationBackground: {
         backgroundColor: "white",
         color: "black",
+        boxShadow: "none",
+        paddingBottom: "10px",
         [theme.breakpoints.up("lg")]: {
             paddingLeft: theme.spacing(15),
             paddingRight: theme.spacing(15),
@@ -109,7 +106,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function NavigationBar(loginClick) {
+export default function NavigationBar(loginClick, pageNavigation) {
     const classes = useStyles();
     const login = loginClick.loginClick;
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -134,20 +131,24 @@ export default function NavigationBar(loginClick) {
     const handleMobileMenuOpen = (event) => {
         setMobileMoreAnchorEl(event.currentTarget);
     };
+    const handleShoppingCart = () => {
+        loginClick.pageNavigation("SHOPPING_CART");
+    };
 
     const menuId = "primary-search-account-menu";
     const renderMenu = (
         <Menu
             anchorEl={anchorEl}
-            anchorOrigin={{ vertical: "top", horizontal: "right" }}
+            anchorOrigin={{vertical: "top", horizontal: "right"}}
             id={menuId}
             keepMounted
-            transformOrigin={{ vertical: "top", horizontal: "right" }}
+            transformOrigin={{vertical: "top", horizontal: "right"}}
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
             <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
             <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+            <MenuItem onClick={login}>Login</MenuItem>
         </Menu>
     );
 
@@ -155,17 +156,17 @@ export default function NavigationBar(loginClick) {
     const renderMobileMenu = (
         <Menu
             anchorEl={mobileMoreAnchorEl}
-            anchorOrigin={{ vertical: "top", horizontal: "right" }}
+            anchorOrigin={{vertical: "top", horizontal: "right"}}
             id={mobileMenuId}
             keepMounted
-            transformOrigin={{ vertical: "top", horizontal: "right" }}
+            transformOrigin={{vertical: "top", horizontal: "right"}}
             open={isMobileMenuOpen}
             onClose={handleMobileMenuClose}
         >
             <MenuItem>
                 <div className={classes.search}>
                     <div className={classes.searchIcon}>
-                        <SearchIcon />
+                        <SearchIcon/>
                     </div>
                     <InputBase
                         placeholder="Search…"
@@ -173,7 +174,7 @@ export default function NavigationBar(loginClick) {
                             root: classes.inputRoot,
                             input: classes.inputInput,
                         }}
-                        inputProps={{ "aria-label": "search" }}
+                        inputProps={{"aria-label": "search"}}
                     />
                 </div>
             </MenuItem>
@@ -192,10 +193,13 @@ export default function NavigationBar(loginClick) {
                     Customize
                 </Typography>
             </MenuItem>
+            <MenuItem className={classes.sectionMobileItem} onClick={login}>
+                Login
+            </MenuItem>
             <MenuItem>
                 <IconButton aria-label="show 11 new notifications" color="inherit">
                     <Badge badgeContent={11} color="secondary">
-                        <ShoppingCartIcon />
+                        <ShoppingCartIcon/>
                     </Badge>
                 </IconButton>
                 <p>Notifications</p>
@@ -207,26 +211,23 @@ export default function NavigationBar(loginClick) {
                     aria-haspopup="true"
                     color="inherit"
                 >
-                    <PersonOutlineIcon />
+                    <PersonOutlineIcon/>
                 </IconButton>
                 <p>Profile</p>
             </MenuItem>
         </Menu>
     );
 
+
     return (
         <div className={classes.grow}>
             <AppBar position="static" className={classes.navigationBackground}>
                 <Toolbar>
-                    <Avatar
-                        alt="Phone Case Co."
-                        src={logo}
-                        className={classes.navigationLogo}
-                    />
+                    <img alt="Phone Case Co." src={logo}/>
                     <Typography className={classes.title} variant="h6" noWrap>
                         The Case Co.
                     </Typography>
-                    <div className={classes.grow} />
+                    <div className={classes.grow}/>
                     <div className={classes.centerMenu}>
                         <Grid container spacing={2} justify="center">
                             <Grid item>
@@ -254,15 +255,15 @@ export default function NavigationBar(loginClick) {
                                     root: classes.inputRoot,
                                     input: classes.inputInput,
                                 }}
-                                inputProps={{ "aria-label": "search" }}
+                                inputProps={{"aria-label": "search"}}
                             />
                         </div>
                         <IconButton aria-label="search" color="inherit">
-                            <SearchIcon style={{ color: "black" }} />
+                            <SearchIcon style={{color: "black"}}/>
                         </IconButton>
                         <IconButton aria-label="show 17 new notifications" color="inherit">
                             <Badge badgeContent={17} color="secondary">
-                                <ShoppingCartIcon style={{ color: "black" }} />
+                                <ShoppingCartIcon style={{color: "black"}} onClick={()=>handleShoppingCart()}/>
                             </Badge>
                         </IconButton>
                         <IconButton
@@ -273,11 +274,8 @@ export default function NavigationBar(loginClick) {
                             onClick={handleProfileMenuOpen}
                             color="inherit"
                         >
-                            <PersonOutlineIcon style={{ color: "black" }} />
+                            <PersonOutlineIcon style={{color: "black"}}/>
                         </IconButton>
-                        <Button color="primary" onClick={login} >
-                            Login
-                        </Button>
                     </div>
                     <div className={classes.sectionMobile}>
                         <IconButton
@@ -287,7 +285,7 @@ export default function NavigationBar(loginClick) {
                             onClick={handleMobileMenuOpen}
                             color="inherit"
                         >
-                            <MoreIcon />
+                            <MoreIcon/>
                         </IconButton>
                     </div>
                 </Toolbar>
