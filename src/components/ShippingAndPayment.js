@@ -4,7 +4,11 @@ import ShippingInformation from "./includes/ShippingInformation";
 import Avatar from "@material-ui/core/Avatar";
 
 export default function ShippingAndPayment() {
-  return (
+    const handleContinue = () => {
+        return undefined;
+    }
+
+    return (
     <div
       style={{
         overflow: "hidden",
@@ -193,6 +197,7 @@ export default function ShippingAndPayment() {
               outline
               color="blue-grey"
               style={{ borderRadius: "25px", minWidth: "200px " }}
+              onClick={()=>handleContinue()}
             >
               Continue shopping
             </MDBBtn>

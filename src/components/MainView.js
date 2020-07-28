@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MainView({ config, signUp, activeWindow, loginClick }) {
+export default function MainView({ config,pageNavigation, signUp, activeWindow, loginClick }) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -86,8 +86,8 @@ export default function MainView({ config, signUp, activeWindow, loginClick }) {
     return (
       <div>
         <TopBar />
-        <NavigationBar loginClick={loginClick} />
-        <Content onClick={activeWindow} config={config} signUp={signUp} />
+        <NavigationBar loginClick={loginClick} pageNavigation={pageNavigation} />
+        <Content onClick={activeWindow} pageNavigation={pageNavigation} config={config} signUp={signUp} />
         <Footer />
       </div>
     );
