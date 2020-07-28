@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  MDBCol,
-  MDBContainer,
-  MDBRow,
-  MDBFooter,
-  MDBTypography,
-  MDBIcon,
-  MDBBtn,
-} from "mdbreact";
+import { MDBCol, MDBRow, MDBBtn } from "mdbreact";
 
 import background from "../assets/images/footer_2_background.png";
 

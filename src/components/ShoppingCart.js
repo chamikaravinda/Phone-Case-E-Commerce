@@ -1,6 +1,5 @@
 import React from "react";
 import { MDBRow, MDBCol, MDBIcon, MDBBtn } from "mdbreact";
-import Avatar from "@material-ui/core/Avatar";
 import ShoppingCartItem from "./includes/ShoppingCartItem";
 export default function ShoppingCart() {
   return (
@@ -87,13 +86,13 @@ export default function ShoppingCart() {
             Size
           </h5>
         </MDBCol>
-        <MDBCol md="2" className="d-none d-md-block">
+        <MDBCol md="3" className="d-none d-md-block">
           {" "}
           <h5 className="font-weight-bold" style={{ color: "#cfd8dc" }}>
             Amount
           </h5>
         </MDBCol>
-        <MDBCol md="2" className="d-none d-md-block">
+        <MDBCol md="1" className="d-none d-md-block">
           {" "}
           <h5 className="font-weight-bold" style={{ color: "#cfd8dc" }}>
             Price

@@ -7,6 +7,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import ItemCard from "./includes/ItemCard";
 import ShoppingCart from "./ShoppingCart";
+import ShippingAndPayment from "./ShippingAndPayment";
 import ReviewAndDescription from "./ReviewAndDescription";
 import Footer2 from "./includes/Footer2";
 
@@ -99,6 +100,11 @@ export default function HomePage(token, login) {
         </Container>
         <ShoppingCart />
         {/* <ReviewAndDescription /> */}
+        <br></br>
+        <br></br>
+        <br></br>
+
+        <ShippingAndPayment />
         <Footer2 />
       </main>
     </React.Fragment>
