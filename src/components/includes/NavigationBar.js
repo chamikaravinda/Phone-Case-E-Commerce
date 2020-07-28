@@ -131,8 +131,13 @@ export default function NavigationBar(loginClick, pageNavigation) {
     const handleMobileMenuOpen = (event) => {
         setMobileMoreAnchorEl(event.currentTarget);
     };
+
     const handleShoppingCart = () => {
         loginClick.pageNavigation("SHOPPING_CART");
+    };
+
+    const handleClickProduct = () => {
+        loginClick.pageNavigation("PRODUCT_APPLE");
     };
 
     const menuId = "primary-search-account-menu";
@@ -153,6 +158,8 @@ export default function NavigationBar(loginClick, pageNavigation) {
     );
 
     const mobileMenuId = "primary-search-account-menu-mobile";
+
+
     const renderMobileMenu = (
         <Menu
             anchorEl={mobileMoreAnchorEl}
@@ -181,7 +188,9 @@ export default function NavigationBar(loginClick, pageNavigation) {
             <MenuItem className={classes.sectionMobileItem}>
                 <Typography fontWeigt="fontWeightMedium" noWrap>
                     Apple iPhones
+
                 </Typography>
+
             </MenuItem>
             <MenuItem className={classes.sectionMobileItem}>
                 <Typography fontWeigt="fontWeightMedium" noWrap>
@@ -231,9 +240,11 @@ export default function NavigationBar(loginClick, pageNavigation) {
                     <div className={classes.centerMenu}>
                         <Grid container spacing={2} justify="center">
                             <Grid item>
-                                <Typography fontWeigt="fontWeightMedium" noWrap>
-                                    Apple iPhones
-                                </Typography>
+                                <a onClick={() => handleClickProduct()} style={{cursor: 'pointer'}}>
+                                    <Typography
+                                        fontWeigt="fontWeightMedium" noWrap>
+                                        Apple iPhones
+                                    </Typography></a>
                             </Grid>
                             <Grid item>
                                 <Typography fontWeigt="fontWeightMedium" noWrap>
@@ -263,7 +274,7 @@ export default function NavigationBar(loginClick, pageNavigation) {
                         </IconButton>
                         <IconButton aria-label="show 17 new notifications" color="inherit">
                             <Badge badgeContent={17} color="secondary">
-                                <ShoppingCartIcon style={{color: "black"}} onClick={()=>handleShoppingCart()}/>
+                                <ShoppingCartIcon onClick={() => handleShoppingCart()} style={{color: "black"}}/>
                             </Badge>
                         </IconButton>
                         <IconButton

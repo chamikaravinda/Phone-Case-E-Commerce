@@ -6,11 +6,18 @@ import ShoppingCart from "./ShoppingCart";
 import ShippingAndPayment from "./ShippingAndPayment";
 import ReviewAndDescription from "./ReviewAndDescription";
 import LoadingWindow from "./LoadingWindow";
+import AppleProducts from "./productComponents/AppleProducts";
 
 export default function Content(config, pageNavigation) {
     const state = config.config
 
-
+    if (state.page === 0) {
+        return (
+            <div>
+                <HomePage/>
+            </div>
+        )
+    }
     if (state.page === 1) {
         return (
             <div>
@@ -39,10 +46,11 @@ export default function Content(config, pageNavigation) {
             </div>
         )
     }
-    if (state.page === 0) {
+
+    if (state.page === 5) {
         return (
             <div>
-                <HomePage/>
+                <AppleProducts/>
             </div>
         )
     }

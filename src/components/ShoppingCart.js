@@ -1,17 +1,20 @@
 import React from "react";
-import {MDBRow, MDBCol, MDBIcon, MDBBtn} from "mdbreact";
+import {MDBRow, MDBCol, MDBIcon, MDBBtn, MDBContainer} from "mdbreact";
 import ShoppingCartItem from "./includes/ShoppingCartItem";
+import Typography from "@material-ui/core/Typography";
+import AddToCart from "./AddToCart";
+import RelatedProducts from "./RelatedProducts";
 
 export default function ShoppingCart(config) {
     const handleCheckout = () => {
-      config.config.pageNavigation("REVIEW_AND_DESCRIPTION")
+        config.config.pageNavigation("REVIEW_AND_DESCRIPTION")
     };
 
-  const handleContinue = () => {
-    config.config.pageNavigation("HOME_PAGE")
-  }
+    const handleContinue = () => {
+        config.config.pageNavigation("HOME_PAGE")
+    }
 
-  return (
+    return (
         <div
             style={{
                 overflow: "hidden",
@@ -19,6 +22,9 @@ export default function ShoppingCart(config) {
                 paddingRight: "7%",
             }}
         >
+            <di>
+                <AddToCart/>
+            </di>
             <MDBRow className="pb-5 " between>
                 <MDBCol className="col-xs-7  col-lg-3">
                     <h3 className="font-weight-bold">Shopping Cart</h3>
@@ -69,7 +75,7 @@ export default function ShoppingCart(config) {
                         </div>
                     </MDBRow>
                 </MDBCol>
-                <MDBCol className="col-12 col-sm-8 d-block d-md-none pt-4" onClick ={()=>handleContinue()}>
+                <MDBCol className="col-12 col-sm-8 d-block d-md-none pt-4" onClick={() => handleContinue()}>
                     <h6 className="font-weight-bold">
                         {"   "}
                         <MDBIcon icon="arrow-left"/> {"   "}
@@ -114,11 +120,13 @@ export default function ShoppingCart(config) {
             <ShoppingCartItem/>
             <MDBRow className=" pt-5 d-flex justify-content-center">
                 <MDBCol className="col-md-3 d-none d-md-block">
-                    <h6 className="font-weight-bold" style={{paddingTop: " 6px"}} onClick ={()=>handleContinue()}>
-                        {"   "}
-                        <MDBIcon icon="arrow-left"/> {"   "}
-                        Continue Shopping{" "}
-                    </h6>
+                    <a style={{cursor: 'pointer'}} onClick={() => handleContinue()}>
+                        <h6 className="font-weight-bold">
+                            {"   "}
+                            <MDBIcon icon="arrow-left"/> {"   "}
+                            Continue Shopping{" "}
+                        </h6>
+                    </a>
                 </MDBCol>
                 <MDBCol className="col-6  col-sm-5 col-md-3 d-flex justify-content-center">
                     <input
@@ -137,11 +145,13 @@ export default function ShoppingCart(config) {
                     className="col-sm-4 col-md-3 pb-2 d-flex justify-content-end"
                     style={{paddingTop: " -100px"}}
                 >
-                    <MDBBtn style={{borderRadius: "25px"}} size="sm" color="warning" onClick={()=>handleCheckout()}>
+                    <MDBBtn style={{borderRadius: "25px"}} size="sm" color="warning" onClick={() => handleCheckout()}>
                         CHECK OUT
                     </MDBBtn>{" "}
                 </MDBCol>
             </MDBRow>
+            <RelatedProducts/>
         </div>
+
     );
 }
