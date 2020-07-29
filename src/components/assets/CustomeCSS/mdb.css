@@ -63,3 +63,11 @@
   max-height: 500px;
   position: relative;
 }
+
+.btn {
+  box-shadow: none !important;
+}
+
+.navbar {
+  box-shadow: none !important;
+}
