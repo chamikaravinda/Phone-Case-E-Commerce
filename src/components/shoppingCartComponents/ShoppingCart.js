@@ -1,7 +1,7 @@
 import React from "react";
 import { MDBRow, MDBCol, MDBIcon, MDBBtn, MDBContainer } from "mdbreact";
-import ShoppingCartItem from "./includes/ShoppingCartItem";
-import Footer2 from "./includes/Footer2";
+import ShoppingCartItem from "./ShoppingCartItem";
+import Footer2 from "../includes/Footer2";
 
 export default function ShoppingCart(config) {
   const handleCheckout = () => {

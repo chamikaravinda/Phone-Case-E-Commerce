@@ -1,6 +1,6 @@
 import React from "react";
 import { MDBRow, MDBCol, MDBIcon, MDBBtn, MDBContainer } from "mdbreact";
-import ShippingInformation from "./includes/ShippingInformation";
+import ShippingInformation from "./ShippingInformation";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 

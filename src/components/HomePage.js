@@ -26,7 +26,7 @@ import HomeTile3 from "./assets/images/home_title_3.png";
 import HomeTile4 from "./assets/images/home_title_4.png";
 import HomeTile5 from "./assets/images/home_title_5.png";
 
-import ItemCard from "./includes/ItemCard";
+import ItemCard from "./productComponents/ItemCard";
 
 export default function HomePage(token, login) {
   return (

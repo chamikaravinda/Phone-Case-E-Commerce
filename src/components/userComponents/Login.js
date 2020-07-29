@@ -12,7 +12,7 @@ import Container from "@material-ui/core/Container";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Checkbox from "@material-ui/core/Checkbox/Checkbox";
 import clsx from "clsx";
-import gmail from "./assets/images/gmail.png";
+import gmail from "../assets/images/gmail.png";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -144,30 +144,30 @@ const Login = (config, props) => {
               </MDBRow>
 
               <MDBRow between className="d-flex center">
-                <MDBCol size="6">
+                <MDBCol className="col-12 col-sm-12 col-md-6 pt-2 ">
                   {" "}
                   <MDBBtn
                     type="button"
                     color="indigo darken-3"
                     rounded
                     style={{ borderRadius: 25 }}
-                    className="mr-md-3 z-depth-1a text-right btn-block"
+                    className="mr-md-3 z-depth-1a  btn-block"
                     social="fb"
                   >
                     <MDBIcon fab icon="facebook-f" className="pr-1" /> Facebook
                   </MDBBtn>
                 </MDBCol>
-                <MDBCol size="6">
+                <MDBCol className="col-12 col-sm-12 col-md-6 pt-2 text-center">
                   {" "}
                   <MDBBtn
                     type="button"
                     color="danger"
                     rounded
                     outline
-                    className="mr-md-3 z-depth-1a text-right btn-block"
+                    className="mr-md-3 z-depth-1a btn-block"
                     style={{ borderRadius: 25 }}
                   >
-                    <img src={gmail} />
+                    <img src={gmail} style={{ paddingRight: "25px" }} />
                     Gmail
                   </MDBBtn>
                 </MDBCol>

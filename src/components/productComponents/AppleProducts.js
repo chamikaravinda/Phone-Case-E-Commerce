@@ -1,7 +1,7 @@
 import React from "react";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import ShoppingCartItem from "../includes/ShoppingCartItem";
-import ItemCard from "../includes/ItemCard";
+import ShoppingCartItem from "../shoppingCartComponents/ShoppingCartItem";
+import ItemCard from "./ItemCard";
 import CssBaseline from "@material-ui/core/CssBaseline/CssBaseline";
 import {
   MDBCol,

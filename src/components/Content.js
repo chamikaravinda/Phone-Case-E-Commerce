@@ -1,10 +1,9 @@
 import React from "react";
 import HomePage from "./HomePage";
-import Login from "./Login";
-import SignUP from "./SignUp";
-import ShoppingCart from "./ShoppingCart";
-import ShippingAndPayment from "./ShippingAndPayment";
-import ReviewAndDescription from "./ReviewAndDescription";
+import Login from "./userComponents/Login";
+import SignUP from "./userComponents/SignUp";
+import ShoppingCart from "./shoppingCartComponents/ShoppingCart";
+import ShippingAndPayment from "./shoppingCartComponents/ShippingAndPayment";
 import LoadingWindow from "./LoadingWindow";
 import AppleProducts from "./productComponents/AppleProducts";
 
