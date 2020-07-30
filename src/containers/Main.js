@@ -15,7 +15,6 @@ const mapDispatchToProps = (dispatch) => ({
     logoutClick: () => dispatch(logout()),
     pageNavigation: (type) => dispatch(pageNavigation(type)),
 
-
 });
 
 export default connect(

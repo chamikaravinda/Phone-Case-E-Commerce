@@ -9,10 +9,10 @@ const configReducer = (state = config(), action) => {
             return {...state, page: 0};
 
         case 'LOGIN':
-            return {...state, page: 1};
+            return {...state, activeWindow: 1};
 
         case 'SIGN_UP':
-            return {...state, page: 2};
+            return {...state, activeWindow: 2};
 
         case 'SHOPPING_CART':
             return {...state, page: 3};
@@ -22,6 +22,9 @@ const configReducer = (state = config(), action) => {
 
         case 'PRODUCT_APPLE':
             return {...state, page: 5};
+
+        case 'BACK_TO_SHOP':
+            return {...state, page: 0 , activeWindow: 0};
         default:
             return state
     }
