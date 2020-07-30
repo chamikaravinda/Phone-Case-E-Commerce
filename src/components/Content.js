@@ -17,20 +17,6 @@ export default function Content(config, pageNavigation) {
       </div>
     );
   }
-  if (state.page === 1) {
-    return (
-      <div>
-        <Login config={config} />
-      </div>
-    );
-  }
-  if (state.page === 2) {
-    return (
-      <div>
-        <SignUP />
-      </div>
-    );
-  }
   if (state.page === 3) {
     return (
       <div>

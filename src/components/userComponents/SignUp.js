@@ -1,5 +1,5 @@
 import React from "react";
-import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBModalFooter } from "mdbreact";
+import {MDBContainer, MDBRow, MDBCol, MDBBtn, MDBModalFooter, MDBIcon} from "mdbreact";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -74,12 +74,27 @@ const useStyles = makeStyles((theme) => ({
 const SignUP = (config, props) => {
   const classes = useStyles();
 
+  const handleContinue = () =>{
+    config.pageNavigation("BACK_TO_SHOP");
+  }
+
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" >
       <CssBaseline />
       <div className={classes.paper}>
         <MDBContainer className={classes.form}>
           <MDBRow>
+            <MDBCol>
+              <a style={{ cursor: "pointer" }}
+                 onClick={handleContinue}
+              >
+                <h6 className="font-weight-bold">
+                  {"   "}
+                  <MDBIcon icon="arrow-left" /> {"   "}
+                  Back To Shop{" "}
+                </h6>
+              </a>
+            </MDBCol>
             <MDBCol>
               <p className="h4 text-center mb-4">
                 Create an account and discover the benefits
@@ -160,6 +175,9 @@ const SignUP = (config, props) => {
                   Are you already a member?
                 </p>
               </MDBModalFooter>
+            </MDBCol>
+            <MDBCol>
+
             </MDBCol>
           </MDBRow>
         </MDBContainer>

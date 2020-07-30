@@ -1,8 +1,6 @@
 import React from "react";
 import {MDBBtn, MDBCard, MDBCol, MDBContainer, MDBIcon, MDBRow} from "mdbreact";
-import Avatar from "@material-ui/core/Avatar";
-import StarRatingComponent from "react-star-rating-component";
-import phoneCase from "../components/assets/images/phoneCase.jpg"
+import phoneCase from "../assets/images/phoneCase.jpg"
 
 export default function AddToCart() {
     return (

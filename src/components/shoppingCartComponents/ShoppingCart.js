@@ -2,6 +2,7 @@ import React from "react";
 import { MDBRow, MDBCol, MDBIcon, MDBBtn, MDBContainer } from "mdbreact";
 import ShoppingCartItem from "./ShoppingCartItem";
 import Footer2 from "../includes/Footer2";
+import AddToCart from "../shoppingCartComponents/AddToCart";
 
 export default function ShoppingCart(config) {
   const handleCheckout = () => {
@@ -24,6 +25,7 @@ export default function ShoppingCart(config) {
         }}
       >
         <MDBRow className="pb-5 " between>
+        <AddToCart/>
           <MDBCol className="col-xs-7  col-lg-3">
             <h3 className="font-weight-bold">Shopping Cart</h3>
           </MDBCol>

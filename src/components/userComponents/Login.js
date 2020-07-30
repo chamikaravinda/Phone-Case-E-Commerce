@@ -81,14 +81,32 @@ const useStyles = makeStyles((theme) => ({
 
 const Login = (config, props) => {
   const classes = useStyles();
-  const signUp = config.config.signUp;
+  const signUp = ()=>{
+    config.signUp();
+  }
+
+  const handleContinue = () =>{
+    config.pageNavigation("BACK_TO_SHOP");
+  }
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" >
       <CssBaseline />
       <div className={classes.paper}>
         <MDBContainer className={classes.form}>
           <MDBRow>
+            <MDBCol>
+              <a style={{ cursor: "pointer" }}
+                  onClick={handleContinue}
+              >
+                <h6 className="font-weight-bold">
+                  {"   "}
+                  <MDBIcon icon="arrow-left" /> {"   "}
+                  Back To Shop{" "}
+                </h6>
+              </a>
+            </MDBCol>
+
             <MDBCol>
               <p className="h4 text-center mb-4">Log in</p>
               <p className="font-small grey-text d-flex justify-content-center text-center">
@@ -191,6 +209,9 @@ const Login = (config, props) => {
                   </a>
                 </p>
               </MDBModalFooter>
+            </MDBCol>
+            <MDBCol>
+
             </MDBCol>
           </MDBRow>
         </MDBContainer>
