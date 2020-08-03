@@ -6,6 +6,9 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Checkbox from "@material-ui/core/Checkbox";
 import clsx from "clsx";
 import {dispatchError} from "../../actions";
+import Alert from "@material-ui/lab/Alert";
+import AlertTitle from "@material-ui/lab/AlertTitle";
+import Snackbar from "@material-ui/core/Snackbar";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -143,7 +146,9 @@ const SignUP = (config, props) => {
         event.preventDefault();
         event.target.className += " was-validated";
     };
+    const [open,setOpen] = React.useState(true);
 
+    const checkStatus = config.config.error;
 
     return (
         <Container component="main">
@@ -170,6 +175,28 @@ const SignUP = (config, props) => {
                         }}
                     /> : null
                 }
+                {checkStatus ?
+                    <MDBNotification
+                    autohide={4000} // by default = ∞ ms
+                    icon="exclamation-circle"
+                    iconClassName="red-text"
+                    show
+                    fade
+                    bodyClassName="p-5 font-weight-bold black-text"
+                    className="rgba-stylish-light"
+                    title=" ERROR !"
+                    titleClassName="p-2 red-text"
+                    message={config.config.errorMessage}
+                    style={{
+                    position: "fixed",
+                    top: "30px",
+                    right: "30px",
+                    zIndex: 9999,
+
+                }}
+                    />
+                    : null}
+
                 <MDBContainer className={classes.form}>
                     <form
                         className="needs-validation"
@@ -279,14 +306,8 @@ const SignUP = (config, props) => {
                                 </MDBModalFooter>
                             </MDBCol>
                             <MDBCol>
-
                             </MDBCol>
                         </MDBRow>
-                        {config.config.error === false ?
-                            <MDBAlert color="danger" className="form-control is-invalid" >
-                                {config.config.errorMessage}
-                            </MDBAlert> : null}
-
                     </form>
                 </MDBContainer>
             </div>
