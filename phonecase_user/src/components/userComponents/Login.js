@@ -13,7 +13,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Checkbox from "@material-ui/core/Checkbox/Checkbox";
 import clsx from "clsx";
 import gmail from "../assets/images/gmail.png";
-import axios from 'axios';
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -81,52 +81,50 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Login = (config, props) => {
-  console.log("redirectHome",config.redirectHome)
+  console.log("redirectHome", config.redirectHome);
   const classes = useStyles();
-  const signUp = ()=> {
+  const signUp = () => {
     config.signUp();
-  }
+  };
 
-  const handleContinue = () =>{
+  const handleContinue = () => {
     config.pageNavigation("BACK_TO_SHOP");
-  }
+  };
   const [username, setUsername] = React.useState(undefined);
-  React.useEffect(() => {
-  }, [username]);
+  React.useEffect(() => {}, [username]);
 
   const [password, setPassword] = React.useState(undefined);
-  React.useEffect(() => {
-  }, [password]);
+  React.useEffect(() => {}, [password]);
 
   const handleUsernameChange = (text) => setUsername(text.target.value);
   const handlePasswordChange = (text) => setPassword(text.target.value);
 
-  const handleSignIn = (username,password) => {
+  const handleSignIn = (username, password) => {
     const user = {
-      email:username,
-      password:password,
-    }
-    const requestOptions = {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(user)
+      email: username,
+      password: password,
     };
-    fetch('https://us-central1-phone-e-commerce-api.cloudfunctions.net/dev/api/login/email', requestOptions)
-        .then(response => config.redirectHome(response.status,user))
-        .then(data => console.log(data));
-
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(user),
+    };
+    fetch(
+      "https://us-central1-phone-e-commerce-api.cloudfunctions.net/dev/api/login/email",
+      requestOptions
+    )
+      .then((response) => config.redirectHome(response.status, user))
+      .then((data) => console.log(data));
   };
 
   return (
-    <Container component="main" >
+    <Container component="main" style={{ minHeight: "71vh" }}>
       <CssBaseline />
       <div className={classes.paper}>
         <MDBContainer className={classes.form}>
           <MDBRow>
             <MDBCol>
-              <a style={{ cursor: "pointer" }}
-                  onClick={handleContinue}
-              >
+              <a style={{ cursor: "pointer" }} onClick={handleContinue}>
                 <h6 className="font-weight-bold">
                   {"   "}
                   <MDBIcon icon="arrow-left" /> {"   "}
@@ -134,8 +132,9 @@ const Login = (config, props) => {
                 </h6>
               </a>
             </MDBCol>
-
-            <MDBCol>
+          </MDBRow>
+          <MDBRow>
+            <MDBCol className="col-12 col-sm-10 offset-sm-1 col-md-6 offset-md-3 col-lg-4 offset-lg-4 pt-5 ">
               <p className="h4 text-center mb-4">Log in</p>
               <p className="font-small grey-text d-flex justify-content-center text-center">
                 Lorem Ipsum is simply dummy text of the printing and typesetting
@@ -230,7 +229,7 @@ const Login = (config, props) => {
                     rounded
                     className="btn-block"
                     style={{ borderRadius: 25 }}
-                    onClick={()=>handleSignIn(username,password)}
+                    onClick={() => handleSignIn(username, password)}
                   >
                     Sign in
                   </MDBBtn>
@@ -245,9 +244,7 @@ const Login = (config, props) => {
                 </p>
               </MDBModalFooter>
             </MDBCol>
-            <MDBCol>
-
-            </MDBCol>
+            <MDBCol></MDBCol>
           </MDBRow>
         </MDBContainer>
       </div>
