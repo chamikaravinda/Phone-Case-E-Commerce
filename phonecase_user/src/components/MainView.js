@@ -10,7 +10,7 @@ import SignUP from "./userComponents/SignUp";
 import {dispatchError} from "../actions";
 
 
-export default function MainView({config, pageNavigation,redirectHome, signUp,dispatchError, activeWindow, loginClick}) {
+export default function MainView({config, pageNavigation,redirectHome, updateState,signUp,dispatchError, activeWindow, loginClick}) {
     console.log("eee",config.activeWindow)
 
     if (config.activeWindow === 0) {
@@ -36,7 +36,7 @@ export default function MainView({config, pageNavigation,redirectHome, signUp,di
     if (config.activeWindow === 2) {
         return (
             <div>
-                <SignUP config={config}  redirectHome={redirectHome} dispatchError={dispatchError} pageNavigation={pageNavigation}/>
+                <SignUP config={config} updateState={updateState} redirectHome={redirectHome} dispatchError={dispatchError} pageNavigation={pageNavigation}/>
                 <Footer/>
             </div>
         );

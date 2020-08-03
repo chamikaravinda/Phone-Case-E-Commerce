@@ -13,6 +13,9 @@ export const redirectHome = (status,user) => ({
 export const dispatchError = (message) => ({
     type:"SIGN_UP_FAILED",
     message:message,
+});export const updateState = () => ({
+    type:"UPDATE_STATE",
+
 });
 
 export const logout = () => ({
