@@ -137,7 +137,7 @@ export default function NavigationBar(loginClick, pageNavigation) {
     };
 
     const handleClickProduct = () => {
-        loginClick.pageNavigation("PRODUCT_APPLE");
+        loginClick.pageNavigation("SINGLE_PRODUCT");
     };
 
     const menuId = "primary-search-account-menu";
@@ -274,7 +274,7 @@ export default function NavigationBar(loginClick, pageNavigation) {
                         </IconButton>
                         <IconButton aria-label="show 17 new notifications" color="inherit">
                             <Badge badgeContent={17} color="secondary">
-                                <ShoppingCartIcon onClick={() => handleShoppingCart()} style={{color: "black"}}/>
+                                <ShoppingCartIcon onClick={handleShoppingCart} style={{color: "black"}}/>
                             </Badge>
                         </IconButton>
                         <IconButton

@@ -13,6 +13,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Checkbox from "@material-ui/core/Checkbox/Checkbox";
 import clsx from "clsx";
 import gmail from "../assets/images/gmail.png";
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -80,14 +81,41 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Login = (config, props) => {
+  console.log("redirectHome",config.redirectHome)
   const classes = useStyles();
-  const signUp = ()=>{
+  const signUp = ()=> {
     config.signUp();
   }
 
   const handleContinue = () =>{
     config.pageNavigation("BACK_TO_SHOP");
   }
+  const [username, setUsername] = React.useState(undefined);
+  React.useEffect(() => {
+  }, [username]);
+
+  const [password, setPassword] = React.useState(undefined);
+  React.useEffect(() => {
+  }, [password]);
+
+  const handleUsernameChange = (text) => setUsername(text.target.value);
+  const handlePasswordChange = (text) => setPassword(text.target.value);
+
+  const handleSignIn = (username,password) => {
+    const user = {
+      email:username,
+      password:password,
+    }
+    const requestOptions = {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(user)
+    };
+    fetch('https://us-central1-phone-e-commerce-api.cloudfunctions.net/dev/api/login/email', requestOptions)
+        .then(response => config.redirectHome(response.status,user))
+        .then(data => console.log(data));
+
+  };
 
   return (
     <Container component="main" >
@@ -120,6 +148,9 @@ const Login = (config, props) => {
                 id="defaultFormLoginEmailEx"
                 className="form-control"
                 placeholder=" E-mail"
+                name="username"
+                id="username"
+                onChange={(text) => handleUsernameChange(text)}
               />
               <br />
               <input
@@ -128,6 +159,9 @@ const Login = (config, props) => {
                 id="defaultFormLoginPasswordEx"
                 className="form-control"
                 placeholder=" Password"
+                name="password"
+                id="password"
+                onChange={(text) => handlePasswordChange(text)}
               />
               <MDBRow>
                 <MDBCol>
@@ -196,6 +230,7 @@ const Login = (config, props) => {
                     rounded
                     className="btn-block"
                     style={{ borderRadius: 25 }}
+                    onClick={()=>handleSignIn(username,password)}
                   >
                     Sign in
                   </MDBBtn>

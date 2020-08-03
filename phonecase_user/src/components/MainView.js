@@ -7,8 +7,10 @@ import NavigationBar from "./includes/NavigationBar";
 import LoadingWindow from "./LoadingWindow";
 import Login from "./userComponents/Login";
 import SignUP from "./userComponents/SignUp";
+import {dispatchError} from "../actions";
 
-export default function MainView({config, pageNavigation, signUp, activeWindow, loginClick}) {
+
+export default function MainView({config, pageNavigation,redirectHome, signUp,dispatchError, activeWindow, loginClick}) {
     console.log("eee",config.activeWindow)
 
     if (config.activeWindow === 0) {
@@ -25,7 +27,7 @@ export default function MainView({config, pageNavigation, signUp, activeWindow, 
     if (config.activeWindow === 1) {
         return (
             <div>
-                <Login config={config}  signUp={signUp} pageNavigation={pageNavigation}/>
+                <Login config={config}  signUp={signUp} redirectHome={redirectHome} pageNavigation={pageNavigation}/>
                 <Footer/>
             </div>
         );
@@ -34,7 +36,7 @@ export default function MainView({config, pageNavigation, signUp, activeWindow, 
     if (config.activeWindow === 2) {
         return (
             <div>
-                <SignUP config={config}  pageNavigation={pageNavigation}/>
+                <SignUP config={config}  redirectHome={redirectHome} dispatchError={dispatchError} pageNavigation={pageNavigation}/>
                 <Footer/>
             </div>
         );

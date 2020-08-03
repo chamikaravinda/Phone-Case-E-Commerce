@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import {MDBContainer, MDBRow, MDBCol, MDBBtn, MDBIcon} from "mdbreact";
 import Avatar from "@material-ui/core/Avatar";
 import StarRatingComponent from "react-star-rating-component";
-import RelatedProducts from "./RelatedProducts";
+
 
 export default function ReviewAndDescription() {
     const [isDescription, setIsDescription] = useState(null);

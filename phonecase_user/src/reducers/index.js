@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux'
 import configReducer from "./ConfigReducer";
+import authReducer from "./AuthReducer";
 
 
 
@@ -7,5 +8,6 @@ import configReducer from "./ConfigReducer";
 // reducers can be accessed as stste.reducer1, state.reducer2 after connecting the state to props
 export default combineReducers({
   configReducer:configReducer,
+  authReducer:authReducer,
 
 })

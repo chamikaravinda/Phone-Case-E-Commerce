@@ -1,10 +1,10 @@
 import React from "react";
-import ItemCard from "../components/includes/ItemCard";
 import CssBaseline from "@material-ui/core/CssBaseline/CssBaseline";
 import {
     MDBCol,
     MDBRow,
 } from "mdbreact";
+import ItemCard from "./ItemCard";
 
 export default function RelatedProducts() {
     return (
