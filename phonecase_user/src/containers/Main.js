@@ -9,7 +9,7 @@ import {
     redirectHome,
     signIn,
     signUp,
-    signUpSuccess
+    signUpSuccess, updateState
 } from "../actions";
 
 
@@ -26,6 +26,7 @@ const mapDispatchToProps = (dispatch) => ({
     redirectHome: (status,user) => dispatch(redirectHome(status,user)),
     invalidUser: () => dispatch(invalidUser()),
     logoutClick: () => dispatch(logout()),
+    updateState: () => dispatch(updateState()),
     pageNavigation: (type) => dispatch(pageNavigation(type)),
 
 });

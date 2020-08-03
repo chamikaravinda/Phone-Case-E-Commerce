@@ -28,6 +28,8 @@ const configReducer = (state = config(), action) => {
 
         case 'SIGN_UP_FAILED':
             return {...state, error:true , errorMessage: action.message};
+        case 'UPDATE_STATE':
+            return {...state, error: false, errorMessage: undefined};
 
         case 'SHOPPING_CART':
             return {...state, page: 3};
