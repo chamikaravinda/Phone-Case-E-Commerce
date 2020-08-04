@@ -11,6 +11,10 @@ const EditProduct = React.lazy(() => import("./views/product/EditProduct"));
 const Orders = React.lazy(() => import("./views/orders/Orders"));
 /*-------------------*/
 
+/* Import News Letter Pages */
+const NewsLetter = React.lazy(() => import("./views/newsLetter/newsLetter"));
+/*-------------------*/
+
 const Dashboard = React.lazy(() => import("./views/dashboard/Dashboard"));
 const Users = React.lazy(() => import("./views/users/Users"));
 const User = React.lazy(() => import("./views/users/User"));
@@ -41,6 +45,15 @@ const routes = [
 
   /* Order Routes*/
   { path: "/orders", name: "Orders", component: Orders, exact: true },
+  /*--------------*/
+
+  /* News Letter Routes*/
+  {
+    path: "/new-letter",
+    name: "News Letter",
+    component: NewsLetter,
+    exact: true,
+  },
   /*--------------*/
 
   { path: "/users", exact: true, name: "Users", component: Users },

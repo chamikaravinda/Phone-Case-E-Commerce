@@ -23,4 +23,10 @@ export default [
     to: "/orders",
     icon: "cil-chart-pie",
   },
+  {
+    _tag: "CSidebarNavItem",
+    name: "News Letter ",
+    to: "/new-letter",
+    icon: "cil-chart-pie",
+  },
 ];

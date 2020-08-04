@@ -45,7 +45,6 @@ export const addProduct = (data, headers) => {
         history.push("product/product");
       })
       .catch((error) => {
-        console.log(error);
         dispatch(addProductError("Error in adding the product"));
       });
   };
@@ -68,7 +67,6 @@ export const getAllProductError = (data) => {
 
 export const getAllProducts = (headers) => {
   return (dispatch) => {
-    console.log(headers);
     let config = {
       headers: {
         headers,
@@ -185,7 +183,6 @@ export const updataProduct = (data, headers) => {
         history.push("product/product");
       })
       .catch((error) => {
-        console.log(error);
         dispatch(updataProductError("Error in updating the product"));
       });
   };
