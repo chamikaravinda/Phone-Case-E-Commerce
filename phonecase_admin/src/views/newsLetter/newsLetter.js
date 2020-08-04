@@ -27,6 +27,8 @@ const NewsLetter = (props) => {
       htmlBody: htmlBody,
       textBody: textBody,
     };
+
+    props.onSendLetter(data, props.user.header);
   };
 
   return (
@@ -105,6 +107,7 @@ const NewsLetter = (props) => {
 const mapStateToProps = (state) => {
   return {
     message: state.newsLetterData.message || "",
+    user: state.userData.user,
   };
 };
 

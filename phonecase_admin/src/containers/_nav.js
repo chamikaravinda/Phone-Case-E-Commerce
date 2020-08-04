@@ -29,4 +29,10 @@ export default [
     to: "/new-letter",
     icon: "cil-chart-pie",
   },
+  {
+    _tag: "CSidebarNavItem",
+    name: "Subscribers",
+    to: "/subscribers",
+    icon: "cil-chart-pie",
+  },
 ];
