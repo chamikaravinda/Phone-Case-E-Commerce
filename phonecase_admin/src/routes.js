@@ -3,6 +3,8 @@ import React from "react";
 /* Import Product Pages */
 const Products = React.lazy(() => import("./views/product/Products"));
 const AddProduct = React.lazy(() => import("./views/product/AddProduct"));
+const EditProduct = React.lazy(() => import("./views/product/EditProduct"));
+
 /*--------------------*/
 
 /* Import Order Pages */
@@ -28,6 +30,12 @@ const routes = [
     path: "/product/add-product",
     name: "Add Product",
     component: AddProduct,
+  },
+  {
+    path: "/product/edit-product/:id",
+    name: "Edit Product",
+    component: EditProduct,
+    exact: true,
   },
   /*--------------*/
 

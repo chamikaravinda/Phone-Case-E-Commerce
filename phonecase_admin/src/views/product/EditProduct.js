@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { addProduct } from "../../actions/product.actions";
+import { getProduct, updataProduct } from "../../actions/product.actions";
 import { storage } from "../../firebaseConfig";
 import {
   CButton,
@@ -19,10 +19,11 @@ import {
 } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
 
-const AddProduct = (props) => {
+const EditProduct = (props, match) => {
   const [, updateState] = React.useState();
   const forceUpdate = React.useCallback(() => updateState({}), []);
 
+  const [productId, setProductId] = useState("");
   const [productName, setProductName] = useState("");
 
   const [color, setColor] = useState("");
@@ -40,6 +41,46 @@ const AddProduct = (props) => {
 
   const [description, setDescription] = useState("");
   const [specification, setSpecification] = useState("");
+
+  useEffect(() => {
+    props.onGetProduct(props.match.params.id);
+    if (props.product) {
+      setProductId(props.product.id);
+      setProductName(props.product.itemName);
+
+      let tempColors = [];
+      let tempColorId = 0;
+      props.product.colors.forEach(function (color) {
+        let data = {
+          id: tempColorId++,
+          color: color,
+        };
+
+        tempColors.push(data);
+      });
+      setColors(tempColors);
+      setUrl(props.product.imgs[0]);
+
+      let tempModels = [];
+      let tempModelId = 0;
+
+      props.product.models.forEach(function (model) {
+        let tempModel = {
+          id: tempModelId++,
+          brand: model.brand,
+          model: model.model,
+          price: model.price,
+          action: "",
+        };
+
+        tempModels.push(tempModel);
+      });
+
+      setModels(tempModels);
+      setDescription(props.product.desc);
+      setSpecification(props.product.specs);
+    }
+  });
 
   const addColor = () => {
     if (color !== "") {
@@ -145,8 +186,6 @@ const AddProduct = (props) => {
             });
         }
       );
-    } else {
-      setError("Please select an image to upload");
     }
   };
 
@@ -191,6 +230,7 @@ const AddProduct = (props) => {
     await handleUpload();
 
     const data = {
+      id: productId,
       itemName: productName,
       colors: colorsWithoutId,
       imgs: [url],
@@ -201,7 +241,7 @@ const AddProduct = (props) => {
       priceEndAt: priceEnd,
     };
 
-    props.onAddProduct(data, props.user.token);
+    props.onUpdateProduct(data, props.user.token);
   };
 
   return (
@@ -417,15 +457,19 @@ const mapStateToProps = (state) => {
   return {
     user: state.userData.user || "",
     error: state.productData.error || "",
+    product: state.productData.product || "",
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onAddProduct: (product, token) => {
-      dispatch(addProduct(product, token));
+    onGetProduct: (id, token) => {
+      dispatch(getProduct(id, token));
+    },
+    onUpdateProduct: (data, token) => {
+      dispatch(updataProduct(data, token));
     },
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddProduct);
+export default connect(mapStateToProps, mapDispatchToProps)(EditProduct);
