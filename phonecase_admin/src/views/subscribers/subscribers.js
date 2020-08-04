@@ -53,7 +53,7 @@ const mapStateToProps = (state) => {
   return {
     user: state.userData.user || "",
     error: state.subscribersData.error || "",
-    Subscribers: state.subscribersData.subscribers,
+    subscribers: state.subscribersData.subscribers,
   };
 };
 

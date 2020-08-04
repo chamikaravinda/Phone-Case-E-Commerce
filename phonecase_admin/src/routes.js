@@ -19,6 +19,12 @@ const NewsLetter = React.lazy(() => import("./views/newsLetter/newsLetter"));
 const Subscribers = React.lazy(() => import("./views/subscribers/subscribers"));
 /*-------------------*/
 
+/* Import homepage Images Page */
+const HomePageImages = React.lazy(() =>
+  import("./views/homepageImages/homepageImages")
+);
+/*-------------------*/
+
 const Dashboard = React.lazy(() => import("./views/dashboard/Dashboard"));
 const Users = React.lazy(() => import("./views/users/Users"));
 const User = React.lazy(() => import("./views/users/User"));
@@ -65,6 +71,15 @@ const routes = [
     path: "/subscribers",
     name: "Subscribers",
     component: Subscribers,
+    exact: true,
+  },
+  /*--------------*/
+
+  /* Homepage Images Routes*/
+  {
+    path: "/homepage",
+    name: "Home Page",
+    component: HomePageImages,
     exact: true,
   },
   /*--------------*/

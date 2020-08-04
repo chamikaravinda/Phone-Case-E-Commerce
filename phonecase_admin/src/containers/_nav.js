@@ -35,4 +35,10 @@ export default [
     to: "/subscribers",
     icon: "cil-chart-pie",
   },
+  {
+    _tag: "CSidebarNavItem",
+    name: "Home Page",
+    to: "/homepage",
+    icon: "cil-chart-pie",
+  },
 ];
