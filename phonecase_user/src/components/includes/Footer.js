@@ -12,8 +12,8 @@ import logo from "../assets/images/logo.jpg";
 
 const Footer = () => {
   return (
-    <MDBFooter color={"white"} className="font-small pt-4 mt-4">
-      <MDBContainer fluid className=" text-md-left pr-5 pl-5">
+    <MDBFooter color={"white"} className="font-small">
+      <MDBContainer fluid className=" text-md-left pr-5 pl-5 pt-4">
         <MDBRow className="ml-3 ml-lg-3">
           <MDBCol xl="4">
             <MDBTypography tag="h4" variant="h4" className="orange-text">

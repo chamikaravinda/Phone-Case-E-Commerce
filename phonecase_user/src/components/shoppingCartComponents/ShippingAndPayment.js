@@ -2,11 +2,15 @@ import React from "react";
 import { MDBRow, MDBCol, MDBIcon, MDBBtn, MDBContainer } from "mdbreact";
 import ShippingInformation from "./ShippingInformation";
 import Avatar from "@material-ui/core/Avatar";
-import Typography from "@material-ui/core/Typography";
+import { history } from "../../index";
 
 export default function ShippingAndPayment() {
   const handleContinue = () => {
-    return undefined;
+    history.push("/");
+  };
+
+  const handleLogin = () => {
+    history.push("/login");
   };
 
   return (
@@ -75,7 +79,12 @@ export default function ShippingAndPayment() {
         </MDBCol>
       </MDBRow>
       <MDBRow>
-        <MDBBtn style={{ borderRadius: "25px" }} size="sm" color="warning">
+        <MDBBtn
+          style={{ borderRadius: "25px" }}
+          size="sm"
+          color="warning"
+          onClick={handleLogin}
+        >
           LOG IN
         </MDBBtn>
       </MDBRow>
@@ -200,6 +209,7 @@ export default function ShippingAndPayment() {
               outline
               color="grey lighten-4"
               style={{ borderRadius: "25px", minWidth: "200px " }}
+              onClick={handleContinue}
             >
               {" "}
               Continue shopping

@@ -1,4 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { userSignUp } from "../../actions/user.actions";
+
 import {
   MDBContainer,
   MDBRow,
@@ -14,7 +18,6 @@ import Container from "@material-ui/core/Container";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Checkbox from "@material-ui/core/Checkbox";
 import clsx from "clsx";
-import { dispatchError } from "../../actions";
 import Alert from "@material-ui/lab/Alert";
 import AlertTitle from "@material-ui/lab/AlertTitle";
 import Snackbar from "@material-ui/core/Snackbar";
@@ -84,7 +87,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SignUP = (config, props) => {
+const SignUp = (props) => {
   const classes = useStyles();
 
   const [email, setEmail] = React.useState(undefined);
@@ -106,104 +109,37 @@ const SignUP = (config, props) => {
   const handlePasswordChange = (text) => setPassword(text.target.value);
   const handleFirstNameChange = (text) => setFirstName(text.target.value);
   const handlelastNameChange = (text) => setLastName(text.target.value);
-  const handlePhoneNumChange = (text) => setPhonenum(text.target.value);
 
-  const handleContinue = () => {
-    config.pageNavigation("BACK_TO_SHOP");
-  };
-  const state = (email, password, firstname, lastname, phonenum);
-  const [success, setSuccess] = React.useState(false);
-  function alertSuccess() {
-    setSuccess(true);
-  }
-
-  function handliSignUp() {
-    const userData = {
+  const handleSignUp = (e) => {
+    e.preventDefault();
+    const data = {
       email: email,
       password: password,
       firstname: firstname,
       lastname: lastname,
       phonenum: "",
     };
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(userData),
-    };
-    fetch(
-      "https://us-central1-phone-e-commerce-api.cloudfunctions.net/dev/api/signup/email",
-      requestOptions
-    ).then((response) => {
-      return response.json().then((data) => {
-        if (response.status === 201) {
-          alertSuccess();
-        } else {
-          config.dispatchError(data.message);
-        }
-      });
-    });
-  }
-
-  function submitHandler(event) {
-    event.preventDefault();
-    event.target.className += " was-validated";
-  }
-  const [open, setOpen] = React.useState(true);
-
-  const checkStatus = config.config.error;
-
-  function handleClose() {
-    config.updateState();
-  }
-
+    props.onSignup(data);
+  };
   return (
     <Container component="main" style={{ minHeight: "63vh" }}>
       <CssBaseline />
       <div className={classes.paper}>
-        {success ? (
-          <MDBNotification
-            autohide={4000} // by default = ∞ ms
-            icon="check-circle"
-            iconClassName="green-text"
-            show
-            fade
-            bodyClassName="p-5 font-weight-bold black-text"
-            className="rgba-stylish-light"
-            title="Congratulations !!"
-            titleClassName="p-2 green-text"
-            message="Registration completed Successfully"
-            style={{
-              position: "fixed",
-              top: "30px",
-              right: "30px",
-              zIndex: 9999,
-            }}
-          />
-        ) : null}
-        {checkStatus ? (
-          <Snackbar autoHideDuration={4000} open={open} onClose={handleClose}>
-            <Alert variant="filled" onClose={handleClose} severity="error">
-              {config.config.errorMessage} !
-            </Alert>
-          </Snackbar>
-        ) : null}
-
         <MDBContainer className={classes.form}>
-          <form
-            className="needs-validation"
-            onSubmit={submitHandler}
-            noValidate
-          >
+          <form className="needs-validation" onSubmit={handleSignUp}>
             <MDBRow>
-              <MDBCol>
-                <a style={{ cursor: "pointer" }} onClick={handleContinue}>
-                  <h6 className="font-weight-bold">
-                    {"   "}
-                    <MDBIcon icon="arrow-left" /> {"   "}
-                    Back To Shop{" "}
-                  </h6>
-                </a>
-              </MDBCol>
+              <Link to="/" style={{ color: "black" }}>
+                {" "}
+                <MDBCol>
+                  <a style={{ cursor: "pointer" }}>
+                    <h6 className="font-weight-bold">
+                      {"   "}
+                      <MDBIcon icon="arrow-left" /> {"   "}
+                      Back To Shop{" "}
+                    </h6>
+                  </a>
+                </MDBCol>
+              </Link>
             </MDBRow>
             <MDBRow>
               <MDBCol className="col-12 col-sm-10 offset-sm-1 col-md-6 offset-md-3 col-lg-4 offset-lg-4 pt-5 ">
@@ -215,6 +151,17 @@ const SignUP = (config, props) => {
                   typesetting industry. Lorem Ipsum has been the industry's
                   standard dummy text ever since the 1500s
                 </p>
+                <br></br>
+                {props.error ? (
+                  <>
+                    <Alert variant="filled" severity="error">
+                      {props.error} !
+                    </Alert>
+                    <br></br>
+                  </>
+                ) : (
+                  ""
+                )}
                 <input
                   type="text"
                   style={{ borderRadius: 25 }}
@@ -223,6 +170,7 @@ const SignUP = (config, props) => {
                   onChange={(text) => handleFirstNameChange(text)}
                   className="form-control"
                   placeholder="First Name"
+                  required
                 />
                 <br />
                 <input
@@ -233,7 +181,9 @@ const SignUP = (config, props) => {
                   onChange={(text) => handlelastNameChange(text)}
                   className="form-control"
                   placeholder="Last Name"
+                  required
                 />
+
                 <br />
                 <input
                   type="email"
@@ -254,6 +204,7 @@ const SignUP = (config, props) => {
                   onChange={(text) => handlePasswordChange(text)}
                   className="form-control"
                   placeholder="Password"
+                  required
                 />
                 <br />
 
@@ -272,6 +223,7 @@ const SignUP = (config, props) => {
                         icon={<span className={classes.icon} />}
                         inputProps={{ "aria-label": "decorative checkbox" }}
                         {...props}
+                        required
                       />{" "}
                       I agree to the Google Terms of service and privacy policy{" "}
                     </p>
@@ -279,18 +231,18 @@ const SignUP = (config, props) => {
                 </MDBRow>
                 <div className="row d-flex aline-content-center pl-4">
                   <MDBBtn
-                    type="button"
+                    type="submit"
                     color="amber"
                     rounded
                     className="btn-block"
                     style={{ borderRadius: 25 }}
-                    onClick={() => handliSignUp(state)}
                   >
                     Sign up
                   </MDBBtn>
                   <MDBModalFooter>
                     <p className="font-small grey-text">
-                      Are you already a member?
+                      Are you already a member ?
+                      <Link to="/login"> Sign In</Link>
                     </p>
                   </MDBModalFooter>
                 </div>
@@ -303,4 +255,18 @@ const SignUP = (config, props) => {
   );
 };
 
-export default SignUP;
+const mapStateToProps = (state) => {
+  return {
+    error: state.userData.error || "",
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onSignup: (user) => {
+      dispatch(userSignUp(user));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

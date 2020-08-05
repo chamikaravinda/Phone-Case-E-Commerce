@@ -2,15 +2,15 @@ import React from "react";
 import { MDBRow, MDBCol, MDBIcon, MDBBtn, MDBContainer } from "mdbreact";
 import ShoppingCartItem from "./ShoppingCartItem";
 import Footer2 from "../includes/Footer2";
-import AddToCart from "../productComponents/AddToCart";
+import { history } from "../../index";
 
 export default function ShoppingCart(config) {
   const handleCheckout = () => {
-    config.config.pageNavigation("REVIEW_AND_DESCRIPTION");
+    history.push("/shipping-payment");
   };
 
   const handleContinue = () => {
-    config.config.pageNavigation("HOME_PAGE");
+    history.push("/");
   };
 
   return (

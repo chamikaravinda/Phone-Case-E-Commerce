@@ -9,20 +9,12 @@ import {
 } from "mdbreact";
 
 import itemPhoto from "../assets/images/phone.png";
-import SingleProduct from "./SingleProduct";
-import RelatedProducts from "./RelatedProducts";
-import {login} from "../../actions";
 
 const ItemCard = (config) => {
-  function handleClick() {
-    config.config.config.config.pageNavigation("ITEM")
-  }
-
   return (
     <MDBRow className="p-xl-3">
       <MDBCol md="12">
         <MDBCard
-            onClick = {() =>handleClick()}
           className="card-image"
           style={{
             backgroundImage: `url(${itemPhoto})`,
@@ -32,7 +24,7 @@ const ItemCard = (config) => {
           }}
         >
           <MDBContainer>
-            <MDBRow between >
+            <MDBRow between>
               <MDBCol size="1">
                 <MDBBtn
                   rounded

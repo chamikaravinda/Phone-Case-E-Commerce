@@ -11,7 +11,6 @@ import {
   MDBView,
   MDBRow,
   MDBCol,
-  MDBIcon,
   MDBBtn,
   MDBCard,
 } from "mdbreact";
