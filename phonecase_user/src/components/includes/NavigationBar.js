@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { history } from "../../index";
+import { connect } from "react-redux";
+import { userLogout } from "../../actions/user.actions";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -16,6 +18,7 @@ import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import { Grid } from "@material-ui/core";
 import logo from "../assets/images/logo.jpg";
+import { from } from "rxjs";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -108,7 +111,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function NavigationBar(props) {
+const NavigationBar = (props) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -137,6 +140,10 @@ export default function NavigationBar(props) {
     history.push("/shopping-cart");
   };
 
+  const handleLogout = () => {
+    props.onLogout();
+  };
+
   const menuId = "primary-search-account-menu";
   const renderMenu = (
     <Menu
@@ -150,11 +157,15 @@ export default function NavigationBar(props) {
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-      <MenuItem>
-        <Link style={{ color: "black" }} to="/login">
-          Login
-        </Link>
-      </MenuItem>
+      {props.user.headers ? (
+        <MenuItem onClick={handleLogout}>Logout</MenuItem>
+      ) : (
+        <MenuItem>
+          <Link style={{ color: "black" }} to="/login">
+            Login
+          </Link>
+        </MenuItem>
+      )}
     </Menu>
   );
 
@@ -188,25 +199,25 @@ export default function NavigationBar(props) {
       <Link style={{ color: "black" }} to="/apple-products">
         {" "}
         <MenuItem className={classes.sectionMobileItem}>
-          <Typography fontWeigt="fontWeightMedium" noWrap>
-            Apple iPhones
-          </Typography>
+          <Typography noWrap>Apple iPhones</Typography>
         </MenuItem>
       </Link>
 
       <MenuItem className={classes.sectionMobileItem}>
-        <Typography fontWeigt="fontWeightMedium" noWrap>
-          Android
-        </Typography>
+        <Typography noWrap>Android</Typography>
       </MenuItem>
       <MenuItem className={classes.sectionMobileItem}>
-        <Typography fontWeigt="fontWeightMedium" noWrap>
-          Customize
-        </Typography>
+        <Typography noWrap>Customize</Typography>
       </MenuItem>
-      <Link to="/login">
-        <MenuItem className={classes.sectionMobileItem}>Login</MenuItem>
-      </Link>
+      {props.user.headers ? (
+        <MenuItem onClick={handleLogout}>Logout</MenuItem>
+      ) : (
+        <MenuItem>
+          <Link style={{ color: "black" }} to="/login">
+            Login
+          </Link>
+        </MenuItem>
+      )}
       <MenuItem onClick={goToShoopingCart}>
         <IconButton aria-label="show 11 new notifications" color="inherit">
           <Badge badgeContent={11} color="secondary">
@@ -248,21 +259,15 @@ export default function NavigationBar(props) {
                 <a style={{ cursor: "pointer" }}>
                   <Link style={{ color: "black" }} to="/apple-products">
                     {" "}
-                    <Typography fontWeigt="fontWeightMedium" noWrap>
-                      Apple iPhones
-                    </Typography>
+                    <Typography noWrap>Apple iPhones</Typography>
                   </Link>
                 </a>
               </Grid>
               <Grid item>
-                <Typography fontWeigt="fontWeightMedium" noWrap>
-                  Android
-                </Typography>
+                <Typography noWrap>Android</Typography>
               </Grid>
               <Grid item>
-                <Typography fontWeigt="fontWeightMedium" noWrap>
-                  Customize
-                </Typography>
+                <Typography noWrap>Customize</Typography>
               </Grid>
             </Grid>
           </div>
@@ -317,4 +322,19 @@ export default function NavigationBar(props) {
       {renderMenu}
     </div>
   );
-}
+};
+const mapStateToProps = (state) => {
+  return {
+    user: state.userData.user || [],
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onLogout: () => {
+      dispatch(userLogout());
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavigationBar);

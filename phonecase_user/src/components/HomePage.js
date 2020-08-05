@@ -27,7 +27,7 @@ import HomeTile5 from "./assets/images/home_title_5.png";
 
 import ItemCard from "./productComponents/ItemCard";
 
-export default function HomePage(token, login) {
+export default function HomePage() {
   return (
     <React.Fragment>
       <CssBaseline />

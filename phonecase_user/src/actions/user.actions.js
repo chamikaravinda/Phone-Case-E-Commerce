@@ -49,7 +49,7 @@ export const userLogin = (user) => {
         };
         data.headers = headers;
         dispatch(userLoginSuccess(data));
-        history.push("/");
+        //history.push("/");
       })
       .catch((error) => {
         const failed = "Wrong Email or Password";
@@ -117,7 +117,6 @@ export const userSignUp = (user) => {
       })
       .catch((error) => {
         const failed = "Error in sign up";
-        console.log(error);
         dispatch(userSignUpError(failed));
       });
   };

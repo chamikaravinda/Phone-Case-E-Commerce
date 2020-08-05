@@ -9,7 +9,7 @@ import {
 } from "../actions/types";
 
 const userInitialState = {
-  user: "false",
+  user: [],
 };
 
 const userReducer = (state = userInitialState, action) => {
@@ -27,7 +27,7 @@ const userReducer = (state = userInitialState, action) => {
     case USER_SIGNUP_ERROR:
       return { ...state, error: action.payload };
     case USER_LOGOUT_SUCCESS:
-      return { ...state, user: "false" };
+      return { ...state, user: [] };
     default:
       return state;
   }

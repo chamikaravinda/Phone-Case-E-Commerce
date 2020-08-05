@@ -16,12 +16,9 @@ import ShippingAndPayment from "./components/shoppingCartComponents/ShippingAndP
 import SingleProduct from "./components/productComponents/SingleProduct";
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
-    if (this.props.user !== "false") {
+    if (this.props.user.headers) {
+      console.log("User Log in");
       return (
         <Router>
           <div className="App">
@@ -45,6 +42,7 @@ class App extends Component {
         </Router>
       );
     } else {
+      console.log("User Log out");
       return (
         <Router>
           <div className="App">
@@ -74,8 +72,9 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log(state);
   return {
-    user: state.userData.user || [],
+    user: state.userData.user,
   };
 };
 
