@@ -13,6 +13,7 @@ import SignUp from "./components/userComponents/SignUp";
 import AppleProducts from "./components/productComponents/AppleProducts";
 import ShoppingCart from "./components/shoppingCartComponents/ShoppingCart";
 import ShippingAndPayment from "./components/shoppingCartComponents/ShippingAndPayment";
+import SingleProduct from "./components/productComponents/SingleProduct";
 
 class App extends Component {
   constructor(props) {
@@ -32,6 +33,7 @@ class App extends Component {
                 path="/apple-products"
                 component={() => <AppleProducts />}
               />
+              <Route path="/product" component={() => <SingleProduct />} />
               <Route path="/shopping-cart" component={() => <ShoppingCart />} />
               <Route
                 path="/shipping-payment"
@@ -56,6 +58,7 @@ class App extends Component {
                 path="/apple-products"
                 component={() => <AppleProducts />}
               />
+              <Route path="/product" component={() => <SingleProduct />} />
               <Route path="/shopping-cart" component={() => <ShoppingCart />} />
               <Route
                 path="/shipping-payment"
