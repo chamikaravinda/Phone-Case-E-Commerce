@@ -7,12 +7,17 @@ import {
   MDBIcon,
   MDBRow,
 } from "mdbreact";
+import { history } from "../../index";
 
 import itemPhoto from "../assets/images/phone.png";
 
-const ItemCard = (config) => {
+const ItemCard = (props) => {
+  const handleLink = () => {
+    history.push("/product");
+  };
+
   return (
-    <MDBRow className="p-xl-3">
+    <MDBRow className="p-xl-3" onClick={handleLink}>
       <MDBCol md="12">
         <MDBCard
           className="card-image"
