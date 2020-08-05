@@ -1,28 +1,26 @@
 import React from "react";
 import { render } from "react-dom";
-import {applyMiddleware, compose, createStore} from "redux";
+import { applyMiddleware, createStore } from "redux";
 import { Provider } from "react-redux";
-import App from "./components/App";
+import thunk from "redux-thunk";
+import App from "./App";
 import rootReducer from "./reducers";
+import { BrowserRouter as Router } from "react-router-dom";
+import { createBrowserHistory } from "history";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
 import "./components/assets/CustomeCSS/mdb.css";
-import reduxThunk from 'redux-thunk';
 
+const store = createStore(rootReducer, applyMiddleware(thunk));
 
-
-const middleware = [reduxThunk];
-
-
-const store = createStore(
-  rootReducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-);
+export const history = createBrowserHistory({ forceRefresh: true });
 
 render(
   <Provider store={store}>
-    <App />
+    <Router>
+      <App />
+    </Router>
   </Provider>,
   document.getElementById("root")
 );

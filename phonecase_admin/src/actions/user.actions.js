@@ -40,7 +40,11 @@ export const userLogin = (user) => {
     return axios
       .post(`${SERVER_URL}/admin/login`, data)
       .then((response) => {
-        data.token = response.data.token;
+        const headers = {
+          Bearer: response.data.token,
+          "Content-Type": "application/json",
+        };
+        data.headers = headers;
         dispatch(userLoginSuccess(data));
       })
       .catch((error) => {

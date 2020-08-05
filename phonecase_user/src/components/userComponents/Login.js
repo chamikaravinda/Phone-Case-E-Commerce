@@ -1,4 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { userLogin } from "../../actions/user.actions";
 import {
   MDBContainer,
   MDBRow,
@@ -13,7 +16,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Checkbox from "@material-ui/core/Checkbox/Checkbox";
 import clsx from "clsx";
 import gmail from "../assets/images/gmail.png";
-import axios from "axios";
+import Alert from "@material-ui/lab/Alert";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -80,16 +83,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Login = (config, props) => {
-  console.log("redirectHome", config.redirectHome);
+const Login = (props) => {
   const classes = useStyles();
-  const signUp = () => {
-    config.signUp();
-  };
 
-  const handleContinue = () => {
-    config.pageNavigation("BACK_TO_SHOP");
-  };
   const [username, setUsername] = React.useState(undefined);
   React.useEffect(() => {}, [username]);
 
@@ -101,20 +97,12 @@ const Login = (config, props) => {
 
   const handleSignIn = (username, password) => {
     const user = {
-      email: username,
+      username: username,
       password: password,
     };
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(user),
-    };
-    fetch(
-      "https://us-central1-phone-e-commerce-api.cloudfunctions.net/dev/api/login/email",
-      requestOptions
-    )
-      .then((response) => config.redirectHome(response.status, user))
-      .then((data) => console.log(data));
+    setUsername("");
+    setPassword("");
+    props.onLogin(user);
   };
 
   return (
@@ -123,15 +111,18 @@ const Login = (config, props) => {
       <div className={classes.paper}>
         <MDBContainer className={classes.form}>
           <MDBRow>
-            <MDBCol>
-              <a style={{ cursor: "pointer" }} onClick={handleContinue}>
-                <h6 className="font-weight-bold">
-                  {"   "}
-                  <MDBIcon icon="arrow-left" /> {"   "}
-                  Back To Shop{" "}
-                </h6>
-              </a>
-            </MDBCol>
+            <Link to="/" style={{ color: "black" }}>
+              {" "}
+              <MDBCol>
+                <a style={{ cursor: "pointer" }}>
+                  <h6 className="font-weight-bold">
+                    {"   "}
+                    <MDBIcon icon="arrow-left" /> {"   "}
+                    Back To Shop{" "}
+                  </h6>
+                </a>
+              </MDBCol>
+            </Link>
           </MDBRow>
           <MDBRow>
             <MDBCol className="col-12 col-sm-10 offset-sm-1 col-md-6 offset-md-3 col-lg-4 offset-lg-4 pt-5 ">
@@ -141,6 +132,16 @@ const Login = (config, props) => {
                 industry. Lorem Ipsum has been the
               </p>
               <br></br>
+              {props.error ? (
+                <>
+                  <Alert variant="filled" severity="error">
+                    {props.error} !
+                  </Alert>
+                  <br></br>
+                </>
+              ) : (
+                ""
+              )}
               <input
                 type="email"
                 style={{ borderRadius: 25 }}
@@ -236,11 +237,8 @@ const Login = (config, props) => {
                 </MDBCol>
               </MDBRow>
               <MDBModalFooter className="mx-5 pt-3 mb-1">
-                <p className="font-small grey-text d-flex justify-content-end">
-                  Not a member yet?
-                  <a href="#!" className="tell-text ml-1" onClick={signUp}>
-                    Sign Up
-                  </a>
+                <p className="font-small grey-text">
+                  Not a member yet ? <Link to="/signup"> Sign Up</Link>
                 </p>
               </MDBModalFooter>
             </MDBCol>
@@ -252,4 +250,18 @@ const Login = (config, props) => {
   );
 };
 
-export default Login;
+const mapStateToProps = (state) => {
+  return {
+    error: state.userData.error || "",
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onLogin: (user) => {
+      dispatch(userLogin(user));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

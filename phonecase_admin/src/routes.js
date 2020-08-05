@@ -3,10 +3,26 @@ import React from "react";
 /* Import Product Pages */
 const Products = React.lazy(() => import("./views/product/Products"));
 const AddProduct = React.lazy(() => import("./views/product/AddProduct"));
+const EditProduct = React.lazy(() => import("./views/product/EditProduct"));
+
 /*--------------------*/
 
 /* Import Order Pages */
 const Orders = React.lazy(() => import("./views/orders/Orders"));
+/*-------------------*/
+
+/* Import News Letter Pages */
+const NewsLetter = React.lazy(() => import("./views/newsLetter/newsLetter"));
+/*-------------------*/
+
+/* Import Subscribers Pages */
+const Subscribers = React.lazy(() => import("./views/subscribers/subscribers"));
+/*-------------------*/
+
+/* Import homepage Images Page */
+const HomePageImages = React.lazy(() =>
+  import("./views/homepageImages/homepageImages")
+);
 /*-------------------*/
 
 const Dashboard = React.lazy(() => import("./views/dashboard/Dashboard"));
@@ -29,10 +45,43 @@ const routes = [
     name: "Add Product",
     component: AddProduct,
   },
+  {
+    path: "/product/edit-product/:id",
+    name: "Edit Product",
+    component: EditProduct,
+    exact: true,
+  },
   /*--------------*/
 
   /* Order Routes*/
   { path: "/orders", name: "Orders", component: Orders, exact: true },
+  /*--------------*/
+
+  /* News Letter Routes*/
+  {
+    path: "/new-letter",
+    name: "News Letter",
+    component: NewsLetter,
+    exact: true,
+  },
+  /*--------------*/
+
+  /* Subscribers Routes*/
+  {
+    path: "/subscribers",
+    name: "Subscribers",
+    component: Subscribers,
+    exact: true,
+  },
+  /*--------------*/
+
+  /* Homepage Images Routes*/
+  {
+    path: "/homepage",
+    name: "Home Page",
+    component: HomePageImages,
+    exact: true,
+  },
   /*--------------*/
 
   { path: "/users", exact: true, name: "Users", component: Users },
