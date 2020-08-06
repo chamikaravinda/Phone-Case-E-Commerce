@@ -1,7 +1,7 @@
 import React from "react";
 
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { makeStyles } from "@material-ui/core/styles";
+import { SAMPLE_ITEM } from "../constant";
 import Footer2 from "./includes/Footer2";
 import {
   MDBContainer,
@@ -224,15 +224,15 @@ export default function HomePage() {
           <MDBRow>
             <MDBCol className="col-12 col-sm-12 col-md-4">
               {" "}
-              <ItemCard />
+              <ItemCard product={SAMPLE_ITEM} />
             </MDBCol>
             <MDBCol className="col-12 col-sm-12 col-md-4">
               {" "}
-              <ItemCard />
+              <ItemCard product={SAMPLE_ITEM} />
             </MDBCol>
             <MDBCol className="col-12 col-sm-12 col-md-4">
               {" "}
-              <ItemCard />
+              <ItemCard product={SAMPLE_ITEM} />
             </MDBCol>
           </MDBRow>
           <MDBRow>
@@ -312,15 +312,15 @@ export default function HomePage() {
           <MDBRow>
             <MDBCol className="col-12 col-sm-12 col-md-4">
               {" "}
-              <ItemCard />
+              <ItemCard product={SAMPLE_ITEM} />
             </MDBCol>
             <MDBCol className="col-12 col-sm-12 col-md-4">
               {" "}
-              <ItemCard />
+              <ItemCard product={SAMPLE_ITEM} />
             </MDBCol>
             <MDBCol className="col-12 col-sm-12 col-md-4">
               {" "}
-              <ItemCard />
+              <ItemCard product={SAMPLE_ITEM} />
             </MDBCol>
           </MDBRow>
         </div>

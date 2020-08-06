@@ -11,6 +11,7 @@ import HomePage from "./components/HomePage";
 import Login from "./components/userComponents/Login";
 import SignUp from "./components/userComponents/SignUp";
 import AppleProducts from "./components/productComponents/AppleProducts";
+import AndroidProducts from "./components/productComponents/AndroidProducts";
 import ShoppingCart from "./components/shoppingCartComponents/ShoppingCart";
 import ShippingAndPayment from "./components/shoppingCartComponents/ShippingAndPayment";
 import SingleProduct from "./components/productComponents/SingleProduct";
@@ -18,7 +19,6 @@ import SingleProduct from "./components/productComponents/SingleProduct";
 class App extends Component {
   render() {
     if (this.props.user.headers) {
-      console.log("User Log in");
       return (
         <Router>
           <div className="App">
@@ -30,7 +30,11 @@ class App extends Component {
                 path="/apple-products"
                 component={() => <AppleProducts />}
               />
-              <Route path="/product" component={() => <SingleProduct />} />
+              <Route
+                path="/android-products"
+                component={() => <AndroidProducts />}
+              />
+              <Route path="/product/:id" component={() => <SingleProduct />} />
               <Route path="/shopping-cart" component={() => <ShoppingCart />} />
               <Route
                 path="/shipping-payment"
@@ -42,7 +46,6 @@ class App extends Component {
         </Router>
       );
     } else {
-      console.log("User Log out");
       return (
         <Router>
           <div className="App">
@@ -56,7 +59,11 @@ class App extends Component {
                 path="/apple-products"
                 component={() => <AppleProducts />}
               />
-              <Route path="/product" component={() => <SingleProduct />} />
+              <Route
+                path="/android-products"
+                component={() => <AndroidProducts />}
+              />
+              <Route path="/product/:id" component={() => <SingleProduct />} />
               <Route path="/shopping-cart" component={() => <ShoppingCart />} />
               <Route
                 path="/shipping-payment"
@@ -72,7 +79,6 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     user: state.userData.user,
   };

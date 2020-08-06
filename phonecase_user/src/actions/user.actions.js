@@ -48,8 +48,9 @@ export const userLogin = (user) => {
           "Content-Type": "application/json",
         };
         data.headers = headers;
+        dispatch(userLoginFailed(""));
         dispatch(userLoginSuccess(data));
-        //history.push("/");
+        history.push("/");
       })
       .catch((error) => {
         const failed = "Wrong Email or Password";
@@ -112,6 +113,7 @@ export const userSignUp = (user) => {
           "Content-Type": "application/json",
         };
         data.headers = headers;
+        dispatch(userSignUpError(""));
         dispatch(userSignUpSuccess(data));
         history.push("/");
       })

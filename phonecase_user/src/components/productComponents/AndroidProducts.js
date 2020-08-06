@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { getAppleProducts } from "../../actions/product.actions";
+import { getAndroidProducts } from "../../actions/product.actions";
 import ItemCard from "./ItemCard";
 import CssBaseline from "@material-ui/core/CssBaseline/CssBaseline";
 import {
@@ -13,7 +13,7 @@ import {
   MDBBtn,
 } from "mdbreact";
 
-const AppleProducts = (props) => {
+const AndroidProducts = (props) => {
   const [allItems, setAllItems] = useState([]);
   const [processItems, setProcessItems] = useState([]);
 
@@ -26,7 +26,7 @@ const AppleProducts = (props) => {
 
   const setItemsLowToHigh = () => {
     let data = allItems;
-    data.sort(
+    data = data.sort(
       (a, b) => parseFloat(a.priceStartAt) - parseFloat(b.priceStartAt)
     );
     setProcessItems(data);
@@ -34,7 +34,8 @@ const AppleProducts = (props) => {
 
   const setItemsHighToLow = () => {
     let data = allItems;
-    data.sort(
+
+    data = data.sort(
       (a, b) => parseFloat(b.priceStartAt) - parseFloat(a.priceStartAt)
     );
     setProcessItems(data);
@@ -42,7 +43,7 @@ const AppleProducts = (props) => {
 
   const setNewToOld = () => {
     let data = allItems;
-    data.sort((a, b) => b.date - a.date);
+    data = data.sort((a, b) => b.date - a.date);
 
     setProcessItems(data);
   };
@@ -216,16 +217,16 @@ const AppleProducts = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    products: state.productData.appleProducts || [],
+    products: state.productData.androidProducts || [],
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     onGetProduct: () => {
-      dispatch(getAppleProducts());
+      dispatch(getAndroidProducts());
     },
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AppleProducts);
+export default connect(mapStateToProps, mapDispatchToProps)(AndroidProducts);

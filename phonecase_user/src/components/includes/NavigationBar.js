@@ -18,7 +18,6 @@ import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import { Grid } from "@material-ui/core";
 import logo from "../assets/images/logo.jpg";
-import { from } from "rxjs";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -264,7 +263,9 @@ const NavigationBar = (props) => {
                 </a>
               </Grid>
               <Grid item>
-                <Typography noWrap>Android</Typography>
+                <Link style={{ color: "black" }} to="/android-products">
+                  <Typography noWrap>Android</Typography>
+                </Link>
               </Grid>
               <Grid item>
                 <Typography noWrap>Customize</Typography>
