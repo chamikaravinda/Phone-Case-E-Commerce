@@ -3,6 +3,8 @@ import {
   ADD_TO_SHOPPING_CART_ERROR,
   REMOVE_SHOPPING_CART_SUCCESS,
   REMOVE_SHOPPING_CART_ERROR,
+  UPDATE_CART_ITEM_SUCCESS,
+  UPDATE_CART_ITEM_ERROR,
 } from "../actions/types";
 
 const shoppingCartInitialState = {
@@ -13,13 +15,22 @@ const shoppingCartInitialState = {
 const shoppingCartReducer = (state = shoppingCartInitialState, action) => {
   switch (action.type) {
     case ADD_TO_SHOPPING_CART_SUCCESS:
-      return { ...state, cart: addToCart(state, action.payload) };
+      return {
+        ...state,
+        cart: addToCart(state, action.payload),
+      };
     case ADD_TO_SHOPPING_CART_ERROR:
       return { ...state, error: action.payload };
     case REMOVE_SHOPPING_CART_SUCCESS:
-      const updateCart = state.cart.filter((item) => item.id != action.payload);
+      const updateCart = state.cart.filter(
+        (item) => item.cartItemId != action.payload
+      );
       return { ...state, cart: updateCart };
     case REMOVE_SHOPPING_CART_ERROR:
+      return { ...state, error: action.payload };
+    case UPDATE_CART_ITEM_SUCCESS:
+      return { ...state, cart: updateCartItem(state, action.payload) };
+    case UPDATE_CART_ITEM_ERROR:
       return { ...state, error: action.payload };
     default:
       return state;
@@ -56,4 +67,17 @@ const addToCart = (state, data) => {
   return tempCart;
 };
 
+const updateCartItem = (state, data) => {
+  let tempCart = state.cart;
+
+  tempCart.forEach((element) => {
+    if (element.cartItemId == data.cartItemId) {
+      element.price = (element.price / element.qty) * data.qty;
+      element.price = element.price.toFixed(2);
+      element.qty = data.qty;
+    }
+  });
+
+  return tempCart;
+};
 export default shoppingCartReducer;

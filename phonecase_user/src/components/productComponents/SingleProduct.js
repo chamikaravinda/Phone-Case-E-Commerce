@@ -18,7 +18,7 @@ const SingleProduct = (props) => {
   const [color, setColor] = useState("");
   const [model, setModel] = useState("");
   const [error, setError] = useState("");
-
+  const [update, setUpdate] = useState("false");
   useEffect(() => {
     props.onGetProduct(id);
     let tempmodels = [];
@@ -71,6 +71,7 @@ const SingleProduct = (props) => {
     };
 
     props.onAddToCart(data);
+    setUpdate("true");
   };
 
   if (props.product.itemId) {

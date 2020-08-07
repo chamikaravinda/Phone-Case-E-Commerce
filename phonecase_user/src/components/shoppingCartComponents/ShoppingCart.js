@@ -7,6 +7,7 @@ import { history } from "../../index";
 
 const ShoppingCart = (props) => {
   const [cartTotal, setCartTotal] = useState(0);
+  const [update, setUpdate] = useState(0);
 
   const handleCheckout = () => {
     history.push("/shipping-payment");
@@ -24,6 +25,15 @@ const ShoppingCart = (props) => {
     setCartTotal(tempTotal);
   }, []);
 
+  const handleUpdate = (value) => {
+    setUpdate(value);
+    let tempTotal = 0;
+    props.cart.forEach((item) => {
+      tempTotal = parseFloat(tempTotal) + parseFloat(item.price);
+    });
+    tempTotal = tempTotal.toFixed(2);
+    setCartTotal(tempTotal);
+  };
   if (props.cart.length == 0) {
     return (
       <>
@@ -130,7 +140,7 @@ const ShoppingCart = (props) => {
             <MDBCol md="3" className="d-none d-md-block">
               {" "}
               <h5 className="font-weight-bold" style={{ color: "#cfd8dc" }}>
-                Amount
+                Quantity
               </h5>
             </MDBCol>
             <MDBCol md="1" className="d-none d-md-block">
@@ -142,7 +152,9 @@ const ShoppingCart = (props) => {
             <MDBCol md="1"></MDBCol>
           </MDBRow>
           {props.cart.map((item) => {
-            return <ShoppingCartItem detail={item} />;
+            return (
+              <ShoppingCartItem detail={item} handleUpdate={handleUpdate} />
+            );
           })}
           <MDBRow className=" pt-5 d-flex justify-content-center">
             <MDBCol className="col-md-3 d-none d-md-block">
@@ -195,16 +207,5 @@ const mapStateToProps = (state) => {
     error: state.shoppingCartData.error || "",
   };
 };
-
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     onGetProduct: (id) => {
-//       dispatch(getSingleProduct(id));
-//     },
-//     onAddToCart: (data) => {
-//       dispatch(addToShoppingCart(data));
-//     },
-//   };
-// };
 
 export default connect(mapStateToProps, null)(ShoppingCart);

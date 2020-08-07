@@ -1,20 +1,36 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { removeFromShoppingCart } from "../../actions/shoppingCart.actions";
+import {
+  removeFromShoppingCart,
+  updateCartItem,
+} from "../../actions/shoppingCart.actions";
 import { MDBRow, MDBCol, MDBCloseIcon } from "mdbreact";
 import Avatar from "@material-ui/core/Avatar";
 
 const ShoppingCartItem = (props) => {
-  const [value, setValue] = useState(1);
-
   const handelRemoveFromCart = (id) => {
     props.onRemoveFromCart(id);
+    props.handleUpdate(id);
   };
+
+  const handelUpdateCartItem = (value, id) => {
+    if (value < 1) return;
+
+    let data = {
+      cartItemId: id,
+      qty: parseInt(value),
+    };
+    props.onUpdateCartItem(data);
+    props.handleUpdate(value);
+  };
+
   if (props.detail) {
     return (
       <MDBRow className="justify-content-start pt-4">
         <MDBCol className="justify-content-start d-block d-md-none col-1 col-sm-1">
-          <MDBCloseIcon></MDBCloseIcon>
+          <MDBCloseIcon
+            onClick={() => handelRemoveFromCart(props.detail.cartItemId)}
+          ></MDBCloseIcon>
         </MDBCol>
         <MDBCol className=" col-11 col-sm-5 col-md-4 col-lg-4 col-xl-4 pl-4 pb-2">
           <MDBRow>
@@ -39,18 +55,30 @@ const ShoppingCartItem = (props) => {
             style={{ borderRadius: "25px" }}
           >
             <button
-              onClick={() => setValue(props.detail.qty - 1)}
+              onClick={() =>
+                handelUpdateCartItem(
+                  props.detail.qty - 1,
+                  props.detail.cartItemId
+                )
+              }
               className="minus"
             ></button>
             <input
               className="quantity"
               name="quantity"
               value={props.detail.qty}
-              onChange={() => console.log("change")}
+              onChange={(e) =>
+                handelUpdateCartItem(e.target.value, props.detail.cartItemId)
+              }
               type="number"
             />
             <button
-              onClick={() => setValue(props.detail.qty + 1)}
+              onClick={() =>
+                handelUpdateCartItem(
+                  props.detail.qty + 1,
+                  props.detail.cartItemId
+                )
+              }
               className="plus"
             ></button>
           </div>
@@ -74,6 +102,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onRemoveFromCart: (data) => {
       dispatch(removeFromShoppingCart(data));
+    },
+    onUpdateCartItem: (data) => {
+      dispatch(updateCartItem(data));
     },
   };
 };
