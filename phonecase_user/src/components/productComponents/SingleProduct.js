@@ -12,6 +12,7 @@ import LoadingWindow from "../LoadingWindow";
 
 const SingleProduct = (props) => {
   let { id } = useParams();
+  const [currentImage, setCurrentImage] = useState("");
   const [models, setModels] = useState([]);
 
   const [quantity, setQuantity] = useState(1);
@@ -28,6 +29,7 @@ const SingleProduct = (props) => {
       tempmodels.push(element);
     });
     setModels(tempmodels);
+    setCurrentImage(props.product.imgs[0]);
   }, []);
 
   const handleSelectModel = (value) => {
@@ -86,9 +88,24 @@ const SingleProduct = (props) => {
           }}
         >
           <MDBRow>
-            <MDBCol md="1"> </MDBCol>
+            <MDBCol md="1">
+              {" "}
+              {props.product.imgs.map((image) => {
+                return (
+                  <MDBRow>
+                    <img
+                      src={image}
+                      className="img-fluid"
+                      alt=""
+                      style={{ width: "60px", cursor: "pointer" }}
+                      onClick={() => setCurrentImage(image)}
+                    />
+                  </MDBRow>
+                );
+              })}
+            </MDBCol>
             <MDBCol md="4">
-              <img src={props.product.imgs[0]} className="img-fluid" alt="" />
+              <img src={currentImage} className="img-fluid" alt="" />
             </MDBCol>
             <MDBCol md="1"></MDBCol>
             <MDBCol md="6">
@@ -97,7 +114,7 @@ const SingleProduct = (props) => {
                   rounded
                   color="danger"
                   size="sm"
-                  style={{ borderRadius: 25 }}
+                  style={{ borderRadius: "25px" }}
                 >
                   SALE
                 </MDBBtn>

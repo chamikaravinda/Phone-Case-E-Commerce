@@ -68,15 +68,15 @@ const Footer2 = (props) => {
         )}
         {props.message ? (
           <MDBCol
-            className="d-flex align-items-center justify-content-center ml-8 ml-sm-8 ml-md-8 ml-lg-8 mr-5 mr-sm-5 mr-md-5 mr-lg-8 d-xl-0 pt-3"
+            className="d-flex align-items-start justify-content-start ml-8 ml-sm-8 ml-md-8 ml-lg-8 mr-5 mr-sm-5 mr-md-5 mr-lg-8 d-xl-0 pt-3"
             xl="3"
           >
-            <h5
+            <h3
               className="font-weight-normal text-center"
               style={{ color: "white" }}
             >
-              Thank You For Subscribing to the news letter
-            </h5>
+              Thank You For Subscribing to the News Letter
+            </h3>
           </MDBCol>
         ) : (
           <>

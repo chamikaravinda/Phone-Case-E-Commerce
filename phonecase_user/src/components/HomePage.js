@@ -1,5 +1,9 @@
-import React from "react";
-
+import React, { useEffect, useState } from "react";
+import { connect } from "react-redux";
+import {
+  getAndroidProducts,
+  getAppleProducts,
+} from "../actions/product.actions";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { SAMPLE_ITEM } from "../constant";
 import Footer2 from "./includes/Footer2";
@@ -27,7 +31,7 @@ import HomeTile5 from "./assets/images/home_title_5.png";
 
 import ItemCard from "./productComponents/ItemCard";
 
-export default function HomePage() {
+const HomePage = () => {
   return (
     <React.Fragment>
       <CssBaseline />
@@ -131,6 +135,7 @@ export default function HomePage() {
                   backgroundPosition: "50% 50%",
                   height: "300px",
                   backgroundRepeat: " no-repeat",
+                  maxWidth: "700px",
                 }}
               >
                 <MDBContainer>
@@ -158,6 +163,7 @@ export default function HomePage() {
                   backgroundPosition: "50% 50%",
                   height: "300px",
                   backgroundRepeat: " no-repeat",
+                  maxWidth: "390px",
                 }}
               >
                 <MDBContainer>
@@ -185,6 +191,7 @@ export default function HomePage() {
                   backgroundPosition: "50% 50%",
                   height: "300px",
                   backgroundRepeat: " no-repeat",
+                  maxWidth: "390px",
                 }}
               >
                 <MDBContainer>
@@ -245,6 +252,7 @@ export default function HomePage() {
                   backgroundPosition: "50% 50%",
                   height: "600px",
                   backgroundRepeat: " no-repeat",
+                  maxWidth: "800px",
                 }}
               >
                 <MDBContainer>
@@ -273,6 +281,7 @@ export default function HomePage() {
                   backgroundPosition: "50% 50%",
                   height: "600px",
                   backgroundRepeat: " no-repeat",
+                  maxWidth: "800px",
                 }}
               >
                 <MDBContainer>
@@ -328,4 +337,24 @@ export default function HomePage() {
       </main>
     </React.Fragment>
   );
-}
+};
+
+const mapStateToProps = (state) => {
+  return {
+    androidProduct: state.productData.androidProducts || [],
+    appleProducts: state.productData.appleProducts || [],
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onGetAndroidProduct: () => {
+      dispatch(getAndroidProducts());
+    },
+    onGetAppleProduct: () => {
+      dispatch(getAppleProducts());
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
