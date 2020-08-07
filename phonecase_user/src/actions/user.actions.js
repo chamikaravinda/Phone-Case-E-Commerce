@@ -48,6 +48,7 @@ export const userLogin = (user) => {
           "Content-Type": "application/json",
         };
         data.headers = headers;
+        dispatch(userLoginFailed(""));
         dispatch(userLoginSuccess(data));
         history.push("/");
       })
@@ -112,12 +113,12 @@ export const userSignUp = (user) => {
           "Content-Type": "application/json",
         };
         data.headers = headers;
+        dispatch(userSignUpError(""));
         dispatch(userSignUpSuccess(data));
         history.push("/");
       })
       .catch((error) => {
         const failed = "Error in sign up";
-        console.log(error);
         dispatch(userSignUpError(failed));
       });
   };

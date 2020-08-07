@@ -10,8 +10,6 @@ import {
   MDBBtn,
   MDBModalFooter,
   MDBIcon,
-  MDBAlert,
-  MDBNotification,
 } from "mdbreact";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
@@ -19,8 +17,6 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Checkbox from "@material-ui/core/Checkbox";
 import clsx from "clsx";
 import Alert from "@material-ui/lab/Alert";
-import AlertTitle from "@material-ui/lab/AlertTitle";
-import Snackbar from "@material-ui/core/Snackbar";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -101,9 +97,6 @@ const SignUp = (props) => {
 
   const [lastname, setLastName] = React.useState(undefined);
   React.useEffect(() => {}, [setLastName]);
-
-  const [phonenum, setPhonenum] = React.useState("");
-  React.useEffect(() => {}, [setPhonenum]);
 
   const handleEmailChange = (text) => setEmail(text.target.value);
   const handlePasswordChange = (text) => setPassword(text.target.value);

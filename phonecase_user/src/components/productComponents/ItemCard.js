@@ -9,11 +9,9 @@ import {
 } from "mdbreact";
 import { history } from "../../index";
 
-import itemPhoto from "../assets/images/phone.png";
-
 const ItemCard = (props) => {
   const handleLink = () => {
-    history.push("/product");
+    history.push(`/product/${props.product.itemId}`);
   };
 
   return (
@@ -22,8 +20,8 @@ const ItemCard = (props) => {
         <MDBCard
           className="card-image"
           style={{
-            backgroundImage: `url(${itemPhoto})`,
-            backgroundPosition: "50% 50%",
+            backgroundImage: `url(${props.product.imgs[0]})`,
+            backgroundPosition: "1% 1%",
             height: "500px",
             backgroundRepeat: " no-repeat",
           }}
@@ -31,14 +29,18 @@ const ItemCard = (props) => {
           <MDBContainer>
             <MDBRow between>
               <MDBCol size="1">
-                <MDBBtn
-                  rounded
-                  color="danger"
-                  size="sm"
-                  style={{ borderRadius: 25 }}
-                >
-                  30%
-                </MDBBtn>
+                {props.product.discount ? (
+                  <MDBBtn
+                    rounded
+                    color="danger"
+                    size="sm"
+                    style={{ borderRadius: 25 }}
+                  >
+                    {parseFloat(props.product.discount * 100)}%
+                  </MDBBtn>
+                ) : (
+                  ""
+                )}
               </MDBCol>
               <MDBCol size="1" className="pr-5 mr-3 pt-2">
                 <MDBIcon
@@ -57,25 +59,35 @@ const ItemCard = (props) => {
       <MDBCol className="pt-2">
         <MDBRow>
           <MDBCol xl="7" style={{ marginBottom: "-10px" }}>
-            <p className="font-weight-bold">Abstract Printed Case</p>
+            <p className="font-weight-bold">{props.product.itemName}</p>
           </MDBCol>
           <MDBCol xl="4" style={{ marginBottom: "-10px" }}>
             <MDBRow between>
               <MDBCol size="6">
-                <p className="font-weight-bold" style={{ color: "red" }}>
-                  $89.99
-                </p>
+                {props.product.discount ? (
+                  <p className="font-weight-bold" style={{ color: "red" }}>
+                    {props.product.priceStartAt -
+                      props.product.priceStartAt * props.product.discount}
+                  </p>
+                ) : (
+                  ""
+                )}
               </MDBCol>
               <MDBCol size="6">
-                <p className="font-weight-bold">$119.99</p>
+                <p className="font-weight-bold">{props.product.priceStartAt}</p>
               </MDBCol>
             </MDBRow>
           </MDBCol>
           <MDBCol size="12" style={{ marginBottom: "-10px" }}>
-            <p className="font-weight-light">Apple iPhone</p>
+            <p className="font-weight-light">
+              {props.product.models[0].brand} {props.product.models[0].model}{" "}
+              and {props.product.models.length - 1} more{" "}
+            </p>
           </MDBCol>
           <MDBCol size="12" style={{ marginBottom: "-10px" }}>
-            <p className="font-weight-light">2 Colors</p>
+            <p className="font-weight-light">
+              {props.product.colors.length} Colors
+            </p>
           </MDBCol>
         </MDBRow>
       </MDBCol>

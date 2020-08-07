@@ -111,7 +111,7 @@ const Login = (props) => {
       <div className={classes.paper}>
         <MDBContainer className={classes.form}>
           <MDBRow>
-            <Link to="/" style={{ color: "black" }}>
+            <Link to="./" style={{ color: "black" }}>
               {" "}
               <MDBCol>
                 <a style={{ cursor: "pointer" }}>
@@ -145,7 +145,6 @@ const Login = (props) => {
               <input
                 type="email"
                 style={{ borderRadius: 25 }}
-                id="defaultFormLoginEmailEx"
                 className="form-control"
                 placeholder=" E-mail"
                 name="username"
@@ -156,7 +155,6 @@ const Login = (props) => {
               <input
                 type="password"
                 style={{ borderRadius: 25 }}
-                id="defaultFormLoginPasswordEx"
                 className="form-control"
                 placeholder=" Password"
                 name="password"
@@ -219,7 +217,11 @@ const Login = (props) => {
                     className="mr-md-3 z-depth-1a btn-block"
                     style={{ borderRadius: 25 }}
                   >
-                    <img src={gmail} style={{ paddingRight: "25px" }} />
+                    <img
+                      src={gmail}
+                      alt="gmail"
+                      style={{ paddingRight: "25px" }}
+                    />
                     Gmail
                   </MDBBtn>
                 </MDBCol>

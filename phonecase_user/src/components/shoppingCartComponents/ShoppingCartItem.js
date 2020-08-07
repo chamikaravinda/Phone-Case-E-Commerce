@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { MDBRow, MDBCol, MDBCloseIcon } from "mdbreact";
 import Avatar from "@material-ui/core/Avatar";
 
