@@ -21,7 +21,7 @@ const ItemCard = (props) => {
           className="card-image"
           style={{
             backgroundImage: `url(${props.product.imgs[0]})`,
-            backgroundPosition: "50% 50%",
+            backgroundPosition: "1% 1%",
             height: "500px",
             backgroundRepeat: " no-repeat",
           }}

@@ -111,12 +111,12 @@ export const getSingleProduct = (id) => {
     return axios
       .get(`${SERVER_URL}/items/${id}`)
       .then((response) => {
-        dispatch(getAndroidProductsSuccess(response.data));
-        dispatch(getAndroidProductsError(""));
+        dispatch(getSingleProductSuccess(response.data));
+        dispatch(getSingleProductError(""));
       })
       .catch((error) => {
         const failed = "Error in getting the product";
-        dispatch(getAndroidProductsError(failed));
+        dispatch(getSingleProductError(failed));
       });
   };
 };
