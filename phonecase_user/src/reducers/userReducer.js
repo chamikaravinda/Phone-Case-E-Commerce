@@ -10,6 +10,7 @@ import {
 
 const userInitialState = {
   user: [],
+  error: "",
 };
 
 const userReducer = (state = userInitialState, action) => {

@@ -11,6 +11,7 @@ const productInitialState = {
   appleProducts: [],
   androidProducts: [],
   product: "",
+  error: "",
 };
 
 const productReducer = (state = productInitialState, action) => {

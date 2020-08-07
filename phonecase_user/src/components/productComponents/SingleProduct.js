@@ -6,6 +6,8 @@ import ReviewAndDescription from "./ReviewAndDescription";
 import Footer2 from "../includes/Footer2";
 import { MDBRow, MDBCol, MDBBtn } from "mdbreact";
 import { getSingleProduct } from "../../actions/product.actions";
+import { addToShoppingCart } from "../../actions/shoppingCart.actions";
+
 import LoadingWindow from "../LoadingWindow";
 
 const SingleProduct = (props) => {
@@ -68,7 +70,7 @@ const SingleProduct = (props) => {
       discount: props.product.discount,
     };
 
-    console.log(data);
+    props.onAddToCart(data);
   };
 
   if (props.product.itemId) {
@@ -80,7 +82,6 @@ const SingleProduct = (props) => {
             paddingLeft: "7%",
             paddingRight: "7%",
             paddingTop: "4%",
-            paddingBottom: "6%",
           }}
         >
           <MDBRow>
@@ -183,7 +184,10 @@ const SingleProduct = (props) => {
               </MDBRow>
               <br></br>
               <p>Model</p>
-              <div className="input-group mb-3 col-12 col-sm-10 col-md-10 col-lg-8 col-xl-6 ">
+              <div
+                style={{ marginLeft: "-2%" }}
+                className="input-group mb-3 col-12 col-sm-10 col-md-10 col-lg-8 col-xl-6 "
+              >
                 <select
                   className="custom-select"
                   id="inputGroupSelect01"
@@ -272,6 +276,7 @@ const SingleProduct = (props) => {
 const mapStateToProps = (state) => {
   return {
     product: state.productData.product || [],
+    error: state.shoppingCartData.error || "",
   };
 };
 
@@ -279,6 +284,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onGetProduct: (id) => {
       dispatch(getSingleProduct(id));
+    },
+    onAddToCart: (data) => {
+      dispatch(addToShoppingCart(data));
     },
   };
 };

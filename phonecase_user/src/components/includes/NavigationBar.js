@@ -291,9 +291,15 @@ const NavigationBar = (props) => {
               color="inherit"
               onClick={goToShoopingCart}
             >
-              <Badge badgeContent={17} color="secondary">
-                <ShoppingCartIcon style={{ color: "black" }} />
-              </Badge>
+              {props.cart.length > 0 ? (
+                <Badge badgeContent={props.cart.length} color="secondary">
+                  <ShoppingCartIcon style={{ color: "black" }} />
+                </Badge>
+              ) : (
+                <Badge color="secondary">
+                  <ShoppingCartIcon style={{ color: "black" }} />
+                </Badge>
+              )}
             </IconButton>
             <IconButton
               edge="end"
@@ -327,6 +333,7 @@ const NavigationBar = (props) => {
 const mapStateToProps = (state) => {
   return {
     user: state.userData.user || [],
+    cart: state.shoppingCartData.cart || [],
   };
 };
 
