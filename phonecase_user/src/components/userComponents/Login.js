@@ -129,16 +129,6 @@ const Login = (props) => {
               <p className="h4 text-center mb-4">Log in</p>
 
               <br></br>
-              {props.error ? (
-                <>
-                  <Alert variant="filled" severity="error">
-                    {props.error} !
-                  </Alert>
-                  <br></br>
-                </>
-              ) : (
-                ""
-              )}
               <input
                 type="email"
                 style={{ borderRadius: 25 }}

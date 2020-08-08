@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { getAndroidProducts } from "../../actions/product.actions";
 import ItemCard from "./ItemCard";
+import LoadingWindow from "../LoadingWindow";
 import CssBaseline from "@material-ui/core/CssBaseline/CssBaseline";
 import {
   MDBCol,
@@ -227,17 +228,20 @@ const AndroidProducts = (props) => {
           ) : (
             ""
           )}
-
-          <MDBRow>
-            {processItems.map((product) => {
-              return (
-                <MDBCol className="col-12 col-sm-12 col-md-4">
-                  {" "}
-                  <ItemCard product={product} />
-                </MDBCol>
-              );
-            })}
-          </MDBRow>
+          {processItems.map.length < 1 ? (
+            <LoadingWindow />
+          ) : (
+            <MDBRow>
+              {processItems.map((product) => {
+                return (
+                  <MDBCol className="col-12 col-sm-12 col-md-4">
+                    {" "}
+                    <ItemCard product={product} />
+                  </MDBCol>
+                );
+              })}
+            </MDBRow>
+          )}
         </div>
       </main>
     </React.Fragment>

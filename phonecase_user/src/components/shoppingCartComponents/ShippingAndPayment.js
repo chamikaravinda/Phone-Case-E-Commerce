@@ -179,7 +179,7 @@ const ShippingAndPayment = (props) => {
                 >
                   <MDBRow className="justify-content-center">
                     <h6>Total cost </h6>
-                    <h6 className="font-weight-bolder pl-1"> ${cartTotal}</h6>
+                    <h6 className="font-weight-bold pl-1"> ${cartTotal}</h6>
                   </MDBRow>
                 </div>
                 <div className="pt-4 pb-2 col-12">

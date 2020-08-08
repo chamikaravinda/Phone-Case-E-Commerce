@@ -144,16 +144,7 @@ const SignUp = (props) => {
                 </p>
 
                 <br></br>
-                {props.error ? (
-                  <>
-                    <Alert variant="filled" severity="error">
-                      {props.error} !
-                    </Alert>
-                    <br></br>
-                  </>
-                ) : (
-                  ""
-                )}
+
                 <input
                   type="text"
                   style={{ borderRadius: 25 }}

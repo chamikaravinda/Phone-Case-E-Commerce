@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
 
 //IMPORT INCLUEDS --------------------------
 import TopBar from "./components/includes/TopBar";
@@ -10,6 +12,7 @@ import Footer from "./components/includes/Footer";
 import HomePage from "./components/HomePage";
 import Login from "./components/userComponents/Login";
 import SignUp from "./components/userComponents/SignUp";
+import Profile from "./components/userComponents/UserProfile";
 import AppleProducts from "./components/productComponents/AppleProducts";
 import AndroidProducts from "./components/productComponents/AndroidProducts";
 import ShoppingCart from "./components/shoppingCartComponents/ShoppingCart";
@@ -40,7 +43,10 @@ class App extends Component {
                 path="/shipping-payment"
                 component={() => <ShippingAndPayment />}
               />
+              <Route path="/profile" exact component={() => <Profile />} />
             </Switch>
+
+            <ToastContainer />
             <Footer />
           </div>
         </Router>
@@ -70,6 +76,7 @@ class App extends Component {
                 component={() => <ShippingAndPayment />}
               />
             </Switch>
+            <ToastContainer />
             <Footer />
           </div>
         </Router>

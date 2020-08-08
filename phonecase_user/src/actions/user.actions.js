@@ -10,6 +10,7 @@ import {
 import { SERVER_URL } from "../constant";
 import axios from "axios";
 import { history } from "../index";
+import { toast } from "react-toastify";
 
 //LOGIN-----------------------------
 export const userLoginSuccess = (data) => {
@@ -50,11 +51,14 @@ export const userLogin = (user) => {
         data.headers = headers;
         dispatch(userLoginFailed(""));
         dispatch(userLoginSuccess(data));
+        toast.success("Loged successfully");
         history.push("/");
       })
       .catch((error) => {
-        const failed = "Wrong Email or Password";
-        dispatch(userLoginFailed(failed));
+        dispatch(userLoginFailed(error.message));
+        toast.error(error.message, {
+          position: "top-center",
+        });
       });
   };
 };
@@ -97,13 +101,12 @@ export const userSignUpError = (data) => {
 
 export const userSignUp = (user) => {
   const data = {
-    email: user.username,
+    email: user.email,
     password: user.password,
     firstname: user.firstname,
     lastname: user.lastname,
     phonenum: user.phonenum,
   };
-
   return (dispatch) => {
     return axios
       .post(`${SERVER_URL}/signup/email`, data)
@@ -115,11 +118,15 @@ export const userSignUp = (user) => {
         data.headers = headers;
         dispatch(userSignUpError(""));
         dispatch(userSignUpSuccess(data));
+        toast.success("Signup successfully");
         history.push("/");
       })
       .catch((error) => {
-        const failed = "Error in sign up";
-        dispatch(userSignUpError(failed));
+        dispatch(userSignUpError(error.message));
+        toast.error(error.message, {
+          position: "top-center",
+        });
+        console.log(error.data);
       });
   };
 };

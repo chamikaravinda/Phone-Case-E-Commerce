@@ -154,16 +154,28 @@ const NavigationBar = (props) => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
       {props.user.headers ? (
-        <MenuItem onClick={handleLogout}>Logout</MenuItem>
-      ) : (
-        <MenuItem>
-          <Link style={{ color: "black" }} to="/login">
-            Login
+        <>
+          <MenuItem onClick={handleLogout}>Logout</MenuItem>
+          <Link style={{ color: "black" }} to="/profile">
+            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
           </Link>
-        </MenuItem>
+          <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+        </>
+      ) : (
+        <>
+          {" "}
+          <MenuItem>
+            <Link style={{ color: "black" }} to="/login">
+              Login
+            </Link>
+          </MenuItem>
+          <MenuItem>
+            <Link style={{ color: "black" }} to="/signup">
+              Signup
+            </Link>
+          </MenuItem>
+        </>
       )}
     </Menu>
   );
@@ -201,10 +213,12 @@ const NavigationBar = (props) => {
           <Typography noWrap>Apple iPhones</Typography>
         </MenuItem>
       </Link>
-
-      <MenuItem className={classes.sectionMobileItem}>
-        <Typography noWrap>Android</Typography>
-      </MenuItem>
+      <Link style={{ color: "black" }} to="/android-products">
+        {" "}
+        <MenuItem className={classes.sectionMobileItem}>
+          <Typography noWrap>Android</Typography>
+        </MenuItem>
+      </Link>
       <MenuItem className={classes.sectionMobileItem}>
         <Typography noWrap>Customize</Typography>
       </MenuItem>
@@ -219,23 +233,25 @@ const NavigationBar = (props) => {
       )}
       <MenuItem onClick={goToShoopingCart}>
         <IconButton aria-label="show 11 new notifications" color="inherit">
-          <Badge badgeContent={11} color="secondary">
+          <Badge badgeContent={props.cart.length} color="secondary">
             <ShoppingCartIcon />
           </Badge>
         </IconButton>
-        <p>Notifications</p>
+        <p>Shopping Cart</p>
       </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <PersonOutlineIcon />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem>
+      <Link style={{ color: "black" }} to="/profile">
+        <MenuItem onClick={handleProfileMenuOpen}>
+          <IconButton
+            aria-label="account of current user"
+            aria-controls="primary-search-account-menu"
+            aria-haspopup="true"
+            color="inherit"
+          >
+            <PersonOutlineIcon />
+          </IconButton>
+          <p>Profile</p>
+        </MenuItem>
+      </Link>
     </Menu>
   );
 

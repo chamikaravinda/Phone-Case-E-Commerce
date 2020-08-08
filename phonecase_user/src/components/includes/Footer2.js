@@ -11,8 +11,8 @@ const Footer2 = (props) => {
     let data = {
       email: emai,
     };
-
     props.onSubscribe(data);
+    setEmail("");
   };
   return (
     <div
@@ -50,64 +50,44 @@ const Footer2 = (props) => {
             </h3>
           </div>
         </MDBCol>
-        {props.message ? (
-          ""
-        ) : (
-          <MDBCol
-            className="d-flex align-items-center justify-content-center ml-5 ml-sm-5 ml-md-5 ml-lg-5 mr-5 mr-sm-5 mr-md-5 mr-lg-5 d-xl-0 pt-3"
-            xl="3"
+        <MDBCol
+          className="d-flex align-items-center justify-content-center ml-5 ml-sm-5 ml-md-5 ml-lg-5 mr-5 mr-sm-5 mr-md-5 mr-lg-5 d-xl-0 pt-3"
+          xl="3"
+        >
+          <h5
+            className="font-weight-normal text-center"
+            style={{ color: "white" }}
           >
-            <h5
-              className="font-weight-normal text-center"
-              style={{ color: "white" }}
-            >
-              Subscribe to our newsletter and receive exclusive offers every
-              week
-            </h5>
-          </MDBCol>
-        )}
-        {props.message ? (
-          <MDBCol
-            className="d-flex align-items-start justify-content-start ml-8 ml-sm-8 ml-md-8 ml-lg-8 mr-5 mr-sm-5 mr-md-5 mr-lg-8 d-xl-0 pt-3"
-            xl="3"
-          >
-            <h3
-              className="font-weight-normal text-center"
-              style={{ color: "white" }}
-            >
-              Thank You For Subscribing to the News Letter
-            </h3>
-          </MDBCol>
-        ) : (
-          <>
-            <MDBCol
-              className=" d-flex align-items-center justify-content-center ml-5 ml-sm-5 ml-md-5 ml-lg-5 mr-5 mr-sm-5 mr-md-5 mr-lg-5 d-xl-0 pt-3"
-              xl="2"
-            >
-              <input
-                type="email"
-                style={{ borderRadius: 25, maxWidth: "500px" }}
-                className="form-control aling-center"
-                placeholder=" E-mail"
-                value={emai}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </MDBCol>
+            Subscribe to our newsletter and receive exclusive offers every week
+          </h5>
+        </MDBCol>
 
-            <MDBCol
-              className="d-flex align-items-center justify-content-center pt-3"
-              xl="2"
-            >
-              <MDBBtn
-                style={{ borderRadius: "25px" }}
-                color="warning"
-                onClick={handelSubscription}
-              >
-                SUBSCRIBE
-              </MDBBtn>
-            </MDBCol>
-          </>
-        )}
+        <MDBCol
+          className=" d-flex align-items-center justify-content-center ml-5 ml-sm-5 ml-md-5 ml-lg-5 mr-5 mr-sm-5 mr-md-5 mr-lg-5 d-xl-0 pt-3"
+          xl="2"
+        >
+          <input
+            type="email"
+            style={{ borderRadius: 25, maxWidth: "500px" }}
+            className="form-control aling-center"
+            placeholder=" E-mail"
+            value={emai}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </MDBCol>
+
+        <MDBCol
+          className="d-flex align-items-center justify-content-center pt-3"
+          xl="2"
+        >
+          <MDBBtn
+            style={{ borderRadius: "25px" }}
+            color="warning"
+            onClick={handelSubscription}
+          >
+            SUBSCRIBE
+          </MDBBtn>
+        </MDBCol>
       </MDBRow>
     </div>
   );

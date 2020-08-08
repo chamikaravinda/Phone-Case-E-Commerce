@@ -7,6 +7,7 @@ import {
   UPDATE_CART_ITEM_ERROR,
 } from "./types";
 import { history } from "../index";
+import { ToastContainer, toast } from "react-toastify";
 
 //ADD TO CART--------------------------------
 export const addToShoppingCartSuccess = (data) => {
@@ -28,7 +29,7 @@ export const addToShoppingCart = (data) => {
     try {
       dispatch(addToShoppingCartSuccess(data));
       dispatch(addToShoppingCartError(""));
-      history.push("/shopping-cart");
+      toast.success("Item added to the cart");
     } catch (e) {
       console.log(e);
       dispatch(addToShoppingCartError("Error in adding item to the card"));

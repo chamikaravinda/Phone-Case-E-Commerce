@@ -21,15 +21,10 @@ const SingleProduct = (props) => {
   const [error, setError] = useState("");
   const [update, setUpdate] = useState("false");
   const [reviewData, setReviewData] = useState("");
+
   useEffect(() => {
     props.onGetProduct(id);
-    let tempmodels = [];
-    let tempId = 0;
-    props.product.models.forEach((element) => {
-      element.id = ++tempId;
-      tempmodels.push(element);
-    });
-    setModels(tempmodels);
+    setModels(props.product.models);
     setCurrentImage(props.product.imgs[0]);
 
     let tempReviewData = {

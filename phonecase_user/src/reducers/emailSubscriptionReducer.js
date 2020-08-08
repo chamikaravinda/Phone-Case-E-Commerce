@@ -3,10 +3,7 @@ import {
   EMAIL_SUBSCRIBE_ERROR,
 } from "../actions/types";
 
-const emailSubscriptionInitialState = {
-  message: "",
-  error: "",
-};
+const emailSubscriptionInitialState = {};
 
 const emailSubscriptionReducer = (
   state = emailSubscriptionInitialState,
@@ -14,9 +11,9 @@ const emailSubscriptionReducer = (
 ) => {
   switch (action.type) {
     case EMAIL_SUBSCRIBE_SUCCESS:
-      return { ...state, message: action.payload };
+      return { ...state };
     case EMAIL_SUBSCRIBE_ERROR:
-      return { ...state, error: action.payload };
+      return { ...state };
     default:
       return state;
   }

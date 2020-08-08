@@ -111,6 +111,13 @@ export const getSingleProduct = (id) => {
     return axios
       .get(`${SERVER_URL}/items/${id}`)
       .then((response) => {
+        let tempmodels = [];
+        let tempId = 0;
+        response.data.models.forEach((element) => {
+          element.id = ++tempId;
+          tempmodels.push(element);
+        });
+        response.data.models = tempmodels;
         dispatch(getSingleProductSuccess(response.data));
         dispatch(getSingleProductError(""));
       })

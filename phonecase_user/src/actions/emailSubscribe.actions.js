@@ -1,6 +1,7 @@
 import { EMAIL_SUBSCRIBE_SUCCESS, EMAIL_SUBSCRIBE_ERROR } from "./types";
 import { SERVER_URL } from "../constant";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export const emailSubscribtionSuccess = (data) => {
   return {
@@ -22,6 +23,7 @@ export const emailSubscribtion = (data) => {
       .post(`${SERVER_URL}/subscribes`, data)
       .then((response) => {
         dispatch(emailSubscribtionSuccess(response.data.message));
+        toast.success(response.data.message);
         dispatch(emailSubscribtionError(""));
       })
       .catch((error) => {

@@ -68,13 +68,27 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ShippingInformation(props) {
+export default function Profile(props) {
   const classes = useStyles();
 
   return (
-    <div>
+    <div
+      style={{
+        overflow: "hidden",
+        paddingLeft: "7%",
+        paddingRight: "7%",
+        paddingTop: "4%",
+        paddingBottom: "6%",
+      }}
+    >
       <br></br>
       <form>
+        <MDBRow>
+          <MDBCol className="col-12 col-sm-4 col-md-3 col-lg-3">
+            <h3 className="font-weight-bold">User Profile</h3>
+          </MDBCol>
+        </MDBRow>
+        <br></br>
         <MDBRow>
           <div className="form-group col-md-6">
             <label htmlFor="formGroupExampleInput">First Name</label>
@@ -150,126 +164,6 @@ export default function ShippingInformation(props) {
               placeholder="Required"
             />
           </div>
-          <div className="form-group col-md-12">
-            <MDBRow>
-              {" "}
-              <Checkbox
-                className={classes.root}
-                disableRipple
-                color="default"
-                checkedIcon={
-                  <span className={clsx(classes.icon, classes.checkedIcon)} />
-                }
-                icon={<span className={classes.icon} />}
-                inputProps={{ "aria-label": "decorative checkbox" }}
-                {...props}
-                required
-              />{" "}
-              <h5 className="font-weight-bold pt-2" for="creteAccount">
-                Create an Account
-              </h5>
-            </MDBRow>
-          </div>
-          <div className="form-group col-md-12 ">
-            <label htmlFor="formGroupExampleInput">Password</label>
-            <input
-              type="password"
-              className="form-control "
-              id="formGroupExampleInput"
-              placeholder="Required"
-            />
-          </div>
-          <div className="form-group col-md-12">
-            <MDBRow>
-              <Checkbox
-                className={classes.root}
-                disableRipple
-                color="default"
-                checkedIcon={
-                  <span className={clsx(classes.icon, classes.checkedIcon)} />
-                }
-                icon={<span className={classes.icon} />}
-                inputProps={{ "aria-label": "decorative checkbox" }}
-                {...props}
-                required
-              />{" "}
-              <h5 className=" font-weight-bold pt-2" for="defaultUnchecked">
-                SHIP TO A DIFFERENT ADDRESS?
-              </h5>
-            </MDBRow>
-          </div>
-          <div className="form-group col-md-6">
-            <label htmlFor="formGroupExampleInput">First Name</label>
-            <input
-              type="text"
-              className="form-control"
-              id="formGroupExampleInput"
-              placeholder="Required"
-            />
-          </div>
-          <div className="form-group col-md-6">
-            <label htmlFor="formGroupExampleInput">Last Name</label>
-            <input
-              type="text"
-              className="form-control "
-              id="formGroupExampleInput"
-              placeholder="Required"
-            />
-          </div>
-          <div className="form-group col-md-12 ">
-            <label htmlFor="formGroupExampleInput">
-              Company Name (If Billing/Delivery to office Address)
-            </label>
-            <input
-              type="text"
-              className="form-control "
-              id="formGroupExampleInput"
-              placeholder="Optional"
-            />
-          </div>
-          <div className="form-group col-md-12 ">
-            <label htmlFor="formGroupExampleInput">Shipping Address</label>
-            <input
-              type="text"
-              className="form-control "
-              id="formGroupExampleInput"
-              placeholder="Required"
-            />
-          </div>
-          <div className="form-group col-md-6">
-            <label htmlFor="formGroupExampleInput">City</label>
-            <input
-              type="text"
-              className="form-control"
-              id="formGroupExampleInput"
-              placeholder="Required"
-            />
-          </div>
-          <div className="form-group col-md-6">
-            <label htmlFor="formGroupExampleInput">Postal Code</label>
-            <input
-              type="text"
-              className="form-control "
-              id="formGroupExampleInput"
-              placeholder="Required"
-            />
-          </div>
-          <div className="form-group col-md-6">
-            <label htmlFor="formGroupExampleInput">Phone No.</label>
-            <input
-              type="text"
-              className="form-control"
-              id="formGroupExampleInput"
-              placeholder="Required"
-            />
-          </div>
-          <MDBCol className="col-md-12">
-            <h6 className="font-weight-bold" style={{ paddingTop: " 6px" }}>
-              {"   "}
-              <MDBIcon icon="arrow-left" /> {"   "}
-              Back
-            </h6>
-          </MDBCol>
         </MDBRow>
       </form>
     </div>
