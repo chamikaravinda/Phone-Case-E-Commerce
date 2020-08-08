@@ -1,76 +1,34 @@
-import React from "react";
-import { MDBRow, MDBCol, MDBIcon } from "mdbreact";
-import { makeStyles } from "@material-ui/core/styles";
-import Checkbox from "@material-ui/core/Checkbox";
-import clsx from "clsx";
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(2),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
+import React, { useState, useEffect } from "react";
+import { MDBRow, MDBCol, MDBBtn } from "mdbreact";
+import { connect } from "react-redux";
+import { updateProfile, getProfile } from "../../actions/user.actions";
 
-  root: {
-    "&:hover": {
-      backgroundColor: "transparent",
-    },
-  },
-  icon: {
-    borderRadius: 3,
-    width: 16,
-    height: 16,
-    boxShadow:
-      "inset 0 0 0 1px rgba(16,22,26,.2), inset 0 -1px 0 rgba(16,22,26,.1)",
-    backgroundColor: "#f5f8fa",
-    backgroundImage:
-      "linear-gradient(180deg,hsla(0,0%,100%,.8),hsla(0,0%,100%,0))",
-    "$root.Mui-focusVisible &": {
-      outline: "2px auto rgba(19,124,189,.6)",
-      outlineOffset: 2,
-    },
-    "input:hover ~ &": {
-      backgroundColor: "#ebf1f5",
-    },
-    "input:disabled ~ &": {
-      boxShadow: "none",
-      background: "rgba(206,217,224,.5)",
-    },
-  },
-  checkedIcon: {
-    backgroundColor: "#137cbd",
-    backgroundImage:
-      "linear-gradient(180deg,hsla(0,0%,100%,.1),hsla(0,0%,100%,0))",
-    "&:before": {
-      display: "block",
-      width: 16,
-      height: 16,
-      backgroundImage:
-        "url(\"data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath" +
-        " fill-rule='evenodd' clip-rule='evenodd' d='M12 5c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 " +
-        "1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z' fill='%23fff'/%3E%3C/svg%3E\")",
-      content: '""',
-    },
-    "input:hover ~ &": {
-      backgroundColor: "#106ba3",
-    },
-  },
-}));
+const Profile = (props) => {
+  useEffect(() => {
+    props.onGetProfile();
+  }, []);
+  const [firstname, setFirstName] = useState("");
+  const [lastname, setLastName] = useState("");
+  const [companyname, setCompanyName] = useState("");
+  const [shippingAddress, setShippingAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [postalCode, setPostalCode] = useState("");
+  const [phonenum, setPhoneNumber] = useState("");
+  const [email, setEmail] = useState("");
 
-export default function Profile(props) {
-  const classes = useStyles();
-
+  const handleSubmit = () => {
+    const data = {
+      firstname: firstname,
+      lastname: lastname,
+      companyname: companyname,
+      shippingAddress: shippingAddress,
+      city: city,
+      postalCode: postalCode,
+      phonenum: phonenum,
+      email: email,
+    };
+    props.onProfileUpdate(data);
+  };
   return (
     <div
       style={{
@@ -82,7 +40,7 @@ export default function Profile(props) {
       }}
     >
       <br></br>
-      <form>
+      <form onSubmit={handleSubmit}>
         <MDBRow>
           <MDBCol className="col-12 col-sm-4 col-md-3 col-lg-3">
             <h3 className="font-weight-bold">My Profile</h3>
@@ -95,8 +53,11 @@ export default function Profile(props) {
             <input
               type="text"
               className="form-control"
-              id="formGroupExampleInput"
+              id="firstname"
+              value={firstname}
+              onChange={(e) => setFirstName(e.target.value)}
               placeholder="Required"
+              required
             />
           </div>
           <div className="form-group col-md-6">
@@ -104,8 +65,11 @@ export default function Profile(props) {
             <input
               type="text"
               className="form-control "
-              id="formGroupExampleInput"
+              id="lastname"
+              value={lastname}
+              onChange={(e) => setLastName(e.target.value)}
               placeholder="Required"
+              required
             />
           </div>
           <div className="form-group col-md-12 ">
@@ -115,7 +79,9 @@ export default function Profile(props) {
             <input
               type="text"
               className="form-control "
-              id="formGroupExampleInput"
+              id="companyname"
+              value={companyname}
+              onChange={(e) => setCompanyName(e.target.value)}
               placeholder="Optional"
             />
           </div>
@@ -124,7 +90,9 @@ export default function Profile(props) {
             <input
               type="text"
               className="form-control "
-              id="formGroupExampleInput"
+              id="companyname"
+              value={companyname}
+              onChange={(e) => setCompanyName(e.target.value)}
               placeholder="Required"
             />
           </div>
@@ -133,8 +101,11 @@ export default function Profile(props) {
             <input
               type="text"
               className="form-control"
-              id="formGroupExampleInput"
+              id="city"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
               placeholder="Required"
+              required
             />
           </div>
           <div className="form-group col-md-6">
@@ -142,8 +113,11 @@ export default function Profile(props) {
             <input
               type="text"
               className="form-control "
-              id="formGroupExampleInput"
+              id="postalCode"
+              value={postalCode}
+              onChange={(e) => setPostalCode(e.target.value)}
               placeholder="Required"
+              required
             />
           </div>
           <div className="form-group col-md-6">
@@ -151,8 +125,11 @@ export default function Profile(props) {
             <input
               type="text"
               className="form-control"
-              id="formGroupExampleInput"
+              id="phonenum"
+              value={phonenum}
+              onChange={(e) => setPhoneNumber(e.target.value)}
               placeholder="Required"
+              required
             />
           </div>
           <div className="form-group col-md-6">
@@ -160,12 +137,41 @@ export default function Profile(props) {
             <input
               type="text"
               className="form-control "
-              id="formGroupExampleInput"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="Required"
+              required
             />
           </div>
+        </MDBRow>
+        <br></br>
+        <MDBRow>
+          <MDBBtn color="amber" style={{ borderRadius: 25 }} type="submit">
+            Update
+          </MDBBtn>
         </MDBRow>
       </form>
     </div>
   );
-}
+};
+
+const mapStateToProps = (state) => {
+  return {
+    profile: state.userData.profile || "",
+    error: state.userData.error || "",
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onProfileUpdate: (user) => {
+      dispatch(updateProfile(user));
+    },
+    onGetProfile: () => {
+      dispatch(getProfile());
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

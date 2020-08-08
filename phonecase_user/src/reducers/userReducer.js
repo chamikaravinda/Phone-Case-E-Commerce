@@ -6,10 +6,15 @@ import {
   USER_SIGNUP_SUCCESS,
   USER_SIGNUP_FAILED,
   USER_SIGNUP_ERROR,
+  USER_PROFILE_UPDATE_SUCCESS,
+  USER_PROFILE_UPDATE_ERROR,
+  GET_USER_PROFILE_SUCCESS,
+  GET_USER_PROFILE_ERROR,
 } from "../actions/types";
 
 const userInitialState = {
   user: [],
+  profile: [],
   error: "",
 };
 
@@ -26,6 +31,14 @@ const userReducer = (state = userInitialState, action) => {
     case USER_SIGNUP_FAILED:
       return { ...state, error: action.payload };
     case USER_SIGNUP_ERROR:
+      return { ...state, error: action.payload };
+    case USER_PROFILE_UPDATE_SUCCESS:
+      return { ...state, profile: action.payload };
+    case USER_PROFILE_UPDATE_ERROR:
+      return { ...state, error: action.payload };
+    case GET_USER_PROFILE_SUCCESS:
+      return { ...state, profile: action.payload };
+    case GET_USER_PROFILE_ERROR:
       return { ...state, error: action.payload };
     case USER_LOGOUT_SUCCESS:
       return { ...state, user: [] };

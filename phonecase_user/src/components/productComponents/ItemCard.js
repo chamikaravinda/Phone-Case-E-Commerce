@@ -60,7 +60,7 @@ const ItemCard = (props) => {
           </MDBCol>
           <MDBCol xl="4" style={{ marginBottom: "-10px" }}>
             <MDBRow between>
-              <MDBCol size="6">
+              <MDBCol size="6" style={{ paddingRight: "3px" }}>
                 {props.product.discount ? (
                   <p className="font-weight-bold" style={{ color: "red" }}>
                     {props.product.priceStartAt -
@@ -70,7 +70,7 @@ const ItemCard = (props) => {
                   ""
                 )}
               </MDBCol>
-              <MDBCol size="6">
+              <MDBCol size="6" style={{ paddingLeft: "23px" }}>
                 <p className="font-weight-bold">{props.product.priceStartAt}</p>
               </MDBCol>
             </MDBRow>

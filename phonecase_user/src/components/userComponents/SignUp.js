@@ -16,7 +16,6 @@ import Container from "@material-ui/core/Container";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Checkbox from "@material-ui/core/Checkbox";
 import clsx from "clsx";
-import Alert from "@material-ui/lab/Alert";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
