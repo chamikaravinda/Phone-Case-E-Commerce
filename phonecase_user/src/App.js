@@ -21,7 +21,7 @@ class App extends Component {
     if (this.props.user.headers) {
       return (
         <Router>
-          <div className="App">
+          <div className="App" style={{ backgroundColor: "white" }}>
             <TopBar />
             <NavigationBar />
             <Switch>
@@ -48,7 +48,7 @@ class App extends Component {
     } else {
       return (
         <Router>
-          <div className="App">
+          <div className="App" style={{ backgroundColor: "white" }}>
             <TopBar />
             <NavigationBar />
             <Switch>

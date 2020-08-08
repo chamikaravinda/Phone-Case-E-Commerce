@@ -16,6 +16,7 @@ import {
 const AppleProducts = (props) => {
   const [allItems, setAllItems] = useState([]);
   const [processItems, setProcessItems] = useState([]);
+  const [showFilters, setShowFilters] = useState(true);
 
   useEffect(() => {
     props.onGetProduct();
@@ -25,44 +26,65 @@ const AppleProducts = (props) => {
   }, []);
 
   const setItemsLowToHigh = () => {
-    let data = allItems;
-    data.sort(
-      (a, b) => parseFloat(a.priceStartAt) - parseFloat(b.priceStartAt)
-    );
+    let data = allItems.slice(0);
+    data.sort((a, b) => a.priceStartAt - b.priceStartAt);
     setProcessItems(data);
   };
 
   const setItemsHighToLow = () => {
-    let data = allItems;
-    data.sort(
+    let data = allItems.slice(0);
+    data = data.sort(
       (a, b) => parseFloat(b.priceStartAt) - parseFloat(a.priceStartAt)
     );
     setProcessItems(data);
   };
 
   const setNewToOld = () => {
-    let data = allItems;
-    data.sort((a, b) => b.date - a.date);
-
+    let data = allItems.slice(0);
+    data = data.sort((a, b) => b.date - a.date);
     setProcessItems(data);
   };
-
   return (
     <React.Fragment>
       <CssBaseline />
-      <main>
+      <main style={{ backgroundColor: "white" }}>
         <div
           className="pb-5 pt-5 pl-5 pr-5"
-          style={{ backgroundColor: "white", minHeight: "63vh" }}
+          style={{
+            overflow: "hidden",
+            marginLeft: "7%",
+            marginRight: "6%",
+            paddingTop: "4%",
+            paddingBottom: "6%",
+            minHeight: "63vh",
+          }}
         >
           <MDBRow className="pb-5 pt-5" between>
             <MDBCol className="col-12 col-sm-4 col-md-3 col-lg-3">
-              <h3 className="font-weight-bold">Men's Top</h3>
+              <h3 className="font-weight-bold">Apple</h3>
             </MDBCol>
             <MDBCol className="col-12 col-sm-8 col-md-9  col-lg-4">
               <MDBRow end>
                 {" "}
-                <MDBBtn color="white">Hide Filters</MDBBtn>
+                {showFilters ? (
+                  <MDBBtn
+                    color="white"
+                    onClick={() => {
+                      setShowFilters(false);
+                    }}
+                  >
+                    Hide Filters
+                  </MDBBtn>
+                ) : (
+                  <MDBBtn
+                    color="white"
+                    onClick={() => {
+                      setShowFilters(true);
+                    }}
+                  >
+                    Show Filters
+                  </MDBBtn>
+                )}
                 <MDBDropdown>
                   <MDBDropdownToggle
                     caret
@@ -86,118 +108,125 @@ const AppleProducts = (props) => {
               </MDBRow>
             </MDBCol>
           </MDBRow>
-          <MDBRow className="pl-3">
-            <MDBCol className="col-md-3">
-              <MDBRow className="justify-content-center">
-                {" "}
-                <p style={{ fontWeight: "500", paddingTop: "10px" }}>
-                  Collection
-                </p>
-                <MDBDropdown>
-                  <MDBDropdownToggle
-                    outline
-                    color="grey"
-                    size="sm"
-                    style={{
-                      boxShadow: "none !important",
-                      borderRadius: "25px",
-                    }}
-                  >
-                    Sort By
-                  </MDBDropdownToggle>
-                  <MDBDropdownMenu basic>
-                    <MDBDropdownItem>Action</MDBDropdownItem>
-                    <MDBDropdownItem>Another Action</MDBDropdownItem>
-                    <MDBDropdownItem>Something else here</MDBDropdownItem>
-                    <MDBDropdownItem divider />
-                    <MDBDropdownItem>Separated link</MDBDropdownItem>
-                  </MDBDropdownMenu>
-                </MDBDropdown>
+          {showFilters ? (
+            <>
+              <MDBRow className="pl-3">
+                <MDBCol className="col-md-3">
+                  <MDBRow className="justify-content-center">
+                    {" "}
+                    <p style={{ fontWeight: "500", paddingTop: "10px" }}>
+                      Collection
+                    </p>
+                    <MDBDropdown>
+                      <MDBDropdownToggle
+                        outline
+                        color="grey"
+                        size="sm"
+                        style={{
+                          boxShadow: "none !important",
+                          borderRadius: "25px",
+                        }}
+                      >
+                        Sort By
+                      </MDBDropdownToggle>
+                      <MDBDropdownMenu basic>
+                        <MDBDropdownItem>Action</MDBDropdownItem>
+                        <MDBDropdownItem>Another Action</MDBDropdownItem>
+                        <MDBDropdownItem>Something else here</MDBDropdownItem>
+                        <MDBDropdownItem divider />
+                        <MDBDropdownItem>Separated link</MDBDropdownItem>
+                      </MDBDropdownMenu>
+                    </MDBDropdown>
+                  </MDBRow>
+                </MDBCol>
+                <MDBCol className="col-md-3">
+                  <MDBRow className="justify-content-center">
+                    {" "}
+                    <p style={{ fontWeight: "500", paddingTop: "10px" }}>
+                      Collection
+                    </p>
+                    <MDBDropdown>
+                      <MDBDropdownToggle
+                        outline
+                        color="grey"
+                        size="sm"
+                        style={{
+                          boxShadow: "none !important",
+                          borderRadius: "25px",
+                        }}
+                      >
+                        Sort By
+                      </MDBDropdownToggle>
+                      <MDBDropdownMenu basic>
+                        <MDBDropdownItem>Price:Low To high</MDBDropdownItem>
+                        <MDBDropdownItem>Price:High To Low</MDBDropdownItem>
+                        <MDBDropdownItem>New To old</MDBDropdownItem>
+                      </MDBDropdownMenu>
+                    </MDBDropdown>
+                  </MDBRow>
+                </MDBCol>
+                <MDBCol className="col-md-3">
+                  <MDBRow className="justify-content-center">
+                    {" "}
+                    <p style={{ fontWeight: "500", paddingTop: "10px" }}>
+                      Collection
+                    </p>
+                    <MDBDropdown>
+                      <MDBDropdownToggle
+                        outline
+                        color="grey"
+                        size="sm"
+                        style={{
+                          boxShadow: "none !important",
+                          borderRadius: "25px",
+                        }}
+                      >
+                        Sort By
+                      </MDBDropdownToggle>
+                      <MDBDropdownMenu basic>
+                        <MDBDropdownItem>Action</MDBDropdownItem>
+                        <MDBDropdownItem>Another Action</MDBDropdownItem>
+                        <MDBDropdownItem>Something else here</MDBDropdownItem>
+                        <MDBDropdownItem divider />
+                        <MDBDropdownItem>Separated link</MDBDropdownItem>
+                      </MDBDropdownMenu>
+                    </MDBDropdown>
+                  </MDBRow>
+                </MDBCol>
+                <MDBCol className="col-md-3">
+                  <MDBRow className="justify-content-center">
+                    {" "}
+                    <p style={{ fontWeight: "500", paddingTop: "10px" }}>
+                      Collection
+                    </p>
+                    <MDBDropdown>
+                      <MDBDropdownToggle
+                        outline
+                        color="grey"
+                        size="sm"
+                        style={{
+                          boxShadow: "none !important",
+                          borderRadius: "25px",
+                        }}
+                      >
+                        Sort By
+                      </MDBDropdownToggle>
+                      <MDBDropdownMenu basic>
+                        <MDBDropdownItem>Action</MDBDropdownItem>
+                        <MDBDropdownItem>Another Action</MDBDropdownItem>
+                        <MDBDropdownItem>Something else here</MDBDropdownItem>
+                        <MDBDropdownItem divider />
+                        <MDBDropdownItem>Separated link</MDBDropdownItem>
+                      </MDBDropdownMenu>
+                    </MDBDropdown>
+                  </MDBRow>
+                </MDBCol>
               </MDBRow>
-            </MDBCol>
-            <MDBCol className="col-md-3">
-              <MDBRow className="justify-content-center">
-                {" "}
-                <p style={{ fontWeight: "500", paddingTop: "10px" }}>
-                  Collection
-                </p>
-                <MDBDropdown>
-                  <MDBDropdownToggle
-                    outline
-                    color="grey"
-                    size="sm"
-                    style={{
-                      boxShadow: "none !important",
-                      borderRadius: "25px",
-                    }}
-                  >
-                    Sort By
-                  </MDBDropdownToggle>
-                  <MDBDropdownMenu basic>
-                    <MDBDropdownItem>Price:Low To high</MDBDropdownItem>
-                    <MDBDropdownItem>Price:High To Low</MDBDropdownItem>
-                    <MDBDropdownItem>New To old</MDBDropdownItem>
-                  </MDBDropdownMenu>
-                </MDBDropdown>
-              </MDBRow>
-            </MDBCol>
-            <MDBCol className="col-md-3">
-              <MDBRow className="justify-content-center">
-                {" "}
-                <p style={{ fontWeight: "500", paddingTop: "10px" }}>
-                  Collection
-                </p>
-                <MDBDropdown>
-                  <MDBDropdownToggle
-                    outline
-                    color="grey"
-                    size="sm"
-                    style={{
-                      boxShadow: "none !important",
-                      borderRadius: "25px",
-                    }}
-                  >
-                    Sort By
-                  </MDBDropdownToggle>
-                  <MDBDropdownMenu basic>
-                    <MDBDropdownItem>Action</MDBDropdownItem>
-                    <MDBDropdownItem>Another Action</MDBDropdownItem>
-                    <MDBDropdownItem>Something else here</MDBDropdownItem>
-                    <MDBDropdownItem divider />
-                    <MDBDropdownItem>Separated link</MDBDropdownItem>
-                  </MDBDropdownMenu>
-                </MDBDropdown>
-              </MDBRow>
-            </MDBCol>
-            <MDBCol className="col-md-3">
-              <MDBRow className="justify-content-center">
-                {" "}
-                <p style={{ fontWeight: "500", paddingTop: "10px" }}>
-                  Collection
-                </p>
-                <MDBDropdown>
-                  <MDBDropdownToggle
-                    outline
-                    color="grey"
-                    size="sm"
-                    style={{
-                      boxShadow: "none !important",
-                      borderRadius: "25px",
-                    }}
-                  >
-                    Sort By
-                  </MDBDropdownToggle>
-                  <MDBDropdownMenu basic>
-                    <MDBDropdownItem>Action</MDBDropdownItem>
-                    <MDBDropdownItem>Another Action</MDBDropdownItem>
-                    <MDBDropdownItem>Something else here</MDBDropdownItem>
-                    <MDBDropdownItem divider />
-                    <MDBDropdownItem>Separated link</MDBDropdownItem>
-                  </MDBDropdownMenu>
-                </MDBDropdown>
-              </MDBRow>
-            </MDBCol>
-          </MDBRow>
+              <br></br>
+            </>
+          ) : (
+            ""
+          )}
           <MDBRow>
             {processItems.map((product) => {
               return (

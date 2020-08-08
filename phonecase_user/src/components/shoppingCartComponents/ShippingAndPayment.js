@@ -1,10 +1,23 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
 import { MDBRow, MDBCol, MDBIcon, MDBBtn, MDBContainer } from "mdbreact";
 import ShippingInformation from "./ShippingInformation";
 import Avatar from "@material-ui/core/Avatar";
 import { history } from "../../index";
 
-export default function ShippingAndPayment() {
+const ShippingAndPayment = (props) => {
+  const [cartTotal, setCartTotal] = useState(0);
+  const [transferMethod, setTransferMethod] = useState("cash");
+
+  useEffect(() => {
+    let tempTotal = 0;
+    props.cart.forEach((item) => {
+      tempTotal = parseFloat(tempTotal) + parseFloat(item.price);
+    });
+    tempTotal = tempTotal.toFixed(2);
+    setCartTotal(tempTotal);
+  }, []);
+
   const handleContinue = () => {
     history.push("/");
   };
@@ -99,84 +112,62 @@ export default function ShippingAndPayment() {
               <h5 className="font-weight-bold">Payment Method</h5>
               <br></br>
               <div
-                style={{
-                  borderStyle: "solid",
-                  borderWidth: "1px",
-                  borderRadius: "5px",
-                  borderColor: "#d0d6e2",
-                }}
-                className="pl-2 pt-3 pb-2"
+                className={
+                  transferMethod === "cash"
+                    ? "pl-2 pt-3 pb-2 selected-payment"
+                    : "pl-2 pt-3 pb-2 not-selected-payment"
+                }
+                onClick={() => setTransferMethod("cash")}
               >
-                <h6 className="font-weight-bolder" style={{ color: "#d0d6e2" }}>
-                  Cash on Delivery
-                </h6>
+                <h6 className="font-weight-bolder">Cash on Delivery</h6>
               </div>
               <br></br>
               <div
-                style={{
-                  borderStyle: "solid",
-                  borderWidth: "1px",
-                  borderRadius: "5px",
-                  borderColor: "#FBB03B",
-                }}
-                className="pl-2 pt-3 pb-2"
+                className={
+                  transferMethod === "bank"
+                    ? "pl-2 pt-3 pb-2 selected-payment"
+                    : "pl-2 pt-3 pb-2 not-selected-payment"
+                }
+                onClick={() => setTransferMethod("bank")}
               >
                 <h6 className="font-weight-bolder">Direct Bank Transfer</h6>
                 <p>Make your payment directly into our Sampath Bank Account</p>
               </div>
               <br></br>
               <div
-                style={{
-                  borderStyle: "solid",
-                  borderWidth: "1px",
-                  borderRadius: "5px",
-                  borderColor: "#d0d6e2",
-                }}
-                className="pl-2 pt-3 pb-2"
+                className={
+                  transferMethod === "online"
+                    ? "pl-2 pt-3 pb-2 selected-payment"
+                    : "pl-2 pt-3 pb-2 not-selected-payment"
+                }
+                onClick={() => setTransferMethod("online")}
               >
-                <h6 className="font-weight-bolder" style={{ color: "#d0d6e2" }}>
-                  Pay Online
-                </h6>
+                <h6 className="font-weight-bolder">Pay Online</h6>
                 <p>Logos will be displayed here</p>
               </div>
             </MDBCol>
             <MDBCol className="col-12 col-sm-6 col-md-6 col-lg-12 col-xl-6 pt-2">
               <h5 className="font-weight-bold">Your Cart</h5>
               <br></br>
-              <MDBRow>
-                <MDBCol className="col-xl-8">
+              {props.cart.map((item) => {
+                return (
                   <MDBRow>
-                    <Avatar
-                      alt="Remy Sharp"
-                      src="/static/images/avatar/1.jpg"
-                    />
-                    <MDBCol className="text-start">
-                      <h6 className="font-weight-bold">Abstract Design Case</h6>
-                      <p style={{ color: "#cfd8dc" }}>#261311</p>
+                    <MDBCol className="col-xl-8">
+                      <MDBRow>
+                        <Avatar alt="Remy Sharp" src={item.imgs[0]} />
+                        <MDBCol className="text-start">
+                          <h6 className="font-weight-bold">{item.itemName}</h6>
+                          <p style={{ color: "#cfd8dc" }}>{item.itemId}</p>
+                        </MDBCol>
+                      </MDBRow>
+                    </MDBCol>
+                    <MDBCol className="col-xl-4 text-right">
+                      <h6 className="font-weight-bold">{item.price}</h6>
                     </MDBCol>
                   </MDBRow>
-                </MDBCol>
-                <MDBCol className="col-xl-4 text-right">
-                  <h6 className="font-weight-bold">$67.99</h6>
-                </MDBCol>
-              </MDBRow>
-              <MDBRow>
-                <MDBCol className="col-xl-8">
-                  <MDBRow>
-                    <Avatar
-                      alt="Remy Sharp"
-                      src="/static/images/avatar/1.jpg"
-                    />
-                    <MDBCol className="text-start">
-                      <h6 className="font-weight-bold">Abstract Design Case</h6>
-                      <p style={{ color: "#cfd8dc" }}>#261311</p>
-                    </MDBCol>
-                  </MDBRow>
-                </MDBCol>
-                <MDBCol className="col-xl-4 text-right">
-                  <h6 className="font-weight-bold">$67.99</h6>
-                </MDBCol>
-              </MDBRow>
+                );
+              })}
+
               <MDBRow className="d-flex justify-content-center pt-5">
                 <div
                   style={{
@@ -188,7 +179,7 @@ export default function ShippingAndPayment() {
                 >
                   <MDBRow className="justify-content-center">
                     <h6>Total cost </h6>
-                    <h6 className="font-weight-bolder pl-1"> $159,98</h6>
+                    <h6 className="font-weight-bolder pl-1"> ${cartTotal}</h6>
                   </MDBRow>
                 </div>
                 <div className="pt-4 pb-2 col-12">
@@ -226,4 +217,13 @@ export default function ShippingAndPayment() {
       </MDBRow>
     </div>
   );
-}
+};
+
+const mapStateToProps = (state) => {
+  return {
+    cart: state.shoppingCartData.cart || [],
+    error: state.shoppingCartData.error || "",
+  };
+};
+
+export default connect(mapStateToProps, null)(ShippingAndPayment);

@@ -343,6 +343,7 @@ const mapStateToProps = (state) => {
   return {
     androidProduct: state.productData.androidProducts || [],
     appleProducts: state.productData.appleProducts || [],
+    images: state.homepageImageData.images || [],
   };
 };
 

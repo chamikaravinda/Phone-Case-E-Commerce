@@ -106,7 +106,7 @@ const Login = (props) => {
   };
 
   return (
-    <Container component="main" style={{ minHeight: "71vh" }}>
+    <Container component="main" style={{ minHeight: "80vh" }}>
       <CssBaseline />
       <div className={classes.paper}>
         <MDBContainer className={classes.form}>
@@ -127,10 +127,7 @@ const Login = (props) => {
           <MDBRow>
             <MDBCol className="col-12 col-sm-10 offset-sm-1 col-md-6 offset-md-3 col-lg-4 offset-lg-4 pt-5 ">
               <p className="h4 text-center mb-4">Log in</p>
-              <p className="font-small grey-text d-flex justify-content-center text-center">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the
-              </p>
+
               <br></br>
               {props.error ? (
                 <>
@@ -238,7 +235,7 @@ const Login = (props) => {
                   </MDBBtn>
                 </MDBCol>
               </MDBRow>
-              <MDBModalFooter className="mx-5 pt-3 mb-1">
+              <MDBModalFooter className="mx-5 pt-3 mb-1 pb-5">
                 <p className="font-small grey-text">
                   Not a member yet ? <Link to="/signup"> Sign Up</Link>
                 </p>

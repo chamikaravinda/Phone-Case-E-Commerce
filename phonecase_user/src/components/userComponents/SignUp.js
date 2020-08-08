@@ -115,7 +115,10 @@ const SignUp = (props) => {
     props.onSignup(data);
   };
   return (
-    <Container component="main" style={{ minHeight: "63vh" }}>
+    <Container
+      component="main"
+      style={{ minHeight: "83vh", backgroundColor: "white" }}
+    >
       <CssBaseline />
       <div className={classes.paper}>
         <MDBContainer className={classes.form}>
@@ -139,11 +142,7 @@ const SignUp = (props) => {
                 <p className="h4 text-center mb-4">
                   Create an account and discover the benefits
                 </p>
-                <p className="font-small grey-text d-flex justify-content-start text-center pb-4 pt-3">
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has been the industry's
-                  standard dummy text ever since the 1500s
-                </p>
+
                 <br></br>
                 {props.error ? (
                   <>

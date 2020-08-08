@@ -20,6 +20,7 @@ const SingleProduct = (props) => {
   const [model, setModel] = useState("");
   const [error, setError] = useState("");
   const [update, setUpdate] = useState("false");
+  const [reviewData, setReviewData] = useState("");
   useEffect(() => {
     props.onGetProduct(id);
     let tempmodels = [];
@@ -30,6 +31,12 @@ const SingleProduct = (props) => {
     });
     setModels(tempmodels);
     setCurrentImage(props.product.imgs[0]);
+
+    let tempReviewData = {
+      specs: props.product.specs,
+      desc: props.product.desc,
+    };
+    setReviewData(tempReviewData);
   }, []);
 
   const handleSelectModel = (value) => {
@@ -57,9 +64,18 @@ const SingleProduct = (props) => {
       setError("Quntity should be larger than 0");
       return;
     }
+    let finalPrice;
 
-    let finalPrice =
-      (model.price - model.price * props.product.discount) * quantity;
+    if (props.product.discount) {
+      let discount =
+        parseFloat(model.price) * parseFloat(props.product.discount);
+      finalPrice =
+        (parseFloat(model.price) - parseFloat(discount)) * parseInt(quantity);
+    } else {
+      finalPrice = parseFloat(model.price) * parseInt(quantity);
+    }
+
+    finalPrice = finalPrice.toFixed(2);
 
     let data = {
       itemId: props.product.itemId,
@@ -281,7 +297,7 @@ const SingleProduct = (props) => {
             </MDBCol>
           </MDBRow>
         </div>
-        <ReviewAndDescription />
+        <ReviewAndDescription review={reviewData} />
         <RelatedProducts />
         <Footer2 />
       </div>

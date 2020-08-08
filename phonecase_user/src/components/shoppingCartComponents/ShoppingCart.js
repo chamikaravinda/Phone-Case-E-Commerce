@@ -20,8 +20,9 @@ const ShoppingCart = (props) => {
   useEffect(() => {
     let tempTotal = 0;
     props.cart.forEach((item) => {
-      tempTotal = tempTotal + item.price;
+      tempTotal = parseFloat(tempTotal) + parseFloat(item.price);
     });
+    tempTotal = tempTotal.toFixed(2);
     setCartTotal(tempTotal);
   }, []);
 
@@ -34,6 +35,7 @@ const ShoppingCart = (props) => {
     tempTotal = tempTotal.toFixed(2);
     setCartTotal(tempTotal);
   };
+
   if (props.cart.length == 0) {
     return (
       <>

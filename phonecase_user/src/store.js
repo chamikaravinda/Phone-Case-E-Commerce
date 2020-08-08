@@ -13,7 +13,12 @@ const saveToLocalStorage = (state) => {
 
 const loadFromLocalStorage = () => {
   try {
+    const emailSubscriptionInitialState = {
+      message: "",
+      error: "",
+    };
     const serializedState = localStorage.getItem("state");
+    serializedState.emailSubscriptionData = emailSubscriptionInitialState;
     if (serializedState === null) {
       return undefined;
     }
