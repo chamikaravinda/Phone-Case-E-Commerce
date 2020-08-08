@@ -85,7 +85,7 @@ export default function Profile(props) {
       <form>
         <MDBRow>
           <MDBCol className="col-12 col-sm-4 col-md-3 col-lg-3">
-            <h3 className="font-weight-bold">User Profile</h3>
+            <h3 className="font-weight-bold">My Profile</h3>
           </MDBCol>
         </MDBRow>
         <br></br>

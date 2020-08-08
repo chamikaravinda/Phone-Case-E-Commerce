@@ -118,7 +118,7 @@ const SingleProduct = (props) => {
             <MDBCol md="4">
               <img src={currentImage} className="img-fluid" alt="" />
             </MDBCol>
-            <MDBCol md="1"></MDBCol>
+            <MDBCol md="1" className="d-md-none d-lg-block"></MDBCol>
             <MDBCol md="6">
               {props.product.discount ? (
                 <MDBBtn
@@ -261,7 +261,7 @@ const SingleProduct = (props) => {
                     ></button>
                   </div>
                 </MDBCol>
-                <MDBCol>
+                <MDBCol className="col-7 col-sm-7 col-md-7">
                   <MDBBtn
                     color="amber"
                     style={{ borderRadius: 25 }}

@@ -5,6 +5,10 @@ import {
   GET_ANDROID_PRODUCTS_ERROR,
   GET_SINGLE_PRODUCT_SUCCESS,
   GET_SINGLE_PRODUCT_ERROR,
+  GET_USER_PREFERANCE_SUCCESS,
+  GET_USER_PREFERANCE_ERROR,
+  GET_BEST_SELLERS_SUCCESS,
+  GET_BEST_SELLERS_ERROR,
 } from "./types";
 
 import { SERVER_URL } from "../constant";
@@ -87,6 +91,65 @@ export const getAndroidProducts = () => {
       .catch((error) => {
         const failed = "Error in getting the products";
         dispatch(getAndroidProductsError(failed));
+      });
+  };
+};
+//GET USER PREFERANCE PROUDCTS--------------------------------------
+export const getUserPreferancesSuccess = (data) => {
+  return {
+    type: GET_USER_PREFERANCE_SUCCESS,
+    payload: data,
+  };
+};
+
+export const getUserPreferancesError = (data) => {
+  return {
+    type: GET_USER_PREFERANCE_ERROR,
+    payload: data,
+  };
+};
+
+export const getUserPreferances = () => {
+  return (dispatch) => {
+    return axios
+      .get(`${SERVER_URL}/items`)
+      .then((response) => {
+        dispatch(getUserPreferancesSuccess(response.data));
+        dispatch(getUserPreferancesError(""));
+      })
+      .catch((error) => {
+        const failed = "Error in getting the products";
+        dispatch(getUserPreferancesError(failed));
+      });
+  };
+};
+
+//GET BEST SELLER PROUDCTS--------------------------------------
+export const getBestSellersSuccess = (data) => {
+  return {
+    type: GET_BEST_SELLERS_SUCCESS,
+    payload: data,
+  };
+};
+
+export const getBestSellersError = (data) => {
+  return {
+    type: GET_BEST_SELLERS_ERROR,
+    payload: data,
+  };
+};
+
+export const getBestSellers = () => {
+  return (dispatch) => {
+    return axios
+      .get(`${SERVER_URL}/items`)
+      .then((response) => {
+        dispatch(getBestSellersSuccess(response.data));
+        dispatch(getBestSellersError(""));
+      })
+      .catch((error) => {
+        const failed = "Error in getting the products";
+        dispatch(getBestSellersError(failed));
       });
   };
 };

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import {
-  getAndroidProducts,
+  getUserPreferances,
   getAppleProducts,
+  getBestSellers,
 } from "../actions/product.actions";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { SAMPLE_ITEM } from "../constant";
 import Footer2 from "./includes/Footer2";
 import {
   MDBContainer,
@@ -31,7 +31,11 @@ import HomeTile5 from "./assets/images/home_title_5.png";
 
 import ItemCard from "./productComponents/ItemCard";
 
-const HomePage = () => {
+const HomePage = (props) => {
+  useEffect(() => {
+    props.onGetUserPreferances();
+    props.onGetBestSellerProducts();
+  }, []);
   return (
     <React.Fragment>
       <CssBaseline />
@@ -147,6 +151,7 @@ const HomePage = () => {
                         style={{ borderRadius: "25px" }}
                         color="white"
                         className="mt-4"
+                        size="sm"
                       >
                         SHOW COLLECTION
                       </MDBBtn>
@@ -175,6 +180,7 @@ const HomePage = () => {
                         style={{ borderRadius: "25px" }}
                         color="white"
                         className="mt-4"
+                        size="sm"
                       >
                         MORE DETAILS
                       </MDBBtn>
@@ -203,6 +209,7 @@ const HomePage = () => {
                         style={{ borderRadius: "25px" }}
                         color="white"
                         className="mt-4"
+                        size="sm"
                       >
                         VIEW ALL
                       </MDBBtn>
@@ -217,7 +224,7 @@ const HomePage = () => {
               <h3>Just For You</h3>
             </MDBCol>
 
-            <MDBCol className="col-xs-6 col-sm-5 col-md-3 col-lg-3 col-xl-2">
+            <MDBCol className="col-xs-6 col-sm-5 col-md-3 col-lg-3 col-xl-2 d-flex  justify-content-end">
               <MDBBtn
                 outline
                 color="blue-grey"
@@ -229,18 +236,49 @@ const HomePage = () => {
             </MDBCol>
           </MDBRow>
           <MDBRow>
-            <MDBCol className="col-12 col-sm-12 col-md-4">
-              {" "}
-              <ItemCard product={SAMPLE_ITEM} />
-            </MDBCol>
-            <MDBCol className="col-12 col-sm-12 col-md-4">
-              {" "}
-              <ItemCard product={SAMPLE_ITEM} />
-            </MDBCol>
-            <MDBCol className="col-12 col-sm-12 col-md-4">
-              {" "}
-              <ItemCard product={SAMPLE_ITEM} />
-            </MDBCol>
+            {props.userPreferanceProducts.length > 4
+              ? props.userPreferanceProducts.slice(0, 4).map((item) => {
+                  return (
+                    <MDBCol className="col-lg-3 d-none d-lg-block">
+                      {" "}
+                      <ItemCard product={item} />
+                    </MDBCol>
+                  );
+                })
+              : props.userPreferanceProducts
+                  .slice(0, props.userPreferanceProducts.length)
+                  .map((item) => {
+                    return (
+                      <MDBCol
+                        className="col-lg-3 d-none d-lg-block"
+                        key={item.id}
+                      >
+                        {" "}
+                        <ItemCard product={item} />
+                      </MDBCol>
+                    );
+                  })}
+          </MDBRow>
+          <MDBRow>
+            {props.userPreferanceProducts.length > 3
+              ? props.userPreferanceProducts.slice(0, 3).map((item) => {
+                  return (
+                    <MDBCol className="col-lg-3 d-block d-lg-none">
+                      {" "}
+                      <ItemCard product={item} />
+                    </MDBCol>
+                  );
+                })
+              : props.userPreferanceProducts
+                  .slice(0, props.userPreferanceProducts.length)
+                  .map((item) => {
+                    return (
+                      <MDBCol className="col-lg-3 d-block d-lg-none">
+                        {" "}
+                        <ItemCard product={item} />
+                      </MDBCol>
+                    );
+                  })}
           </MDBRow>
           <MDBRow>
             <MDBCol className="col-12 col-sm-6 col-md-6 col-lg-6 pl-2">
@@ -307,7 +345,7 @@ const HomePage = () => {
               <h3>Best Sellers</h3>
             </MDBCol>
 
-            <MDBCol className="col-xs-6 col-sm-5 col-md-3 col-lg-3 col-xl-2">
+            <MDBCol className="col-xs-6 col-sm-5 col-md-3 col-lg-3 col-xl-2  d-flex  justify-content-end">
               <MDBBtn
                 outline
                 color="blue-grey"
@@ -319,18 +357,46 @@ const HomePage = () => {
             </MDBCol>
           </MDBRow>
           <MDBRow>
-            <MDBCol className="col-12 col-sm-12 col-md-4">
-              {" "}
-              <ItemCard product={SAMPLE_ITEM} />
-            </MDBCol>
-            <MDBCol className="col-12 col-sm-12 col-md-4">
-              {" "}
-              <ItemCard product={SAMPLE_ITEM} />
-            </MDBCol>
-            <MDBCol className="col-12 col-sm-12 col-md-4">
-              {" "}
-              <ItemCard product={SAMPLE_ITEM} />
-            </MDBCol>
+            {props.bestSellerProducts.length > 4
+              ? props.bestSellerProducts.slice(0, 4).map((item) => {
+                  return (
+                    <MDBCol className="col-lg-3 d-none d-lg-block">
+                      {" "}
+                      <ItemCard product={item} />
+                    </MDBCol>
+                  );
+                })
+              : props.bestSellerProducts
+                  .slice(0, props.bestSellerProducts.length)
+                  .map((item) => {
+                    return (
+                      <MDBCol className="col-lg-3 d-none d-lg-block">
+                        {" "}
+                        <ItemCard product={item} />
+                      </MDBCol>
+                    );
+                  })}
+          </MDBRow>
+          <MDBRow>
+            {props.bestSellerProducts.length > 3
+              ? props.bestSellerProducts.slice(0, 3).map((item) => {
+                  return (
+                    <MDBCol className="col-lg-3 d-block d-lg-none">
+                      {" "}
+                      <ItemCard product={item} />
+                    </MDBCol>
+                  );
+                })
+              : props.bestSellerProducts
+                  .slice(0, props.bestSellerProducts.length)
+                  .map((item) => {
+                    return (
+                      <MDBCol className="col-lg-3 d-block d-lg-none">
+                        {" "}
+                        <ItemCard product={item} />
+                      </MDBCol>
+                    );
+                  })}
           </MDBRow>
         </div>
         <Footer2 />
@@ -344,16 +410,18 @@ const mapStateToProps = (state) => {
     androidProduct: state.productData.androidProducts || [],
     appleProducts: state.productData.appleProducts || [],
     images: state.homepageImageData.images || [],
+    userPreferanceProducts: state.productData.preferdProducts || [],
+    bestSellerProducts: state.productData.bestSellerProducts || [],
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onGetAndroidProduct: () => {
-      dispatch(getAndroidProducts());
+    onGetUserPreferances: () => {
+      dispatch(getUserPreferances());
     },
-    onGetAppleProduct: () => {
-      dispatch(getAppleProducts());
+    onGetBestSellerProducts: () => {
+      dispatch(getBestSellers());
     },
   };
 };
