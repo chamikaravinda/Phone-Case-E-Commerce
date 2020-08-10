@@ -11,6 +11,10 @@ import {
   GET_BEST_SELLERS_ERROR,
   GET_NEW_ARRIVALS_SUCCESS,
   GET_NEW_ARRIVALS_ERROR,
+  GET_NEW_DESING_TRENDS_SUCCESS,
+  GET_NEW_DESING_TRENDS_ERROR,
+  GET_BASIC_CASES_SUCCESS,
+  GET_BASIC_CASES_ERROR,
 } from "../actions/types";
 
 const productInitialState = {
@@ -19,6 +23,8 @@ const productInitialState = {
   justForYouProducts: [],
   bestSellerProducts: [],
   newArrivalProducts: [],
+  newDesignTrendProducts: [],
+  basicCasesProduct: [],
   colors: [],
   product: "",
   error: "",
@@ -69,6 +75,22 @@ const productReducer = (state = productInitialState, action) => {
         colors: action.payload.colors,
       };
     case GET_NEW_ARRIVALS_ERROR:
+      return { ...state, error: action.payload };
+    case GET_NEW_DESING_TRENDS_SUCCESS:
+      return {
+        ...state,
+        newDesignTrendProducts: action.payload.items,
+        colors: action.payload.colors,
+      };
+    case GET_NEW_DESING_TRENDS_ERROR:
+      return { ...state, error: action.payload };
+    case GET_BASIC_CASES_SUCCESS:
+      return {
+        ...state,
+        basicCasesProduct: action.payload.items,
+        colors: action.payload.colors,
+      };
+    case GET_BASIC_CASES_ERROR:
       return { ...state, error: action.payload };
     default:
       return state;

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
+import { history } from "../index";
 import {
   getJustForYouProduct,
   getBestSellers,
@@ -35,6 +36,27 @@ const HomePage = (props) => {
     props.onGetJustForYouProduct();
     props.onGetBestSellerProducts();
   }, []);
+
+  const goToNewArrivals = () => {
+    history.push("/new-arrival-products");
+  };
+
+  const goToBasicCases = () => {
+    history.push("/basic-cases");
+  };
+
+  const geToNewDesignTrends = () => {
+    history.push("/new-design-trends");
+  };
+
+  const goToJustForYou = () => {
+    history.push("/just-for-you");
+  };
+
+  const goToBestSellers = () => {
+    history.push("/best-sellers");
+  };
+
   return (
     <React.Fragment>
       <CssBaseline />
@@ -146,11 +168,13 @@ const HomePage = (props) => {
                     <MDBCol className="col-md-12">
                       <h4 style={{ color: "white" }}>New arrivals</h4>
                       <h4 style={{ color: "white" }}>are now in!</h4>
+
                       <MDBBtn
                         style={{ borderRadius: "25px" }}
                         color="white"
                         className="mt-4"
                         size="sm"
+                        onClick={goToNewArrivals}
                       >
                         SHOW COLLECTION
                       </MDBBtn>
@@ -180,6 +204,7 @@ const HomePage = (props) => {
                         color="white"
                         className="mt-4"
                         size="sm"
+                        onClick={goToBasicCases}
                       >
                         MORE DETAILS
                       </MDBBtn>
@@ -209,6 +234,7 @@ const HomePage = (props) => {
                         color="white"
                         className="mt-4"
                         size="sm"
+                        onClick={geToNewDesignTrends}
                       >
                         VIEW ALL
                       </MDBBtn>
@@ -229,6 +255,7 @@ const HomePage = (props) => {
                 color="blue-grey"
                 size="sm"
                 style={{ borderRadius: "25px" }}
+                onClick={goToJustForYou}
               >
                 SHOW MORE
               </MDBBtn>
@@ -301,6 +328,7 @@ const HomePage = (props) => {
                         style={{ borderRadius: "25px" }}
                         color="white"
                         className="mt-5"
+                        onClick={goToNewArrivals}
                       >
                         SHOW COLLECTION
                       </MDBBtn>
@@ -330,6 +358,7 @@ const HomePage = (props) => {
                         style={{ borderRadius: "25px" }}
                         color="white"
                         className="mt-5"
+                        onClick={goToNewArrivals}
                       >
                         SHOW COLLECTION
                       </MDBBtn>
@@ -350,6 +379,7 @@ const HomePage = (props) => {
                 color="blue-grey"
                 size="sm"
                 style={{ borderRadius: "25px" }}
+                onClick={goToBestSellers}
               >
                 SHOW MORE
               </MDBBtn>

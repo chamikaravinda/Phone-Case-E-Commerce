@@ -18,6 +18,11 @@ import AndroidProducts from "./components/productComponents/AndroidProducts";
 import ShoppingCart from "./components/shoppingCartComponents/ShoppingCart";
 import ShippingAndPayment from "./components/shoppingCartComponents/ShippingAndPayment";
 import SingleProduct from "./components/productComponents/SingleProduct";
+import NewArrivals from "./components/productComponents/NewArrivals";
+import BasicCase from "./components/productComponents/BasicCase";
+import NewDesignTrends from "./components/productComponents/NewDesignTrends";
+import JustForYou from "./components/productComponents/JustForYou";
+import BestSellers from "./components/productComponents/BestSellers";
 
 class App extends Component {
   render() {
@@ -37,6 +42,17 @@ class App extends Component {
                 path="/android-products"
                 component={() => <AndroidProducts />}
               />
+              <Route
+                path="/new-arrival-products"
+                component={() => <NewArrivals />}
+              />
+              <Route path="/basic-cases" component={() => <BasicCase />} />
+              <Route
+                path="/new-design-trends"
+                component={() => <NewDesignTrends />}
+              />
+              <Route path="/just-for-you" component={() => <JustForYou />} />
+              <Route path="/best-sellers" component={() => <BestSellers />} />
               <Route path="/product/:id" component={() => <SingleProduct />} />
               <Route path="/shopping-cart" component={() => <ShoppingCart />} />
               <Route
@@ -69,6 +85,17 @@ class App extends Component {
                 path="/android-products"
                 component={() => <AndroidProducts />}
               />
+              <Route
+                path="/new-arrival-products"
+                component={() => <NewArrivals />}
+              />
+              <Route path="/basic-cases" component={() => <BasicCase />} />
+              <Route
+                path="/new-design-trends"
+                component={() => <NewDesignTrends />}
+              />
+              <Route path="/just-for-you" component={() => <JustForYou />} />
+              <Route path="/best-sellers" component={() => <BestSellers />} />
               <Route path="/product/:id" component={() => <SingleProduct />} />
               <Route path="/shopping-cart" component={() => <ShoppingCart />} />
               <Route
