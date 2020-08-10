@@ -5,10 +5,12 @@ import {
   GET_ANDROID_PRODUCTS_ERROR,
   GET_SINGLE_PRODUCT_SUCCESS,
   GET_SINGLE_PRODUCT_ERROR,
-  GET_USER_PREFERANCE_SUCCESS,
-  GET_USER_PREFERANCE_ERROR,
+  GET_JUST_FOR_YOU_SUCCESS,
+  GET_JUST_FOR_YOU_ERROR,
   GET_BEST_SELLERS_SUCCESS,
   GET_BEST_SELLERS_ERROR,
+  GET_NEW_ARRIVALS_SUCCESS,
+  GET_NEW_ARRIVALS_ERROR,
 } from "./types";
 
 import { SERVER_URL } from "../constant";
@@ -118,25 +120,25 @@ export const getAndroidProducts = () => {
       });
   };
 };
-//GET USER PREFERANCE PROUDCTS--------------------------------------
-export const getUserPreferancesSuccess = (data) => {
+//GET JUST FOR YOU PROUDCTS--------------------------------------
+export const getJustForYouProductSuccess = (data) => {
   return {
-    type: GET_USER_PREFERANCE_SUCCESS,
+    type: GET_JUST_FOR_YOU_SUCCESS,
     payload: data,
   };
 };
 
-export const getUserPreferancesError = (data) => {
+export const getJustForYouProductError = (data) => {
   return {
-    type: GET_USER_PREFERANCE_ERROR,
+    type: GET_JUST_FOR_YOU_ERROR,
     payload: data,
   };
 };
 
-export const getUserPreferances = () => {
+export const getJustForYouProduct = () => {
   return (dispatch) => {
     return axios
-      .get(`${SERVER_URL}/items`)
+      .get(`${SERVER_URL}/items?isJustforYou=true`)
       .then((response) => {
         let colors = [];
         for (let i = 0; i < response.data.length; i++) {
@@ -152,12 +154,12 @@ export const getUserPreferances = () => {
           colors: colors,
         };
 
-        dispatch(getUserPreferancesSuccess(data));
-        dispatch(getUserPreferancesError(""));
+        dispatch(getJustForYouProductSuccess(data));
+        dispatch(getJustForYouProductError(""));
       })
       .catch((error) => {
         const failed = "Error in getting the products";
-        dispatch(getUserPreferancesError(failed));
+        dispatch(getJustForYouProductError(failed));
       });
   };
 };
@@ -180,7 +182,7 @@ export const getBestSellersError = (data) => {
 export const getBestSellers = () => {
   return (dispatch) => {
     return axios
-      .get(`${SERVER_URL}/items`)
+      .get(`${SERVER_URL}/items?isBestSeller=true`)
       .then((response) => {
         let colors = [];
         for (let i = 0; i < response.data.length; i++) {
@@ -202,6 +204,50 @@ export const getBestSellers = () => {
       .catch((error) => {
         const failed = "Error in getting the products";
         dispatch(getBestSellersError(failed));
+      });
+  };
+};
+
+//GET NEW ARRIVAL PROUDCTS--------------------------------------
+export const getNewArrivalsSuccess = (data) => {
+  return {
+    type: GET_NEW_ARRIVALS_SUCCESS,
+    payload: data,
+  };
+};
+
+export const getNewArrivalsError = (data) => {
+  return {
+    type: GET_NEW_ARRIVALS_ERROR,
+    payload: data,
+  };
+};
+
+export const getNewArrivals = () => {
+  return (dispatch) => {
+    return axios
+      .get(`${SERVER_URL}/items?isNewArrival=true`)
+      .then((response) => {
+        let colors = [];
+        for (let i = 0; i < response.data.length; i++) {
+          for (let c = 0; c < response.data[i].colors.length; c++) {
+            if (!colors.includes(response.data[i].colors[c])) {
+              colors.push(response.data[i].colors[c]);
+            }
+          }
+        }
+
+        let data = {
+          items: response.data,
+          colors: colors,
+        };
+
+        dispatch(getNewArrivalsSuccess(data));
+        dispatch(getNewArrivalsError(""));
+      })
+      .catch((error) => {
+        const failed = "Error in getting the products";
+        dispatch(getNewArrivalsError(failed));
       });
   };
 };

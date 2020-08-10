@@ -5,17 +5,20 @@ import {
   GET_ANDROID_PRODUCTS_ERROR,
   GET_SINGLE_PRODUCT_SUCCESS,
   GET_SINGLE_PRODUCT_ERROR,
-  GET_USER_PREFERANCE_SUCCESS,
-  GET_USER_PREFERANCE_ERROR,
+  GET_JUST_FOR_YOU_SUCCESS,
+  GET_JUST_FOR_YOU_ERROR,
   GET_BEST_SELLERS_SUCCESS,
   GET_BEST_SELLERS_ERROR,
+  GET_NEW_ARRIVALS_SUCCESS,
+  GET_NEW_ARRIVALS_ERROR,
 } from "../actions/types";
 
 const productInitialState = {
   appleProducts: [],
   androidProducts: [],
-  preferdProducts: [],
+  justForYouProducts: [],
   bestSellerProducts: [],
+  newArrivalProducts: [],
   colors: [],
   product: "",
   error: "",
@@ -43,13 +46,13 @@ const productReducer = (state = productInitialState, action) => {
       return { ...state, product: action.payload };
     case GET_SINGLE_PRODUCT_ERROR:
       return { ...state, error: action.payload };
-    case GET_USER_PREFERANCE_SUCCESS:
+    case GET_JUST_FOR_YOU_SUCCESS:
       return {
         ...state,
-        preferdProducts: action.payload.items,
+        justForYouProducts: action.payload.items,
         colors: action.payload.colors,
       };
-    case GET_USER_PREFERANCE_ERROR:
+    case GET_JUST_FOR_YOU_ERROR:
       return { ...state, error: action.payload };
     case GET_BEST_SELLERS_SUCCESS:
       return {
@@ -58,6 +61,14 @@ const productReducer = (state = productInitialState, action) => {
         colors: action.payload.colors,
       };
     case GET_BEST_SELLERS_ERROR:
+      return { ...state, error: action.payload };
+    case GET_NEW_ARRIVALS_SUCCESS:
+      return {
+        ...state,
+        newArrivalProducts: action.payload.items,
+        colors: action.payload.colors,
+      };
+    case GET_NEW_ARRIVALS_ERROR:
       return { ...state, error: action.payload };
     default:
       return state;

@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import {
-  getUserPreferances,
-  getAppleProducts,
+  getJustForYouProduct,
   getBestSellers,
 } from "../actions/product.actions";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -33,7 +32,7 @@ import ItemCard from "./productComponents/ItemCard";
 
 const HomePage = (props) => {
   useEffect(() => {
-    props.onGetUserPreferances();
+    props.onGetJustForYouProduct();
     props.onGetBestSellerProducts();
   }, []);
   return (
@@ -236,8 +235,8 @@ const HomePage = (props) => {
             </MDBCol>
           </MDBRow>
           <MDBRow>
-            {props.userPreferanceProducts.length > 4
-              ? props.userPreferanceProducts.slice(0, 4).map((item) => {
+            {props.justForYouProducts.length > 4
+              ? props.justForYouProducts.slice(0, 4).map((item) => {
                   return (
                     <MDBCol className="col-lg-3 d-none d-lg-block">
                       {" "}
@@ -245,8 +244,8 @@ const HomePage = (props) => {
                     </MDBCol>
                   );
                 })
-              : props.userPreferanceProducts
-                  .slice(0, props.userPreferanceProducts.length)
+              : props.justForYouProducts
+                  .slice(0, props.justForYouProducts.length)
                   .map((item) => {
                     return (
                       <MDBCol
@@ -260,8 +259,8 @@ const HomePage = (props) => {
                   })}
           </MDBRow>
           <MDBRow>
-            {props.userPreferanceProducts.length > 3
-              ? props.userPreferanceProducts.slice(0, 3).map((item) => {
+            {props.justForYouProducts.length > 3
+              ? props.justForYouProducts.slice(0, 3).map((item) => {
                   return (
                     <MDBCol className="col-lg-3 d-block d-lg-none">
                       {" "}
@@ -269,8 +268,8 @@ const HomePage = (props) => {
                     </MDBCol>
                   );
                 })
-              : props.userPreferanceProducts
-                  .slice(0, props.userPreferanceProducts.length)
+              : props.justForYouProducts
+                  .slice(0, props.justForYouProducts.length)
                   .map((item) => {
                     return (
                       <MDBCol className="col-lg-3 d-block d-lg-none">
@@ -410,15 +409,15 @@ const mapStateToProps = (state) => {
     androidProduct: state.productData.androidProducts || [],
     appleProducts: state.productData.appleProducts || [],
     images: state.homepageImageData.images || [],
-    userPreferanceProducts: state.productData.preferdProducts || [],
+    justForYouProducts: state.productData.justForYouProducts || [],
     bestSellerProducts: state.productData.bestSellerProducts || [],
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onGetUserPreferances: () => {
-      dispatch(getUserPreferances());
+    onGetJustForYouProduct: () => {
+      dispatch(getJustForYouProduct());
     },
     onGetBestSellerProducts: () => {
       dispatch(getBestSellers());
