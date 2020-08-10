@@ -15,18 +15,15 @@ const ItemCard = (props) => {
   };
 
   return (
-    <MDBRow className="p-xl-3" onClick={handleLink}>
+    <MDBRow
+      className="p-xl-3"
+      onClick={handleLink}
+      style={{ maxWidth: "400px" }}
+    >
       <MDBCol md="12">
-        <MDBCard
-          className="card-image"
-          style={{
-            backgroundImage: `url(${props.product.imgs[0]})`,
-            backgroundPosition: "1% 1%",
-            height: "500px",
-            backgroundRepeat: " no-repeat",
-          }}
-        >
-          <MDBContainer>
+        <div className="img-container">
+          <img src={props.product.imgs[0]} alt="" />
+          <MDBContainer className="inside">
             <MDBRow between>
               <MDBCol size="1">
                 {props.product.discount ? (
@@ -43,17 +40,17 @@ const ItemCard = (props) => {
                 )}
               </MDBCol>
               <MDBCol size="1" className="pr-5 mr-3 pt-2">
-                <MDBIcon
+                {/* <MDBIcon
                   fab
                   icon="gratipay"
                   size="3x"
                   color="black"
                   className="white-text "
-                />
+                /> */}
               </MDBCol>
             </MDBRow>
           </MDBContainer>
-        </MDBCard>
+        </div>
       </MDBCol>
 
       <MDBCol className="pt-2">
@@ -63,7 +60,7 @@ const ItemCard = (props) => {
           </MDBCol>
           <MDBCol xl="4" style={{ marginBottom: "-10px" }}>
             <MDBRow between>
-              <MDBCol size="6">
+              <MDBCol size="6" style={{ paddingRight: "3px" }}>
                 {props.product.discount ? (
                   <p className="font-weight-bold" style={{ color: "red" }}>
                     {props.product.priceStartAt -
@@ -73,7 +70,7 @@ const ItemCard = (props) => {
                   ""
                 )}
               </MDBCol>
-              <MDBCol size="6">
+              <MDBCol size="6" style={{ paddingLeft: "23px" }}>
                 <p className="font-weight-bold">{props.product.priceStartAt}</p>
               </MDBCol>
             </MDBRow>

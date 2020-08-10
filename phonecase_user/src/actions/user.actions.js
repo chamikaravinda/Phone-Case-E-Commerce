@@ -6,10 +6,15 @@ import {
   USER_SIGNUP_FAILED,
   USER_SIGNUP_ERROR,
   USER_LOGOUT_SUCCESS,
+  USER_PROFILE_UPDATE_SUCCESS,
+  USER_PROFILE_UPDATE_ERROR,
+  GET_USER_PROFILE_SUCCESS,
+  GET_USER_PROFILE_ERROR,
 } from "./types";
 import { SERVER_URL } from "../constant";
 import axios from "axios";
 import { history } from "../index";
+import { toast } from "react-toastify";
 
 //LOGIN-----------------------------
 export const userLoginSuccess = (data) => {
@@ -50,11 +55,14 @@ export const userLogin = (user) => {
         data.headers = headers;
         dispatch(userLoginFailed(""));
         dispatch(userLoginSuccess(data));
+        toast.success("Loged successfully");
         history.push("/");
       })
       .catch((error) => {
-        const failed = "Wrong Email or Password";
-        dispatch(userLoginFailed(failed));
+        dispatch(userLoginFailed(error.message));
+        toast.error(error.message, {
+          position: "top-center",
+        });
       });
   };
 };
@@ -97,13 +105,12 @@ export const userSignUpError = (data) => {
 
 export const userSignUp = (user) => {
   const data = {
-    email: user.username,
+    email: user.email,
     password: user.password,
     firstname: user.firstname,
     lastname: user.lastname,
     phonenum: user.phonenum,
   };
-
   return (dispatch) => {
     return axios
       .post(`${SERVER_URL}/signup/email`, data)
@@ -115,11 +122,92 @@ export const userSignUp = (user) => {
         data.headers = headers;
         dispatch(userSignUpError(""));
         dispatch(userSignUpSuccess(data));
+        toast.success("Signup Successfully");
         history.push("/");
       })
       .catch((error) => {
-        const failed = "Error in sign up";
-        dispatch(userSignUpError(failed));
+        dispatch(userSignUpError(error.message));
+        toast.error(error.message, {
+          position: "top-center",
+        });
+        console.log(error.data);
+      });
+  };
+};
+//GET PROFILE DETAILS-----------------------------
+export const getProfileSuccess = (data) => {
+  return {
+    type: GET_USER_PROFILE_SUCCESS,
+    payload: data,
+  };
+};
+
+export const getProfileError = (data) => {
+  return {
+    type: GET_USER_PROFILE_ERROR,
+    payload: data,
+  };
+};
+
+export const getProfile = () => {
+  return (dispatch) => {
+    return axios
+      .get(`${SERVER_URL}/signup/email`)
+      .then((response) => {
+        dispatch(getProfileError(""));
+        dispatch(getProfileSuccess(response.data));
+      })
+      .catch((error) => {
+        dispatch(getProfileError(error.message));
+        toast.error(error.message, {
+          position: "top-center",
+        });
+        console.log(error.data);
+      });
+  };
+};
+
+//UPDATE PROFILE DETAILS-----------------------------
+export const updateProfileSuccess = (data) => {
+  return {
+    type: USER_PROFILE_UPDATE_SUCCESS,
+    payload: data,
+  };
+};
+
+export const updateProfileError = (data) => {
+  return {
+    type: USER_PROFILE_UPDATE_ERROR,
+    payload: data,
+  };
+};
+
+export const updateProfile = (user) => {
+  const data = {
+    firstname: user.firstname,
+    lastname: user.lastname,
+    companyname: user.companyname,
+    shippingAddress: user.shippingAddress,
+    city: user.city,
+    postalCode: user.postalCode,
+    phonenum: user.phonenum,
+    email: user.email,
+  };
+  return (dispatch) => {
+    return axios
+      .post(`${SERVER_URL}/signup/email`, data)
+      .then((response) => {
+        dispatch(updateProfileError(""));
+        dispatch(updateProfileSuccess(data));
+        toast.success("Updated Successfully");
+        history.push("/");
+      })
+      .catch((error) => {
+        dispatch(updateProfileError(error.message));
+        toast.error(error.message, {
+          position: "top-center",
+        });
+        console.log(error.data);
       });
   };
 };

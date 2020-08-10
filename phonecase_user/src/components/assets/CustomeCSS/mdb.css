@@ -71,3 +71,52 @@
 .navbar {
   box-shadow: none !important;
 }
+
+.img-container {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+}
+
+.img-container img {
+  width: 100%;
+  height: auto;
+}
+
+.img-container .inside {
+  position: absolute;
+  top: 10%;
+  left: 45%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  color: white;
+  font-size: 16px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 5px;
+  text-align: center;
+  max-width: 400px;
+}
+.not-selected-payment {
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 5px;
+  border-color: #d0d6e2;
+  cursor: pointer;
+}
+
+.not-selected-payment p {
+  color: #d0d6e2;
+}
+
+.not-selected-payment h6 {
+  color: #d0d6e2;
+}
+
+.selected-payment {
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 5px;
+  border-color: #fbb03b;
+  cursor: pointer;
+}

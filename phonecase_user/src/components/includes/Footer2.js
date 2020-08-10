@@ -1,9 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { MDBCol, MDBRow, MDBBtn } from "mdbreact";
-
+import { connect } from "react-redux";
+import { emailSubscribtion } from "../../actions/emailSubscribe.actions";
 import background from "../assets/images/footer_2_background.png";
 
-const Footer2 = () => {
+const Footer2 = (props) => {
+  const [emai, setEmail] = useState("");
+
+  const handelSubscription = () => {
+    let data = {
+      email: emai,
+    };
+    props.onSubscribe(data);
+    setEmail("");
+  };
   return (
     <div
       style={{
@@ -51,6 +61,7 @@ const Footer2 = () => {
             Subscribe to our newsletter and receive exclusive offers every week
           </h5>
         </MDBCol>
+
         <MDBCol
           className=" d-flex align-items-center justify-content-center ml-5 ml-sm-5 ml-md-5 ml-lg-5 mr-5 mr-sm-5 mr-md-5 mr-lg-5 d-xl-0 pt-3"
           xl="2"
@@ -60,6 +71,8 @@ const Footer2 = () => {
             style={{ borderRadius: 25, maxWidth: "500px" }}
             className="form-control aling-center"
             placeholder=" E-mail"
+            value={emai}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </MDBCol>
 
@@ -67,7 +80,11 @@ const Footer2 = () => {
           className="d-flex align-items-center justify-content-center pt-3"
           xl="2"
         >
-          <MDBBtn style={{ borderRadius: "25px" }} color="warning">
+          <MDBBtn
+            style={{ borderRadius: "25px" }}
+            color="warning"
+            onClick={handelSubscription}
+          >
             SUBSCRIBE
           </MDBBtn>
         </MDBCol>
@@ -76,4 +93,18 @@ const Footer2 = () => {
   );
 };
 
-export default Footer2;
+const mapStateToProps = (state) => {
+  return {
+    message: state.emailSubscriptionData.message || "",
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onSubscribe: (data) => {
+      dispatch(emailSubscribtion(data));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Footer2);

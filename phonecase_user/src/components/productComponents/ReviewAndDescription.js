@@ -3,7 +3,7 @@ import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBIcon } from "mdbreact";
 import Avatar from "@material-ui/core/Avatar";
 import StarRatingComponent from "react-star-rating-component";
 
-export default function ReviewAndDescription() {
+export default function ReviewAndDescription(props) {
   const [isDescription, setIsDescription] = useState(null);
 
   const isDescriptionDisplay = Boolean(isDescription);
@@ -53,7 +53,7 @@ export default function ReviewAndDescription() {
       <MDBRow>
         {isDescriptionDisplay ? (
           <MDBRow className="justify-content-center text-center">
-            <MDBCol className="md-6 ">
+            <MDBCol className="col-md-6 col-lg-6 col-xl-6">
               <MDBIcon
                 far
                 icon="file-alt"
@@ -64,13 +64,9 @@ export default function ReviewAndDescription() {
               <h5 className="font-weight-bold p-2">
                 Details and product description
               </h5>
-              <p>
-                High Quality Premium Material with a Premium look. There can be
-                other other other o High Quality Premium Material with a Premium
-                look. There can be other other other
-              </p>
+              <p>{props.review.desc}</p>
             </MDBCol>
-            <MDBCol className="md-6 ">
+            <MDBCol className="col-md-6 col-lg-6 col-xl-6">
               <MDBIcon
                 icon="pencil-ruler"
                 size="4x"
@@ -78,12 +74,12 @@ export default function ReviewAndDescription() {
                 className="p-3"
               />
               <h5 className="font-weight-bold p-2">Material(s) and care</h5>
-              <p>Body: 98% Plastic - 2% PVc</p>
+              <p>{props.review.desc}</p>
             </MDBCol>
           </MDBRow>
         ) : (
-          <MDBRow>
-            <MDBCol md="5">
+          <MDBRow className="col-md-12 col-lg-12 col-xl-12">
+            <MDBCol className="col-md-5 col-lg-5 col-xl-5">
               <MDBRow>
                 <MDBCol className="justify-content-center text-center" xl="6">
                   <h1 className="font-weight-bold" style={{ fontSize: "70px" }}>
@@ -211,8 +207,11 @@ export default function ReviewAndDescription() {
                 </MDBBtn>
               </MDBRow>
             </MDBCol>
-            <MDBCol md="1" className="d-none d-md-block"></MDBCol>
-            <MDBCol md="6">
+            <MDBCol
+              className="col-md-1 col-lg-1 col-xl-1"
+              className="d-none d-md-block"
+            ></MDBCol>
+            <MDBCol className="col-md-6 col-lg-6 col-xl-6">
               <MDBRow className="justify-content-start">
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
                 <MDBCol className="md-11 text-start">

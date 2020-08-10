@@ -1,7 +1,10 @@
-import React from "react";
-
+import React, { useEffect, useState } from "react";
+import { connect } from "react-redux";
+import {
+  getJustForYouProduct,
+  getBestSellers,
+} from "../actions/product.actions";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { SAMPLE_ITEM } from "../constant";
 import Footer2 from "./includes/Footer2";
 import {
   MDBContainer,
@@ -27,7 +30,11 @@ import HomeTile5 from "./assets/images/home_title_5.png";
 
 import ItemCard from "./productComponents/ItemCard";
 
-export default function HomePage() {
+const HomePage = (props) => {
+  useEffect(() => {
+    props.onGetJustForYouProduct();
+    props.onGetBestSellerProducts();
+  }, []);
   return (
     <React.Fragment>
       <CssBaseline />
@@ -131,6 +138,7 @@ export default function HomePage() {
                   backgroundPosition: "50% 50%",
                   height: "300px",
                   backgroundRepeat: " no-repeat",
+                  maxWidth: "700px",
                 }}
               >
                 <MDBContainer>
@@ -142,6 +150,7 @@ export default function HomePage() {
                         style={{ borderRadius: "25px" }}
                         color="white"
                         className="mt-4"
+                        size="sm"
                       >
                         SHOW COLLECTION
                       </MDBBtn>
@@ -158,6 +167,7 @@ export default function HomePage() {
                   backgroundPosition: "50% 50%",
                   height: "300px",
                   backgroundRepeat: " no-repeat",
+                  maxWidth: "390px",
                 }}
               >
                 <MDBContainer>
@@ -169,6 +179,7 @@ export default function HomePage() {
                         style={{ borderRadius: "25px" }}
                         color="white"
                         className="mt-4"
+                        size="sm"
                       >
                         MORE DETAILS
                       </MDBBtn>
@@ -185,6 +196,7 @@ export default function HomePage() {
                   backgroundPosition: "50% 50%",
                   height: "300px",
                   backgroundRepeat: " no-repeat",
+                  maxWidth: "390px",
                 }}
               >
                 <MDBContainer>
@@ -196,6 +208,7 @@ export default function HomePage() {
                         style={{ borderRadius: "25px" }}
                         color="white"
                         className="mt-4"
+                        size="sm"
                       >
                         VIEW ALL
                       </MDBBtn>
@@ -210,7 +223,7 @@ export default function HomePage() {
               <h3>Just For You</h3>
             </MDBCol>
 
-            <MDBCol className="col-xs-6 col-sm-5 col-md-3 col-lg-3 col-xl-2">
+            <MDBCol className="col-xs-6 col-sm-5 col-md-3 col-lg-3 col-xl-2 d-flex  justify-content-end">
               <MDBBtn
                 outline
                 color="blue-grey"
@@ -222,18 +235,49 @@ export default function HomePage() {
             </MDBCol>
           </MDBRow>
           <MDBRow>
-            <MDBCol className="col-12 col-sm-12 col-md-4">
-              {" "}
-              <ItemCard product={SAMPLE_ITEM} />
-            </MDBCol>
-            <MDBCol className="col-12 col-sm-12 col-md-4">
-              {" "}
-              <ItemCard product={SAMPLE_ITEM} />
-            </MDBCol>
-            <MDBCol className="col-12 col-sm-12 col-md-4">
-              {" "}
-              <ItemCard product={SAMPLE_ITEM} />
-            </MDBCol>
+            {props.justForYouProducts.length > 4
+              ? props.justForYouProducts.slice(0, 4).map((item) => {
+                  return (
+                    <MDBCol className="col-lg-3 d-none d-lg-block">
+                      {" "}
+                      <ItemCard product={item} />
+                    </MDBCol>
+                  );
+                })
+              : props.justForYouProducts
+                  .slice(0, props.justForYouProducts.length)
+                  .map((item) => {
+                    return (
+                      <MDBCol
+                        className="col-lg-3 d-none d-lg-block"
+                        key={item.id}
+                      >
+                        {" "}
+                        <ItemCard product={item} />
+                      </MDBCol>
+                    );
+                  })}
+          </MDBRow>
+          <MDBRow>
+            {props.justForYouProducts.length > 3
+              ? props.justForYouProducts.slice(0, 3).map((item) => {
+                  return (
+                    <MDBCol className="col-lg-3 d-block d-lg-none">
+                      {" "}
+                      <ItemCard product={item} />
+                    </MDBCol>
+                  );
+                })
+              : props.justForYouProducts
+                  .slice(0, props.justForYouProducts.length)
+                  .map((item) => {
+                    return (
+                      <MDBCol className="col-lg-3 d-block d-lg-none">
+                        {" "}
+                        <ItemCard product={item} />
+                      </MDBCol>
+                    );
+                  })}
           </MDBRow>
           <MDBRow>
             <MDBCol className="col-12 col-sm-6 col-md-6 col-lg-6 pl-2">
@@ -245,6 +289,7 @@ export default function HomePage() {
                   backgroundPosition: "50% 50%",
                   height: "600px",
                   backgroundRepeat: " no-repeat",
+                  maxWidth: "800px",
                 }}
               >
                 <MDBContainer>
@@ -273,6 +318,7 @@ export default function HomePage() {
                   backgroundPosition: "50% 50%",
                   height: "600px",
                   backgroundRepeat: " no-repeat",
+                  maxWidth: "800px",
                 }}
               >
                 <MDBContainer>
@@ -298,7 +344,7 @@ export default function HomePage() {
               <h3>Best Sellers</h3>
             </MDBCol>
 
-            <MDBCol className="col-xs-6 col-sm-5 col-md-3 col-lg-3 col-xl-2">
+            <MDBCol className="col-xs-6 col-sm-5 col-md-3 col-lg-3 col-xl-2  d-flex  justify-content-end">
               <MDBBtn
                 outline
                 color="blue-grey"
@@ -310,22 +356,73 @@ export default function HomePage() {
             </MDBCol>
           </MDBRow>
           <MDBRow>
-            <MDBCol className="col-12 col-sm-12 col-md-4">
-              {" "}
-              <ItemCard product={SAMPLE_ITEM} />
-            </MDBCol>
-            <MDBCol className="col-12 col-sm-12 col-md-4">
-              {" "}
-              <ItemCard product={SAMPLE_ITEM} />
-            </MDBCol>
-            <MDBCol className="col-12 col-sm-12 col-md-4">
-              {" "}
-              <ItemCard product={SAMPLE_ITEM} />
-            </MDBCol>
+            {props.bestSellerProducts.length > 4
+              ? props.bestSellerProducts.slice(0, 4).map((item) => {
+                  return (
+                    <MDBCol className="col-lg-3 d-none d-lg-block">
+                      {" "}
+                      <ItemCard product={item} />
+                    </MDBCol>
+                  );
+                })
+              : props.bestSellerProducts
+                  .slice(0, props.bestSellerProducts.length)
+                  .map((item) => {
+                    return (
+                      <MDBCol className="col-lg-3 d-none d-lg-block">
+                        {" "}
+                        <ItemCard product={item} />
+                      </MDBCol>
+                    );
+                  })}
+          </MDBRow>
+          <MDBRow>
+            {props.bestSellerProducts.length > 3
+              ? props.bestSellerProducts.slice(0, 3).map((item) => {
+                  return (
+                    <MDBCol className="col-lg-3 d-block d-lg-none">
+                      {" "}
+                      <ItemCard product={item} />
+                    </MDBCol>
+                  );
+                })
+              : props.bestSellerProducts
+                  .slice(0, props.bestSellerProducts.length)
+                  .map((item) => {
+                    return (
+                      <MDBCol className="col-lg-3 d-block d-lg-none">
+                        {" "}
+                        <ItemCard product={item} />
+                      </MDBCol>
+                    );
+                  })}
           </MDBRow>
         </div>
         <Footer2 />
       </main>
     </React.Fragment>
   );
-}
+};
+
+const mapStateToProps = (state) => {
+  return {
+    androidProduct: state.productData.androidProducts || [],
+    appleProducts: state.productData.appleProducts || [],
+    images: state.homepageImageData.images || [],
+    justForYouProducts: state.productData.justForYouProducts || [],
+    bestSellerProducts: state.productData.bestSellerProducts || [],
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onGetJustForYouProduct: () => {
+      dispatch(getJustForYouProduct());
+    },
+    onGetBestSellerProducts: () => {
+      dispatch(getBestSellers());
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

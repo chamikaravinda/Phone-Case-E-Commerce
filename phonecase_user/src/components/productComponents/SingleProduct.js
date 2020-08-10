@@ -6,26 +6,32 @@ import ReviewAndDescription from "./ReviewAndDescription";
 import Footer2 from "../includes/Footer2";
 import { MDBRow, MDBCol, MDBBtn } from "mdbreact";
 import { getSingleProduct } from "../../actions/product.actions";
+import { addToShoppingCart } from "../../actions/shoppingCart.actions";
+
 import LoadingWindow from "../LoadingWindow";
 
 const SingleProduct = (props) => {
   let { id } = useParams();
+  const [currentImage, setCurrentImage] = useState("");
   const [models, setModels] = useState([]);
 
   const [quantity, setQuantity] = useState(1);
   const [color, setColor] = useState("");
   const [model, setModel] = useState("");
   const [error, setError] = useState("");
+  const [update, setUpdate] = useState("false");
+  const [reviewData, setReviewData] = useState("");
 
   useEffect(() => {
     props.onGetProduct(id);
-    let tempmodels = [];
-    let tempId = 0;
-    props.product.models.forEach((element) => {
-      element.id = ++tempId;
-      tempmodels.push(element);
-    });
-    setModels(tempmodels);
+    setModels(props.product.models);
+    setCurrentImage(props.product.imgs[0]);
+
+    let tempReviewData = {
+      specs: props.product.specs,
+      desc: props.product.desc,
+    };
+    setReviewData(tempReviewData);
   }, []);
 
   const handleSelectModel = (value) => {
@@ -53,9 +59,18 @@ const SingleProduct = (props) => {
       setError("Quntity should be larger than 0");
       return;
     }
+    let finalPrice;
 
-    let finalPrice =
-      (model.price - model.price * props.product.discount) * quantity;
+    if (props.product.discount) {
+      let discount =
+        parseFloat(model.price) * parseFloat(props.product.discount);
+      finalPrice =
+        (parseFloat(model.price) - parseFloat(discount)) * parseInt(quantity);
+    } else {
+      finalPrice = parseFloat(model.price) * parseInt(quantity);
+    }
+
+    finalPrice = finalPrice.toFixed(2);
 
     let data = {
       itemId: props.product.itemId,
@@ -68,7 +83,8 @@ const SingleProduct = (props) => {
       discount: props.product.discount,
     };
 
-    console.log(data);
+    props.onAddToCart(data);
+    setUpdate("true");
   };
 
   if (props.product.itemId) {
@@ -80,22 +96,36 @@ const SingleProduct = (props) => {
             paddingLeft: "7%",
             paddingRight: "7%",
             paddingTop: "4%",
-            paddingBottom: "6%",
           }}
         >
           <MDBRow>
-            <MDBCol md="1"> </MDBCol>
-            <MDBCol md="4">
-              <img src={props.product.imgs[0]} className="img-fluid" alt="" />
+            <MDBCol md="1">
+              {" "}
+              {props.product.imgs.map((image) => {
+                return (
+                  <MDBRow>
+                    <img
+                      src={image}
+                      className="img-fluid"
+                      alt=""
+                      style={{ width: "60px", cursor: "pointer" }}
+                      onClick={() => setCurrentImage(image)}
+                    />
+                  </MDBRow>
+                );
+              })}
             </MDBCol>
-            <MDBCol md="1"></MDBCol>
+            <MDBCol md="4">
+              <img src={currentImage} className="img-fluid" alt="" />
+            </MDBCol>
+            <MDBCol md="1" className="d-md-none d-lg-block"></MDBCol>
             <MDBCol md="6">
               {props.product.discount ? (
                 <MDBBtn
                   rounded
                   color="danger"
                   size="sm"
-                  style={{ borderRadius: 25 }}
+                  style={{ borderRadius: "25px" }}
                 >
                   SALE
                 </MDBBtn>
@@ -183,7 +213,10 @@ const SingleProduct = (props) => {
               </MDBRow>
               <br></br>
               <p>Model</p>
-              <div className="input-group mb-3 col-12 col-sm-10 col-md-10 col-lg-8 col-xl-6 ">
+              <div
+                style={{ marginLeft: "-2%" }}
+                className="input-group mb-3 col-12 col-sm-10 col-md-10 col-lg-8 col-xl-6 "
+              >
                 <select
                   className="custom-select"
                   id="inputGroupSelect01"
@@ -228,7 +261,7 @@ const SingleProduct = (props) => {
                     ></button>
                   </div>
                 </MDBCol>
-                <MDBCol>
+                <MDBCol className="col-7 col-sm-7 col-md-7">
                   <MDBBtn
                     color="amber"
                     style={{ borderRadius: 25 }}
@@ -259,7 +292,7 @@ const SingleProduct = (props) => {
             </MDBCol>
           </MDBRow>
         </div>
-        <ReviewAndDescription />
+        <ReviewAndDescription review={reviewData} />
         <RelatedProducts />
         <Footer2 />
       </div>
@@ -272,6 +305,7 @@ const SingleProduct = (props) => {
 const mapStateToProps = (state) => {
   return {
     product: state.productData.product || [],
+    error: state.shoppingCartData.error || "",
   };
 };
 
@@ -279,6 +313,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onGetProduct: (id) => {
       dispatch(getSingleProduct(id));
+    },
+    onAddToCart: (data) => {
+      dispatch(addToShoppingCart(data));
     },
   };
 };
