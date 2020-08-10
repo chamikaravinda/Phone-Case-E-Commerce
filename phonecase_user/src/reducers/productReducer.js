@@ -16,6 +16,7 @@ const productInitialState = {
   androidProducts: [],
   preferdProducts: [],
   bestSellerProducts: [],
+  colors: [],
   product: "",
   error: "",
 };
@@ -23,11 +24,19 @@ const productInitialState = {
 const productReducer = (state = productInitialState, action) => {
   switch (action.type) {
     case GET_APLLE_PRODUCTS_SUCCESS:
-      return { ...state, appleProducts: action.payload };
+      return {
+        ...state,
+        appleProducts: action.payload.items,
+        colors: action.payload.colors,
+      };
     case GET_APLLE_PRODUCTS_ERROR:
       return { ...state, error: action.payload };
     case GET_ANDROID_PRODUCTS_SUCCESS:
-      return { ...state, androidProducts: action.payload };
+      return {
+        ...state,
+        androidProducts: action.payload.items,
+        colors: action.payload.colors,
+      };
     case GET_ANDROID_PRODUCTS_ERROR:
       return { ...state, error: action.payload };
     case GET_SINGLE_PRODUCT_SUCCESS:
@@ -35,11 +44,19 @@ const productReducer = (state = productInitialState, action) => {
     case GET_SINGLE_PRODUCT_ERROR:
       return { ...state, error: action.payload };
     case GET_USER_PREFERANCE_SUCCESS:
-      return { ...state, preferdProducts: action.payload };
+      return {
+        ...state,
+        preferdProducts: action.payload.items,
+        colors: action.payload.colors,
+      };
     case GET_USER_PREFERANCE_ERROR:
       return { ...state, error: action.payload };
     case GET_BEST_SELLERS_SUCCESS:
-      return { ...state, bestSellerProducts: action.payload };
+      return {
+        ...state,
+        bestSellerProducts: action.payload.items,
+        colors: action.payload.colors,
+      };
     case GET_BEST_SELLERS_ERROR:
       return { ...state, error: action.payload };
     default:

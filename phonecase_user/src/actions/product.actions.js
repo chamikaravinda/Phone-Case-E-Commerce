@@ -33,17 +33,27 @@ export const getAppleProducts = () => {
     return axios
       .get(`${SERVER_URL}/items`)
       .then((response) => {
-        let data = [];
+        let items = [];
         let colors = [];
         for (let i = 0; i < response.data.length; i++) {
+          for (let c = 0; c < response.data[i].colors.length; c++) {
+            if (!colors.includes(response.data[i].colors[c])) {
+              colors.push(response.data[i].colors[c]);
+            }
+          }
           for (let j = 0; j < response.data[i].models.length; j++) {
             let brand = response.data[i].models[j].brand;
             if (brand === "Apple" || brand === "apple") {
-              data.push(response.data[i]);
+              items.push(response.data[i]);
               break;
             }
           }
         }
+
+        let data = {
+          items: items,
+          colors: colors,
+        };
 
         dispatch(getAppleProductsSuccess(data));
         dispatch(getAppleProductsError(""));
@@ -75,16 +85,30 @@ export const getAndroidProducts = () => {
     return axios
       .get(`${SERVER_URL}/items`)
       .then((response) => {
-        let data = [];
+        let items = [];
+        let colors = [];
+
         for (let i = 0; i < response.data.length; i++) {
+          for (let c = 0; c < response.data[i].colors.length; c++) {
+            if (!colors.includes(response.data[i].colors[c])) {
+              colors.push(response.data[i].colors[c]);
+            }
+          }
+
           for (let j = 0; j < response.data[i].models.length; j++) {
             let brand = response.data[i].models[j].brand;
             if (brand !== "Apple" && brand !== "apple") {
-              data.push(response.data[i]);
+              items.push(response.data[i]);
               break;
             }
           }
         }
+
+        let data = {
+          items: items,
+          colors: colors,
+        };
+
         dispatch(getAndroidProductsSuccess(data));
         dispatch(getAndroidProductsError(""));
       })
@@ -114,7 +138,21 @@ export const getUserPreferances = () => {
     return axios
       .get(`${SERVER_URL}/items`)
       .then((response) => {
-        dispatch(getUserPreferancesSuccess(response.data));
+        let colors = [];
+        for (let i = 0; i < response.data.length; i++) {
+          for (let c = 0; c < response.data[i].colors.length; c++) {
+            if (!colors.includes(response.data[i].colors[c])) {
+              colors.push(response.data[i].colors[c]);
+            }
+          }
+        }
+
+        let data = {
+          items: response.data,
+          colors: colors,
+        };
+
+        dispatch(getUserPreferancesSuccess(data));
         dispatch(getUserPreferancesError(""));
       })
       .catch((error) => {
@@ -144,7 +182,21 @@ export const getBestSellers = () => {
     return axios
       .get(`${SERVER_URL}/items`)
       .then((response) => {
-        dispatch(getBestSellersSuccess(response.data));
+        let colors = [];
+        for (let i = 0; i < response.data.length; i++) {
+          for (let c = 0; c < response.data[i].colors.length; c++) {
+            if (!colors.includes(response.data[i].colors[c])) {
+              colors.push(response.data[i].colors[c]);
+            }
+          }
+        }
+
+        let data = {
+          items: response.data,
+          colors: colors,
+        };
+
+        dispatch(getBestSellersSuccess(data));
         dispatch(getBestSellersError(""));
       })
       .catch((error) => {
