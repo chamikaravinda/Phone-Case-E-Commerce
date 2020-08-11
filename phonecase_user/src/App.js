@@ -18,6 +18,7 @@ import AndroidProducts from "./components/productComponents/AndroidProducts";
 import ShoppingCart from "./components/shoppingCartComponents/ShoppingCart";
 import ShippingAndPayment from "./components/shoppingCartComponents/ShippingAndPayment";
 import SingleProduct from "./components/productComponents/SingleProduct";
+import AllReviews from "./components/productComponents/AllReviews";
 
 class App extends Component {
   render() {
@@ -44,6 +45,7 @@ class App extends Component {
                 component={() => <ShippingAndPayment />}
               />
               <Route path="/profile" exact component={() => <Profile />} />
+              <Route path="/customer-reviews" component={() => <AllReviews />} />
             </Switch>
 
             <ToastContainer />
@@ -75,6 +77,7 @@ class App extends Component {
                 path="/shipping-payment"
                 component={() => <ShippingAndPayment />}
               />
+              <Route path="/customer-reviews" component={() => <AllReviews />} />
             </Switch>
             <ToastContainer />
             <Footer />

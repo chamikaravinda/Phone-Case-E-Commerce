@@ -55,7 +55,7 @@ export const userLogin = (user) => {
         data.headers = headers;
         dispatch(userLoginFailed(""));
         dispatch(userLoginSuccess(data));
-        toast.success("Loged successfully");
+        toast.success("Logged successfully");
         history.push("/");
       })
       .catch((error) => {
