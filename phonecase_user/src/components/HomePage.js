@@ -5,6 +5,7 @@ import {
   getJustForYouProduct,
   getBestSellers,
 } from "../actions/product.actions";
+import { getHomePageImages } from "../actions/homePageImages.actions";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Footer2 from "./includes/Footer2";
 import {
@@ -35,6 +36,7 @@ const HomePage = (props) => {
   useEffect(() => {
     props.onGetJustForYouProduct();
     props.onGetBestSellerProducts();
+    props.onGetHomePageImgs();
   }, []);
 
   const goToNewArrivals = () => {
@@ -71,33 +73,28 @@ const HomePage = (props) => {
             slide
           >
             <MDBCarouselInner>
-              <MDBCarouselItem itemId="1">
-                <MDBView>
-                  <img
-                    className="d-block w-100"
-                    src={Slider1}
-                    alt="First slide"
-                  />
-                </MDBView>
-              </MDBCarouselItem>
               <MDBCarouselItem itemId="2">
                 <MDBView>
                   <img
                     className="d-block w-100"
-                    src="https://mdbootstrap.com/img/Photos/Slides/img%20(46).jpg"
+                    src={Slider1}
                     alt="Second slide"
                   />
                 </MDBView>
               </MDBCarouselItem>
-              <MDBCarouselItem itemId="3">
-                <MDBView>
-                  <img
-                    className="d-block w-100"
-                    src="https://mdbootstrap.com/img/Photos/Slides/img%20(47).jpg"
-                    alt="Third slide"
-                  />
-                </MDBView>
-              </MDBCarouselItem>
+              {props.images.map((img) => {
+                return (
+                  <MDBCarouselItem itemId="1">
+                    <MDBView>
+                      <img
+                        className="d-block w-100"
+                        src={img}
+                        alt="First slide"
+                      />
+                    </MDBView>
+                  </MDBCarouselItem>
+                );
+              })}
             </MDBCarouselInner>
           </MDBCarousel>
         </div>
@@ -451,6 +448,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     onGetBestSellerProducts: () => {
       dispatch(getBestSellers());
+    },
+    onGetHomePageImgs: () => {
+      dispatch(getHomePageImages());
     },
   };
 };

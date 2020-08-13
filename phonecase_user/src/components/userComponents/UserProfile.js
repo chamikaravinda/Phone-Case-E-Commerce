@@ -5,7 +5,7 @@ import { updateProfile, getProfile } from "../../actions/user.actions";
 
 const Profile = (props) => {
   useEffect(() => {
-    props.onGetProfile();
+    props.onGetProfile(props.profile.headers);
   }, []);
   const [firstname, setFirstName] = useState("");
   const [lastname, setLastName] = useState("");
@@ -27,7 +27,7 @@ const Profile = (props) => {
       phonenum: phonenum,
       email: email,
     };
-    props.onProfileUpdate(data);
+    props.onProfileUpdate(data, props.profile.headers);
   };
   return (
     <div
@@ -158,18 +158,18 @@ const Profile = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    profile: state.userData.profile || "",
+    profile: state.userData.user || "",
     error: state.userData.error || "",
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onProfileUpdate: (user) => {
-      dispatch(updateProfile(user));
+    onProfileUpdate: (user, header) => {
+      dispatch(updateProfile(user, header));
     },
-    onGetProfile: () => {
-      dispatch(getProfile());
+    onGetProfile: (header) => {
+      dispatch(getProfile(header));
     },
   };
 };

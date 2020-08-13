@@ -26,13 +26,12 @@ const SingleProduct = (props) => {
     props.onGetProduct(id);
     setModels(props.product.models);
     setCurrentImage(props.product.imgs[0]);
-
     let tempReviewData = {
       specs: props.product.specs,
       desc: props.product.desc,
     };
     setReviewData(tempReviewData);
-  }, []);
+  }, [models]);
 
   const handleSelectModel = (value) => {
     models.forEach((model) => {

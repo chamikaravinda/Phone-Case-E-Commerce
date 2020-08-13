@@ -18,10 +18,13 @@ const AppleProducts = (props) => {
   const [allItems, setAllItems] = useState([]);
   const [processItems, setProcessItems] = useState([]);
   const [showFilters, setShowFilters] = useState(true);
-  const [state, setState] = useState({
-    color: "all",
-    collection: "all",
-  });
+  const [state, setState] = useState(
+    {
+      color: "all",
+      collection: "all",
+    },
+    [allItems]
+  );
 
   useEffect(() => {
     props.onGetProduct();

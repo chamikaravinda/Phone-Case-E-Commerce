@@ -25,7 +25,7 @@ const NewDesignTrends = (props) => {
     let data = props.products;
     setAllItems(data);
     setProcessItems(data);
-  }, []);
+  }, [allItems]);
 
   const showHideFilters = (isShow) => {
     if (!isShow) {

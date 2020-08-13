@@ -5,9 +5,13 @@ import {
   REMOVE_SHOPPING_CART_ERROR,
   UPDATE_CART_ITEM_SUCCESS,
   UPDATE_CART_ITEM_ERROR,
+  PLACE_ORDER_SUCCESS,
+  PLACE_ORDER_ERROR,
 } from "./types";
 import { history } from "../index";
-import { ToastContainer, toast } from "react-toastify";
+import { SERVER_URL } from "../constant";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 //ADD TO CART--------------------------------
 export const addToShoppingCartSuccess = (data) => {
@@ -90,5 +94,38 @@ export const updateCartItem = (data) => {
       console.log(e);
       dispatch(updateCartItemError("Error in updating the cart item"));
     }
+  };
+};
+
+//PLACE ORDER------------------------------
+export const placeOrderSuccess = () => {
+  return {
+    type: PLACE_ORDER_SUCCESS,
+  };
+};
+
+export const placeOrderError = (data) => {
+  return {
+    type: PLACE_ORDER_ERROR,
+    payload: data,
+  };
+};
+
+export const placeOrder = (data) => {
+  return (dispatch) => {
+    return axios
+      .post(`${SERVER_URL}/admin/orders`, data)
+      .then((response) => {
+        dispatch(placeOrderError(""));
+        dispatch(placeOrderSuccess());
+        toast.success("Order Placesed Successfully");
+        history.push("/");
+      })
+      .catch((error) => {
+        dispatch(placeOrderError(""));
+        toast.error(error.message, {
+          position: "top-center",
+        });
+      });
   };
 };
