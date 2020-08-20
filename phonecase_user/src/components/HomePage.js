@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
+import { history } from "../index";
 import {
   getJustForYouProduct,
   getBestSellers,
 } from "../actions/product.actions";
+import { getHomePageImages } from "../actions/homePageImages.actions";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Footer2 from "./includes/Footer2";
 import {
@@ -34,7 +36,29 @@ const HomePage = (props) => {
   useEffect(() => {
     props.onGetJustForYouProduct();
     props.onGetBestSellerProducts();
+    props.onGetHomePageImgs();
   }, []);
+
+  const goToNewArrivals = () => {
+    history.push("/new-arrival-products");
+  };
+
+  const goToBasicCases = () => {
+    history.push("/basic-cases");
+  };
+
+  const geToNewDesignTrends = () => {
+    history.push("/new-design-trends");
+  };
+
+  const goToJustForYou = () => {
+    history.push("/just-for-you");
+  };
+
+  const goToBestSellers = () => {
+    history.push("/best-sellers");
+  };
+
   return (
     <React.Fragment>
       <CssBaseline />
@@ -49,33 +73,28 @@ const HomePage = (props) => {
             slide
           >
             <MDBCarouselInner>
-              <MDBCarouselItem itemId="1">
-                <MDBView>
-                  <img
-                    className="d-block w-100"
-                    src={Slider1}
-                    alt="First slide"
-                  />
-                </MDBView>
-              </MDBCarouselItem>
               <MDBCarouselItem itemId="2">
                 <MDBView>
                   <img
                     className="d-block w-100"
-                    src="https://mdbootstrap.com/img/Photos/Slides/img%20(46).jpg"
+                    src={Slider1}
                     alt="Second slide"
                   />
                 </MDBView>
               </MDBCarouselItem>
-              <MDBCarouselItem itemId="3">
-                <MDBView>
-                  <img
-                    className="d-block w-100"
-                    src="https://mdbootstrap.com/img/Photos/Slides/img%20(47).jpg"
-                    alt="Third slide"
-                  />
-                </MDBView>
-              </MDBCarouselItem>
+              {props.images.map((img) => {
+                return (
+                  <MDBCarouselItem itemId="1">
+                    <MDBView>
+                      <img
+                        className="d-block w-100"
+                        src={img}
+                        alt="First slide"
+                      />
+                    </MDBView>
+                  </MDBCarouselItem>
+                );
+              })}
             </MDBCarouselInner>
           </MDBCarousel>
         </div>
@@ -146,11 +165,13 @@ const HomePage = (props) => {
                     <MDBCol className="col-md-12">
                       <h4 style={{ color: "white" }}>New arrivals</h4>
                       <h4 style={{ color: "white" }}>are now in!</h4>
+
                       <MDBBtn
                         style={{ borderRadius: "25px" }}
                         color="white"
                         className="mt-4"
                         size="sm"
+                        onClick={goToNewArrivals}
                       >
                         SHOW COLLECTION
                       </MDBBtn>
@@ -180,6 +201,7 @@ const HomePage = (props) => {
                         color="white"
                         className="mt-4"
                         size="sm"
+                        onClick={goToBasicCases}
                       >
                         MORE DETAILS
                       </MDBBtn>
@@ -209,6 +231,7 @@ const HomePage = (props) => {
                         color="white"
                         className="mt-4"
                         size="sm"
+                        onClick={geToNewDesignTrends}
                       >
                         VIEW ALL
                       </MDBBtn>
@@ -229,6 +252,7 @@ const HomePage = (props) => {
                 color="blue-grey"
                 size="sm"
                 style={{ borderRadius: "25px" }}
+                onClick={goToJustForYou}
               >
                 SHOW MORE
               </MDBBtn>
@@ -301,6 +325,7 @@ const HomePage = (props) => {
                         style={{ borderRadius: "25px" }}
                         color="white"
                         className="mt-5"
+                        onClick={goToNewArrivals}
                       >
                         SHOW COLLECTION
                       </MDBBtn>
@@ -330,6 +355,7 @@ const HomePage = (props) => {
                         style={{ borderRadius: "25px" }}
                         color="white"
                         className="mt-5"
+                        onClick={goToNewArrivals}
                       >
                         SHOW COLLECTION
                       </MDBBtn>
@@ -350,6 +376,7 @@ const HomePage = (props) => {
                 color="blue-grey"
                 size="sm"
                 style={{ borderRadius: "25px" }}
+                onClick={goToBestSellers}
               >
                 SHOW MORE
               </MDBBtn>
@@ -421,6 +448,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     onGetBestSellerProducts: () => {
       dispatch(getBestSellers());
+    },
+    onGetHomePageImgs: () => {
+      dispatch(getHomePageImages());
     },
   };
 };

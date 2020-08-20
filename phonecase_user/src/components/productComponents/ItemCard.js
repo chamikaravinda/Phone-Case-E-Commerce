@@ -63,8 +63,10 @@ const ItemCard = (props) => {
               <MDBCol size="6" style={{ paddingRight: "3px" }}>
                 {props.product.discount ? (
                   <p className="font-weight-bold" style={{ color: "red" }}>
-                    {props.product.priceStartAt -
-                      props.product.priceStartAt * props.product.discount}
+                    {(
+                      props.product.priceStartAt -
+                      props.product.priceStartAt * props.product.discount
+                    ).toFixed(2)}
                   </p>
                 ) : (
                   ""

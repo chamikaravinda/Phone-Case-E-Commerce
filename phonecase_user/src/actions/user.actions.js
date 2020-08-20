@@ -122,7 +122,7 @@ export const userSignUp = (user) => {
         data.headers = headers;
         dispatch(userSignUpError(""));
         dispatch(userSignUpSuccess(data));
-        toast.success("Signup Successfully");
+        toast.success("Account Created Successfully");
         history.push("/");
       })
       .catch((error) => {
@@ -130,7 +130,6 @@ export const userSignUp = (user) => {
         toast.error(error.message, {
           position: "top-center",
         });
-        console.log(error.data);
       });
   };
 };
@@ -149,10 +148,15 @@ export const getProfileError = (data) => {
   };
 };
 
-export const getProfile = () => {
+export const getProfile = (header) => {
   return (dispatch) => {
     return axios
-      .get(`${SERVER_URL}/signup/email`)
+      .get(
+        `https://us-central1-phone-e-commerce-api.cloudfunctions.net/dev/auth/profile/`,
+        {
+          headers: header,
+        }
+      )
       .then((response) => {
         dispatch(getProfileError(""));
         dispatch(getProfileSuccess(response.data));
@@ -162,7 +166,6 @@ export const getProfile = () => {
         toast.error(error.message, {
           position: "top-center",
         });
-        console.log(error.data);
       });
   };
 };
@@ -182,7 +185,7 @@ export const updateProfileError = (data) => {
   };
 };
 
-export const updateProfile = (user) => {
+export const updateProfile = (user, header) => {
   const data = {
     firstname: user.firstname,
     lastname: user.lastname,
@@ -195,7 +198,13 @@ export const updateProfile = (user) => {
   };
   return (dispatch) => {
     return axios
-      .post(`${SERVER_URL}/signup/email`, data)
+      .put(
+        `https://us-central1-phone-e-commerce-api.cloudfunctions.net/dev/auth/profile/`,
+        data,
+        {
+          headers: header,
+        }
+      )
       .then((response) => {
         dispatch(updateProfileError(""));
         dispatch(updateProfileSuccess(data));
@@ -207,7 +216,6 @@ export const updateProfile = (user) => {
         toast.error(error.message, {
           position: "top-center",
         });
-        console.log(error.data);
       });
   };
 };

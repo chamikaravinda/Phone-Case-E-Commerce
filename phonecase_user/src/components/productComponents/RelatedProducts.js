@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import {
   getAndroidProducts,
   getAppleProducts,
+  getJustForYouProduct,
 } from "../../actions/product.actions";
 import CssBaseline from "@material-ui/core/CssBaseline/CssBaseline";
 import { MDBCol, MDBRow } from "mdbreact";
@@ -10,7 +11,7 @@ import ItemCard from "./ItemCard";
 
 const RelatedProducts = (props) => {
   useEffect(() => {
-    props.onGetAndroidProduct();
+    props.onGetJustForYou();
   }, []);
   return (
     <React.Fragment>
@@ -23,8 +24,8 @@ const RelatedProducts = (props) => {
             </MDBCol>
           </MDBRow>
           <MDBRow>
-            {props.androidProduct.length > 4
-              ? props.androidProduct.slice(0, 4).map((item) => {
+            {props.justForYouProduct.length > 4
+              ? props.justForYouProduct.slice(0, 4).map((item) => {
                   return (
                     <MDBCol className="col-lg-3 d-none d-lg-block">
                       {" "}
@@ -32,8 +33,8 @@ const RelatedProducts = (props) => {
                     </MDBCol>
                   );
                 })
-              : props.androidProduct
-                  .slice(0, props.androidProduct.length)
+              : props.justForYouProduct
+                  .slice(0, props.justForYouProduct.length)
                   .map((item) => {
                     return (
                       <MDBCol className="col-lg-3 d-none d-lg-block">
@@ -44,8 +45,8 @@ const RelatedProducts = (props) => {
                   })}
           </MDBRow>
           <MDBRow>
-            {props.androidProduct.length > 3
-              ? props.androidProduct.slice(0, 3).map((item) => {
+            {props.justForYouProduct.length > 3
+              ? props.justForYouProduct.slice(0, 3).map((item) => {
                   return (
                     <MDBCol className="col-lg-3 d-block d-lg-none">
                       {" "}
@@ -53,8 +54,8 @@ const RelatedProducts = (props) => {
                     </MDBCol>
                   );
                 })
-              : props.androidProduct
-                  .slice(0, props.androidProduct.length)
+              : props.justForYouProduct
+                  .slice(0, props.justForYouProduct.length)
                   .map((item) => {
                     return (
                       <MDBCol className="col-lg-3 d-block d-lg-none">
@@ -72,19 +73,14 @@ const RelatedProducts = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    androidProduct: state.productData.androidProducts || [],
-    appleProducts: state.productData.appleProducts || [],
-    images: state.homepageImageData.images || [],
+    justForYouProduct: state.productData.justForYouProducts || [],
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onGetAndroidProduct: () => {
-      dispatch(getAndroidProducts());
-    },
-    onGetAppleProduct: () => {
-      dispatch(getAppleProducts());
+    onGetJustForYou: () => {
+      dispatch(getJustForYouProduct());
     },
   };
 };

@@ -1,7 +1,9 @@
 import React from "react";
+import { connect } from "react-redux";
 import { MDBRow, MDBCol, MDBIcon } from "mdbreact";
 import { makeStyles } from "@material-ui/core/styles";
 import Checkbox from "@material-ui/core/Checkbox";
+import { history } from "../../index";
 import clsx from "clsx";
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -68,8 +70,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ShippingInformation(props) {
+const ShippingInformation = (props) => {
   const classes = useStyles();
+
+  const handleBack = () => {
+    history.push("/");
+  };
 
   return (
     <div>
@@ -83,6 +89,10 @@ export default function ShippingInformation(props) {
               className="form-control"
               id="formGroupExampleInput"
               placeholder="Required"
+              name="firstname"
+              value={props.shippingInformation.firstname}
+              onChange={(e) => props.setInformation(e)}
+              required
             />
           </div>
           <div className="form-group col-md-6">
@@ -92,6 +102,10 @@ export default function ShippingInformation(props) {
               className="form-control "
               id="formGroupExampleInput"
               placeholder="Required"
+              name="lastname"
+              value={props.shippingInformation.lastname}
+              onChange={(e) => props.setInformation(e)}
+              required
             />
           </div>
           <div className="form-group col-md-12 ">
@@ -103,6 +117,10 @@ export default function ShippingInformation(props) {
               className="form-control "
               id="formGroupExampleInput"
               placeholder="Optional"
+              name="companyname"
+              value={props.shippingInformation.companyname}
+              onChange={(e) => props.setInformation(e)}
+              required
             />
           </div>
           <div className="form-group col-md-12 ">
@@ -112,6 +130,10 @@ export default function ShippingInformation(props) {
               className="form-control "
               id="formGroupExampleInput"
               placeholder="Required"
+              name="shippingaddress"
+              value={props.shippingInformation.shippingaddress}
+              onChange={(e) => props.setInformation(e)}
+              required
             />
           </div>
           <div className="form-group col-md-6">
@@ -121,6 +143,10 @@ export default function ShippingInformation(props) {
               className="form-control"
               id="formGroupExampleInput"
               placeholder="Required"
+              name="city"
+              value={props.shippingInformation.city}
+              onChange={(e) => props.setInformation(e)}
+              required
             />
           </div>
           <div className="form-group col-md-6">
@@ -130,6 +156,10 @@ export default function ShippingInformation(props) {
               className="form-control "
               id="formGroupExampleInput"
               placeholder="Required"
+              name="postalcode"
+              value={props.shippingInformation.postalcode}
+              onChange={(e) => props.setInformation(e)}
+              required
             />
           </div>
           <div className="form-group col-md-6">
@@ -139,6 +169,10 @@ export default function ShippingInformation(props) {
               className="form-control"
               id="formGroupExampleInput"
               placeholder="Required"
+              name="phoneno"
+              value={props.shippingInformation.phoneno}
+              onChange={(e) => props.setInformation(e)}
+              required
             />
           </div>
           <div className="form-group col-md-6">
@@ -148,11 +182,55 @@ export default function ShippingInformation(props) {
               className="form-control "
               id="formGroupExampleInput"
               placeholder="Required"
+              name="email"
+              value={props.shippingInformation.email}
+              onChange={(e) => props.setInformation(e)}
+              required
             />
           </div>
+          {!props.user.headers ? (
+            <>
+              <div className="form-group col-md-12">
+                <MDBRow>
+                  {" "}
+                  <Checkbox
+                    className={classes.root}
+                    disableRipple
+                    color="default"
+                    checkedIcon={
+                      <span
+                        className={clsx(classes.icon, classes.checkedIcon)}
+                      />
+                    }
+                    icon={<span className={classes.icon} />}
+                    inputProps={{ "aria-label": "decorative checkbox" }}
+                    name="createAccount"
+                    checked={props.newAccount}
+                    onChange={(e) => props.setNewAccount(!props.newAccount)}
+                  />{" "}
+                  <h5 className="font-weight-bold pt-2" for="creteAccount">
+                    Create an Account
+                  </h5>
+                </MDBRow>
+              </div>
+              <div className="form-group col-md-12 ">
+                <label htmlFor="formGroupExampleInput">Password</label>
+                <input
+                  type="password"
+                  className="form-control "
+                  id="formGroupExampleInput"
+                  placeholder="Required"
+                  name="password"
+                  value={props.shippingInformation.password}
+                  onChange={(e) => props.setInformation(e)}
+                />
+              </div>
+            </>
+          ) : (
+            ""
+          )}
           <div className="form-group col-md-12">
             <MDBRow>
-              {" "}
               <Checkbox
                 className={classes.root}
                 disableRipple
@@ -162,36 +240,9 @@ export default function ShippingInformation(props) {
                 }
                 icon={<span className={classes.icon} />}
                 inputProps={{ "aria-label": "decorative checkbox" }}
-                {...props}
-                required
-              />{" "}
-              <h5 className="font-weight-bold pt-2" for="creteAccount">
-                Create an Account
-              </h5>
-            </MDBRow>
-          </div>
-          <div className="form-group col-md-12 ">
-            <label htmlFor="formGroupExampleInput">Password</label>
-            <input
-              type="password"
-              className="form-control "
-              id="formGroupExampleInput"
-              placeholder="Required"
-            />
-          </div>
-          <div className="form-group col-md-12">
-            <MDBRow>
-              <Checkbox
-                className={classes.root}
-                disableRipple
-                color="default"
-                checkedIcon={
-                  <span className={clsx(classes.icon, classes.checkedIcon)} />
-                }
-                icon={<span className={classes.icon} />}
-                inputProps={{ "aria-label": "decorative checkbox" }}
-                {...props}
-                required
+                name="createAccount"
+                checked={props.diffAdrress}
+                onChange={(e) => props.setDiffAdrres(!props.newAccount)}
               />{" "}
               <h5 className=" font-weight-bold pt-2" for="defaultUnchecked">
                 SHIP TO A DIFFERENT ADDRESS?
@@ -205,6 +256,10 @@ export default function ShippingInformation(props) {
               className="form-control"
               id="formGroupExampleInput"
               placeholder="Required"
+              name="diffFirstname"
+              value={props.shippingInformation.diffFirstname}
+              onChange={(e) => props.setInformation(e)}
+              required
             />
           </div>
           <div className="form-group col-md-6">
@@ -214,6 +269,10 @@ export default function ShippingInformation(props) {
               className="form-control "
               id="formGroupExampleInput"
               placeholder="Required"
+              name="diffLastname"
+              value={props.shippingInformation.diffLastname}
+              onChange={(e) => props.setInformation(e)}
+              required
             />
           </div>
           <div className="form-group col-md-12 ">
@@ -225,6 +284,10 @@ export default function ShippingInformation(props) {
               className="form-control "
               id="formGroupExampleInput"
               placeholder="Optional"
+              name="diffCompanyname"
+              value={props.shippingInformation.diffCompanyname}
+              onChange={(e) => props.setInformation(e)}
+              required
             />
           </div>
           <div className="form-group col-md-12 ">
@@ -234,6 +297,10 @@ export default function ShippingInformation(props) {
               className="form-control "
               id="formGroupExampleInput"
               placeholder="Required"
+              name="diffShippingaddress"
+              value={props.shippingInformation.diffShippingaddress}
+              onChange={(e) => props.setInformation(e)}
+              required
             />
           </div>
           <div className="form-group col-md-6">
@@ -243,6 +310,10 @@ export default function ShippingInformation(props) {
               className="form-control"
               id="formGroupExampleInput"
               placeholder="Required"
+              name="diffCity"
+              value={props.shippingInformation.diffCity}
+              onChange={(e) => props.setInformation(e)}
+              required
             />
           </div>
           <div className="form-group col-md-6">
@@ -252,6 +323,10 @@ export default function ShippingInformation(props) {
               className="form-control "
               id="formGroupExampleInput"
               placeholder="Required"
+              name="diffPostalcode"
+              value={props.shippingInformation.diffPostalcode}
+              onChange={(e) => props.setInformation(e)}
+              required
             />
           </div>
           <div className="form-group col-md-6">
@@ -261,17 +336,32 @@ export default function ShippingInformation(props) {
               className="form-control"
               id="formGroupExampleInput"
               placeholder="Required"
+              name="diffPhoneno"
+              value={props.shippingInformation.diffPhoneno}
+              onChange={(e) => props.setInformation(e)}
+              required
             />
           </div>
           <MDBCol className="col-md-12">
-            <h6 className="font-weight-bold" style={{ paddingTop: " 6px" }}>
-              {"   "}
-              <MDBIcon icon="arrow-left" /> {"   "}
-              Back
-            </h6>
+            <div onClick={() => handleBack()} style={{ cursor: "pointer" }}>
+              <h6 className="font-weight-bold" style={{ paddingTop: " 6px" }}>
+                {"   "}
+                <MDBIcon icon="arrow-left" /> {"   "}
+                Back
+              </h6>
+            </div>
           </MDBCol>
         </MDBRow>
       </form>
     </div>
   );
-}
+};
+
+const mapStateToProps = (state) => {
+  return {
+    profile: state.userData.profile,
+    user: state.userData.user,
+  };
+};
+
+export default connect(mapStateToProps, null)(ShippingInformation);

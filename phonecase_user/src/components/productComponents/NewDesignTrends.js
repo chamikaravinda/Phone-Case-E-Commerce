@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { getAppleProducts } from "../../actions/product.actions";
+import { getNewDesignTrendProducts } from "../../actions/product.actions";
 import ItemCard from "./ItemCard";
 import LoadingWindow from "../LoadingWindow";
 import CssBaseline from "@material-ui/core/CssBaseline/CssBaseline";
@@ -14,39 +14,27 @@ import {
   MDBBtn,
 } from "mdbreact";
 
-const AppleProducts = (props) => {
+const NewDesignTrends = (props) => {
   const [allItems, setAllItems] = useState([]);
   const [processItems, setProcessItems] = useState([]);
   const [showFilters, setShowFilters] = useState(true);
-  const [state, setState] = useState(
-    {
-      color: "all",
-      collection: "all",
-    },
-    [allItems]
-  );
+  const [color, setColor] = useState("");
 
   useEffect(() => {
     props.onGetProduct();
     let data = props.products;
     setAllItems(data);
     setProcessItems(data);
-  }, []);
+  }, [allItems]);
 
   const showHideFilters = (isShow) => {
     if (!isShow) {
       setShowFilters(isShow);
       setProcessItems(allItems);
-      setState({
-        color: "",
-        collection: "",
-      });
+      setColor("");
     } else {
       setShowFilters(isShow);
-      setState({
-        color: "",
-        collection: "",
-      });
+      setColor("");
     }
   };
 
@@ -70,94 +58,20 @@ const AppleProducts = (props) => {
     setProcessItems(data);
   };
 
-  const handelFilterChangeCollection = (evt) => {
-    setState({
-      ...state,
-      collection: evt.target.value,
-    });
-
-    let itemFromCollection = [];
-
-    if (evt.target.value !== "all") {
-      for (let i = 0; i < allItems.length; i++) {
-        switch (evt.target.value) {
-          case "just-for-you":
-            if (allItems[i].isJustforYou) itemFromCollection.push(allItems[i]);
-            break;
-          case "new-arrivals":
-            if (allItems[i].isNewArrival) itemFromCollection.push(allItems[i]);
-            break;
-          case "new-designs":
-            if (allItems[i].isNewDesign) itemFromCollection.push(allItems[i]);
-            break;
-          case "best-sellers":
-            if (allItems[i].isBestSeller) itemFromCollection.push(allItems[i]);
-            break;
-          case "basic-cases":
-            if (allItems[i].isBasicCase) itemFromCollection.push(allItems[i]);
-            break;
-        }
-      }
-    } else {
-      itemFromCollection = allItems.slice(0);
-    }
-    if (state.color !== "all" || !state.color) {
-      let itemsFromColors = [];
-
-      for (let i = 0; i < itemFromCollection.length; i++) {
-        if (itemFromCollection[i].colors.includes(state.color)) {
-          itemsFromColors.push(itemFromCollection[i]);
-        }
-      }
-      setProcessItems(itemsFromColors);
-    } else {
-      setProcessItems(itemFromCollection);
-    }
-  };
-
   const handelFilterChangeColor = (evt) => {
-    setState({
-      ...state,
-      color: evt.target.value,
-    });
-
-    let itemFromCollection = [];
-
-    if (state.collection !== "all" || !state.collection) {
-      for (let i = 0; i < allItems.length; i++) {
-        switch (state.collection) {
-          case "just-for-you":
-            if (allItems[i].isJustforYou) itemFromCollection.push(allItems[i]);
-            break;
-          case "new-arrivals":
-            if (allItems[i].isNewArrival) itemFromCollection.push(allItems[i]);
-            break;
-          case "new-designs":
-            if (allItems[i].isNewDesign) itemFromCollection.push(allItems[i]);
-            break;
-          case "best-sellers":
-            if (allItems[i].isBestSeller) itemFromCollection.push(allItems[i]);
-            break;
-          case "basic-cases":
-            if (allItems[i].isBasicCase) itemFromCollection.push(allItems[i]);
-            break;
-        }
-      }
-    } else {
-      itemFromCollection = allItems.slice(0);
-    }
+    setColor(evt.target.value);
 
     if (evt.target.value !== "all") {
       let itemsFromColors = [];
 
-      for (let i = 0; i < itemFromCollection.length; i++) {
-        if (itemFromCollection[i].colors.includes(evt.target.value)) {
-          itemsFromColors.push(itemFromCollection[i]);
+      for (let i = 0; i < allItems.length; i++) {
+        if (allItems[i].colors.includes(evt.target.value)) {
+          itemsFromColors.push(allItems[i]);
         }
       }
       setProcessItems(itemsFromColors);
     } else {
-      setProcessItems(itemFromCollection);
+      setProcessItems(allItems);
     }
   };
 
@@ -177,10 +91,10 @@ const AppleProducts = (props) => {
           }}
         >
           <MDBRow className="pb-5 pt-5" between>
-            <MDBCol className="col-12 col-sm-4 col-md-3 col-lg-3">
-              <h3 className="font-weight-bold">Apple</h3>
+            <MDBCol className="col-12 col-sm-6 col-md-5 col-lg-4">
+              <h3 className="font-weight-bold">New Design Trends</h3>
             </MDBCol>
-            <MDBCol className="col-12 col-sm-8 col-md-9  col-lg-5">
+            <MDBCol className="col-12 col-sm-6 col-md-7  col-lg-5">
               <MDBRow end>
                 {" "}
                 {showFilters ? (
@@ -228,39 +142,6 @@ const AppleProducts = (props) => {
           {showFilters ? (
             <>
               <MDBRow>
-                <MDBCol className="col-sm-7 col-md-6 col-lg-5 col-xl-4">
-                  <MDBRow>
-                    {" "}
-                    <MDBCol className="col-3 col-sm-3 col-md-3 col-lg-4 col-xl-3">
-                      <p style={{ fontWeight: "500", paddingTop: "4px" }}>
-                        Collection
-                      </p>
-                    </MDBCol>
-                    <MDBCol
-                      className="col-12 col-sm-8 col-md-9 col-lg-7 col-xl-7"
-                      style={{ paddingLeft: "-45px", maxWidth: "200px" }}
-                    >
-                      <select
-                        className="custom-select custom-select-sm"
-                        id="collection"
-                        name="collection"
-                        style={{ borderRadius: "25px", paddingLeft: "-45px" }}
-                        onChange={(e) => handelFilterChangeCollection(e)}
-                        value={state.collection}
-                      >
-                        <option disabled selected>
-                          Choose...
-                        </option>
-                        <option value="all">All</option>
-                        <option value="just-for-you">Just For You</option>
-                        <option value="new-arrivals">New Arrivals</option>
-                        <option value="new-designs">New Design Trends</option>
-                        <option value="best-sellers">Best Sellers</option>
-                        <option value="basic-cases">Basic Cases</option>
-                      </select>
-                    </MDBCol>
-                  </MDBRow>
-                </MDBCol>
                 <MDBCol className="col-sm-5 col-md-6 col-lg-4 col-xl-4">
                   <MDBRow>
                     {" "}
@@ -279,7 +160,7 @@ const AppleProducts = (props) => {
                         name="color"
                         style={{ borderRadius: "25px", paddingLeft: "-45px" }}
                         onChange={(e) => handelFilterChangeColor(e)}
-                        value={state.color}
+                        value={color}
                       >
                         <option disabled selected>
                           Choose...
@@ -320,7 +201,7 @@ const AppleProducts = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    products: state.productData.appleProducts || [],
+    products: state.productData.newDesignTrendProducts || [],
     colors: state.productData.colors || [],
   };
 };
@@ -328,9 +209,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onGetProduct: () => {
-      dispatch(getAppleProducts());
+      dispatch(getNewDesignTrendProducts());
     },
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AppleProducts);
+export default connect(mapStateToProps, mapDispatchToProps)(NewDesignTrends);

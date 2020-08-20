@@ -5,6 +5,8 @@ import {
   REMOVE_SHOPPING_CART_ERROR,
   UPDATE_CART_ITEM_SUCCESS,
   UPDATE_CART_ITEM_ERROR,
+  PLACE_ORDER_SUCCESS,
+  PLACE_ORDER_ERROR,
 } from "../actions/types";
 
 const shoppingCartInitialState = {
@@ -31,6 +33,10 @@ const shoppingCartReducer = (state = shoppingCartInitialState, action) => {
     case UPDATE_CART_ITEM_SUCCESS:
       return { ...state, cart: updateCartItem(state, action.payload) };
     case UPDATE_CART_ITEM_ERROR:
+      return { ...state, error: action.payload };
+    case PLACE_ORDER_SUCCESS:
+      return { ...state, cart: [] };
+    case PLACE_ORDER_ERROR:
       return { ...state, error: action.payload };
     default:
       return state;

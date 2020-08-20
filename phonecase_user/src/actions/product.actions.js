@@ -11,6 +11,10 @@ import {
   GET_BEST_SELLERS_ERROR,
   GET_NEW_ARRIVALS_SUCCESS,
   GET_NEW_ARRIVALS_ERROR,
+  GET_NEW_DESING_TRENDS_SUCCESS,
+  GET_NEW_DESING_TRENDS_ERROR,
+  GET_BASIC_CASES_SUCCESS,
+  GET_BASIC_CASES_ERROR,
 } from "./types";
 
 import { SERVER_URL } from "../constant";
@@ -248,6 +252,94 @@ export const getNewArrivals = () => {
       .catch((error) => {
         const failed = "Error in getting the products";
         dispatch(getNewArrivalsError(failed));
+      });
+  };
+};
+
+//GET NEW DESIGN TRENDS PROUDCTS--------------------------------------
+export const getNewDesignTrendProductsSuccess = (data) => {
+  return {
+    type: GET_NEW_DESING_TRENDS_SUCCESS,
+    payload: data,
+  };
+};
+
+export const getNewDesignTrendProductsError = (data) => {
+  return {
+    type: GET_NEW_DESING_TRENDS_ERROR,
+    payload: data,
+  };
+};
+
+export const getNewDesignTrendProducts = () => {
+  return (dispatch) => {
+    return axios
+      .get(`${SERVER_URL}/items?isNewDesign=true`)
+      .then((response) => {
+        let colors = [];
+        for (let i = 0; i < response.data.length; i++) {
+          for (let c = 0; c < response.data[i].colors.length; c++) {
+            if (!colors.includes(response.data[i].colors[c])) {
+              colors.push(response.data[i].colors[c]);
+            }
+          }
+        }
+
+        let data = {
+          items: response.data,
+          colors: colors,
+        };
+
+        dispatch(getNewDesignTrendProductsSuccess(data));
+        dispatch(getNewDesignTrendProductsError(""));
+      })
+      .catch((error) => {
+        const failed = "Error in getting the products";
+        dispatch(getNewDesignTrendProductsError(failed));
+      });
+  };
+};
+
+//GET BASIC CASES PROUDCTS--------------------------------------
+export const getBasicCasesSuccess = (data) => {
+  return {
+    type: GET_BASIC_CASES_SUCCESS,
+    payload: data,
+  };
+};
+
+export const getBasicCasesError = (data) => {
+  return {
+    type: GET_BASIC_CASES_ERROR,
+    payload: data,
+  };
+};
+
+export const getBasicCases = () => {
+  return (dispatch) => {
+    return axios
+      .get(`${SERVER_URL}/items?isBasicCase=true`)
+      .then((response) => {
+        let colors = [];
+        for (let i = 0; i < response.data.length; i++) {
+          for (let c = 0; c < response.data[i].colors.length; c++) {
+            if (!colors.includes(response.data[i].colors[c])) {
+              colors.push(response.data[i].colors[c]);
+            }
+          }
+        }
+
+        let data = {
+          items: response.data,
+          colors: colors,
+        };
+
+        dispatch(getBasicCasesSuccess(data));
+        dispatch(getBasicCasesError(""));
+      })
+      .catch((error) => {
+        const failed = "Error in getting the products";
+        dispatch(getBasicCasesError(failed));
       });
   };
 };
