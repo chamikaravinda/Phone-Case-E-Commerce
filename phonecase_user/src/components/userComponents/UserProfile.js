@@ -7,6 +7,7 @@ const Profile = (props) => {
   useEffect(() => {
     props.onGetProfile(props.profile.headers);
   }, []);
+
   const [firstname, setFirstName] = useState("");
   const [lastname, setLastName] = useState("");
   const [companyname, setCompanyName] = useState("");
